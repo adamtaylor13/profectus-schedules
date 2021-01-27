@@ -1,6 +1,6 @@
 var currentScript = document.currentScript;
 var scheduleLocation = currentScript.attributes['data-schedule-location'].nodeValue;
-var SCHEDULE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/${scheduleLocation}_schedule.html`;
+var SCHEDULE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/schedule/${scheduleLocation}_schedule.html`;
 var IMAGE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/img/${scheduleLocation}_schedule.png`;
 var xhr = new XMLHttpRequest();
 
