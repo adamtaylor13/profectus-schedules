@@ -3,7 +3,7 @@ const ejs = require('ejs');
 const nodeHtmlToImage = require('node-html-to-image')
 
 const DIST_DIR = './dist/';
-const SRC_DIR = './src/';
+const SRC_DIR = './src/schedule/';
 const IMG_DIR = DIST_DIR + 'img/';
 const GLOBAL_STYLES_FILENAME = './global_styles.css';
 const READING_OPTIONS = { encoding: 'utf8' };

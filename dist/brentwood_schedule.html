@@ -55,9 +55,9 @@
 .content-cell {
     text-align: center;
     background-color: rgba(255,255,255,0.42);
-    &.nogi {
-        padding-left: 23px;
-    }
+}
+.content-cell.nogi {
+    padding-left: 23px;
 }
 .header {
     font-weight: bold;
@@ -92,6 +92,13 @@
     left: -10px;
     top: 50%;
     transform: rotate(270deg) translateX(20%);
+    font-size: 14px !important;
+}
+tr.thick {
+    height: 125px;
+}
+tr.thick > .content-cell {
+    font-size: 1.2rem !important;
 }
 
         </style>

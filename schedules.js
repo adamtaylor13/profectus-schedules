@@ -1,5 +1,5 @@
 var STYLE_URL = 'https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/global_styles.css';
-var SCHEDULE_URL = 'https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/src/brentwood_schedule.html';
+var SCHEDULE_URL = 'https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/brentwood_schedule.html';
 var IMAGE_URL = 'https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/img/brentwood_schedule.png';
 var currentScript = document.currentScript;
 var xhr = new XMLHttpRequest();
@@ -28,11 +28,12 @@ function onScheduleCall(xhrResponse) {
         currentScript.insertAdjacentElement('afterend', targetScheduleContainer);
 
         // Load in styles
-        xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = onStyleCall;
-        xhr.overrideMimeType('text/css');
-        xhr.open('GET', STYLE_URL);
-        xhr.send();
+        // FIXME: I don't think we need this? Because we pre-process and add the styles directly into the HTML
+        // xhr = new XMLHttpRequest();
+        // xhr.onreadystatechange = onStyleCall;
+        // xhr.overrideMimeType('text/css');
+        // xhr.open('GET', STYLE_URL);
+        // xhr.send();
     }
 }
 
