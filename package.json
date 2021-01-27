@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node index.js && npm run test",
+    "test": "node tests/schedule_html.test.js"
   },
   "author": "",
   "license": "ISC",

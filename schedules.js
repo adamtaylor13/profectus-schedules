@@ -1,7 +1,7 @@
-var STYLE_URL = 'https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/global_styles.css';
-var SCHEDULE_URL = 'https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/brentwood_schedule.html';
-var IMAGE_URL = 'https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/img/brentwood_schedule.png';
 var currentScript = document.currentScript;
+var scheduleLocation = currentScript.attributes['data-schedule-location'].nodeValue;
+var SCHEDULE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/${scheduleLocation}_schedule.html`;
+var IMAGE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/img/${scheduleLocation}_schedule.png`;
 var xhr = new XMLHttpRequest();
 
 var screenTooSmall = window.outerWidth <= 1000;
@@ -26,22 +26,5 @@ function onScheduleCall(xhrResponse) {
         var targetScheduleContainer = document.createElement('div');
         targetScheduleContainer.innerHTML = xhrResponse.target.responseText;
         currentScript.insertAdjacentElement('afterend', targetScheduleContainer);
-
-        // Load in styles
-        // FIXME: I don't think we need this? Because we pre-process and add the styles directly into the HTML
-        // xhr = new XMLHttpRequest();
-        // xhr.onreadystatechange = onStyleCall;
-        // xhr.overrideMimeType('text/css');
-        // xhr.open('GET', STYLE_URL);
-        // xhr.send();
-    }
-}
-
-function onStyleCall(xhrResponse) {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-        var style = document.createElement('style');
-        style.innerHTML = xhrResponse.target.responseText;
-        var headContent = document.getElementsByTagName('head')[0];
-        headContent.appendChild(style);
     }
 }
