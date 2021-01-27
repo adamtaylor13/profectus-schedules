@@ -15,10 +15,10 @@ if (screenTooSmall) {
 }
 
 function loadScheduleImage() {
-    var targetScheduleContainer = document.createElement('img');
-    targetScheduleContainer.src = IMAGE_URL;
-    targetScheduleContainer.style = 'width:100vw';
-    currentScript.insertAdjacentElement('afterend', targetScheduleContainer);
+    var img = document.createElement('img');
+    img.src = IMAGE_URL;
+    img.style = 'width:100vw';
+    currentScript.insertAdjacentElement('afterend', img);
 }
 
 function onScheduleCall(xhrResponse) {
