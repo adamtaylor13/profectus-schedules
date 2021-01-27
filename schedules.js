@@ -3,6 +3,7 @@ var SCHEDULE_URL = 'https://raw.githubusercontent.com/adamtaylor13/profectus-sch
 var currentScript = document.currentScript;
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = onScheduleCall;
+xhr.overrideMimeType('application/javascript');
 xhr.open('GET', SCHEDULE_URL);
 xhr.send();
 
@@ -15,6 +16,7 @@ function onScheduleCall(xhrResponse) {
         // Load in styles
         xhr = new XMLHttpRequest();
         xhr.onreadystatechange = onStyleCall;
+        xhr.overrideMimeType('text/css');
         xhr.open('GET', STYLE_URL);
         xhr.send();
     }
