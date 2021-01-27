@@ -21,6 +21,7 @@ Use the script within the profectus website like so:
 <script data-schedule-location="brentwood" crossorigin="https://cdn.jsdelivr.net" type="application/javascript" src="https://cdn.jsdelivr.net/gh/adamtaylor13/profectus-schedules/schedules.js"></script>
 ```
 Obviously, replacing "brentwood" with the actual location you're injecting.
+All of the `crossorigin`, and `type` attributes are necessary due to strict MIME-checking.
 
 
 Notes and acknowledgements:
