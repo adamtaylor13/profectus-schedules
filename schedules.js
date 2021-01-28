@@ -1,12 +1,7 @@
 var currentScript = document.currentScript;
 var scheduleLocation = currentScript.attributes['data-schedule-location'].nodeValue;
-var SHA_HASH = '';
-if (currentScript.src.split('@').length > 0) {
-    SHA_HASH = '@' + currentScript.src.split('@')[1].split('/')[0];
-}
-
-var SCHEDULE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules${SHA_HASH}/dist/schedule/${scheduleLocation}_schedule.html`;
-var IMAGE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules${SHA_HASH}/dist/img/${scheduleLocation}_schedule.png`;
+var SCHEDULE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/schedule/${scheduleLocation}_schedule.html`;
+var IMAGE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/img/${scheduleLocation}_schedule.png`;
 var xhr = new XMLHttpRequest();
 
 var screenTooSmall = window.outerWidth <= 1000;
