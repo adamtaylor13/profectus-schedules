@@ -20,6 +20,8 @@ fs.readdirSync(SRC_DIR).forEach(filename => {
     let pngFilename = filename.replace('.html', '') + '.png';
     let bodyWidth = getBodyWidth(htmlSourceContents);
     let imgCSS = bodyWidth ? globalCSS + bodyWidth : globalCSS;
+    imgCSS += getBodyStylesForScreenshot();
+
     nodeHtmlToImage({ output: IMG_DIR + pngFilename, html: applyCssStyles(htmlSourceContents, imgCSS) })
         .then(() => console.log(`Image: ${pngFilename} was created successfully!`));
 });
@@ -34,6 +36,20 @@ function getBodyWidth(html) {
     let match = html.match(BODY_WIDTH_MATCHER);
 
     return match && match[1] ? `body { width: ${match[1]}px }` : -1;
+}
+
+function getBodyStylesForScreenshot() {
+    return `
+    body { 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 850px;
+    }
+    .code-container {
+        margin: 0 !important;
+        overflow-x: unset !important;
+    }`;
 }
 
 function clearDistAndRebuildEmptyDirs() {
