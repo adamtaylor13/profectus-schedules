@@ -18,6 +18,10 @@ function loadScheduleImage() {
     var img = document.createElement('img');
     img.src = IMAGE_URL;
     img.style = 'width:100vw';
+    // On tap, navigate to this picture
+    img.addEventListener("click", function() {
+        window.location.href = IMAGE_URL;
+    }, false);
     currentScript.insertAdjacentElement('afterend', img);
 }
 
