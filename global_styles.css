@@ -39,7 +39,7 @@
     background-image: url(https://static1.squarespace.com/static/5bb5b6b0fd67935469274c58/5fd155e7ce71ee580f9a9df1/5fee595c634c4829a85d6357/1609455968245/F7BA5FCB-764B-4F44-82FB-5F442B0E8E7B.jpg?format=2500w);
     background-repeat: no-repeat;
     background-size: cover;
-    filter: contrast(0.5);
+    filter: contrast(0.125);
 }
 .schedule-table td, .schedule-table th {
     font-family: Arial, sans-serif;
