@@ -1,11 +1,12 @@
 {
+  "thick": true,
   "times": [
     {
       "name": "6:00am",
       "classes": [
         {
-          "label": ["All Level", "Jiu-Jitsu"],
-          "days": ["TUES", "THURS"],
+          "label": ["All Levels", "Jiu-Jitsu"],
+          "days": ["TUES", "THUR"],
           "endtime": "7:00am"
         }
       ]
@@ -38,9 +39,10 @@
       "name": "5:00pm",
       "classes": [
         {
+          "nameOverride": "5:30pm",
           "rowspan": "2",
           "label": ["Big Kids", "5:00-5:55pm", "", "---", "", "Little Kids"],
-          "days": ["MON", "TUES", "WED", "THURS"],
+          "days": ["MON", "TUES", "WED", "THUR"],
           "endtime": "5:55pm"
         }
       ]
@@ -54,10 +56,10 @@
       "classes": [
         {
           "label": ["All Levels", "Jiu-Jitsu"],
-          "days": ["MON", "TUES", "THURS"],
+          "days": ["MON", "TUES", "THUR"],
           "endtime": "7:15pm",
           "tags": {
-            "days": ["THURS"],
+            "days": ["THUR"],
             "tag": "nogi"
           }
         },

@@ -58,7 +58,7 @@ function writeFile(filename, renderedHTMLWithCSS) {
     }
 }
 
-function createContainer({ times }) {
+function createContainer({ thick, times }) {
     return `
 <div class="code-container">
     <!-- BODY-1200 -->
@@ -68,7 +68,7 @@ function createContainer({ times }) {
     <table class="schedule-table">
         ${renderColGroup(times)}
         ${renderHeaders(times)}
-        ${renderClasses(times)}
+        ${renderClasses({ thick, times})}
     </table>
 </div>
 `;
@@ -76,6 +76,7 @@ function createContainer({ times }) {
 
 function renderColGroup(times) {
     return `
+<!-- Used to define the widths of the columns -->
 <colgroup>
     <col style="width: 70px">
     ${getAllDays({times}).map(() => `<col style="width: 155px">`).join('\n')}
@@ -95,6 +96,8 @@ function renderHeaders(times) {
 function getClassForContentCell(classHere, day) {
     if (classHere.tags) {
         return classHere.tags.days.includes(day) ? classHere.tags.tag : "";
+    } else {
+        return '';
     }
 }
 
@@ -106,16 +109,17 @@ function getRowSpan(classHere) {
     return classHere.rowspan ? `rowspan="${classHere.rowspan}"` : '';
 }
 
-function renderClasses(times) {
+function renderClasses({ thick, times }) {
     const allDays = getAllDays({times});
     return times.map(time => `
-<tr class="thick">
+<tr ${thick ? `class="thick"` : ""}>
     <td class="time-cell">${time.name}</td>
     ${allDays.map((day) => {
         const classHere = getClassOnDay(time.classes, day);
         if (classHere) {
             let arr = [...classHere.label]
-            arr.push(`${trimTimePeriod( time.name )}-${classHere.endtime}`);
+            let name = classHere.nameOverride ? classHere.nameOverride : time.name;
+            arr.push(`${trimTimePeriod( name )}-${classHere.endtime}`);
             return `<td class="content-cell ${getClassForContentCell(classHere, day)}" ${getRowSpan(classHere)}>${arr.join('<br>')}</td>`
         } else {
             return `<td class="content-cell"></td>`;
@@ -140,7 +144,7 @@ function getAllDays({ times }) {
         return [...acc, ...classDays];
     }, []);
 
-    const SORTED_LIST = ["SUN", "MON", "TUES", "WED", "THURS", "FRI", "SAT"];
+    const SORTED_LIST = ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"];
     return [...new Set(allDays)].sort((a, b) => {
         return SORTED_LIST.indexOf(a) > SORTED_LIST.indexOf(b) ? 1 : -1;
     });
