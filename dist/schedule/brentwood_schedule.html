@@ -1,291 +1,301 @@
 <div class="code-container">
-        <!-- BODY-1500 -->
-        <style>
+    <!-- BODY-1500 -->
+    <style>
+        .code-container {
+            overflow-x: auto;
+        }
+        /* On screens that are 1150px or more, make the schedule easier to read by making it wider */
+        @media screen and (min-width: 1150px) {
             .code-container {
-    overflow-x:auto;
-}
-/* On screens that are 1150px or more, make the schedule easier to read by making it wider */
-@media screen and (min-width: 1150px) {
-    .code-container {
-        margin-right: -120px;
-        margin-left: -120px;
-    }
-}
-/* Screens smaller than 600px */
-@media screen and (max-width: 600px) {
-    .schedule-table {
-        border-spacing: 2px !important;
-    }
-}
-.schedule-table {
-    position: relative;
-    border-collapse: separate;
-    border-spacing: 20px;
-    empty-cells: hide;
-    table-layout: fixed;
+                margin-right: -120px;
+                margin-left: -120px;
+            }
+        }
+        /* Screens smaller than 600px */
+        @media screen and (max-width: 600px) {
+            .schedule-table {
+                border-spacing: 2px !important;
+            }
+        }
+        .schedule-table {
+            position: relative;
+            border-collapse: separate;
+            border-spacing: 20px;
+            empty-cells: hide;
+            table-layout: fixed;
 
-    border-color: #ccc;
-    width: 898px;
-    margin: 0 auto;
-    line-height: 1.1em;
-}
-.schedule-table::before {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+            border-color: #ccc;
+            width: 898px;
+            margin: 0 auto;
+            line-height: 1.1em;
+        }
+        .schedule-table::before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
 
-    background-image: url(https://static1.squarespace.com/static/5bb5b6b0fd67935469274c58/5fd155e7ce71ee580f9a9df1/5fee595c634c4829a85d6357/1609455968245/F7BA5FCB-764B-4F44-82FB-5F442B0E8E7B.jpg?format=2500w);
-    background-repeat: no-repeat;
-    background-size: cover;
-    filter: contrast(0.125);
-}
-.schedule-table td, .schedule-table th {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    padding: 10px 5px;
-    overflow: hidden;
-    word-break: normal;
-    position: relative;
-}
-.content-cell {
-    text-align: center;
-    background-color: rgba(255,255,255,0.42);
-}
-.content-cell.nogi {
-    padding-left: 23px;
-}
-.header {
-    font-weight: bold;
-    text-align: center;
-    vertical-align: top;
-    background-color: #f0f0f0;
-}
-.content-cell, .time-cell {
-    border-color: transparent !important;
-    color: ghostwhite !important;
-}
-.time-cell {
-    background-color: transparent;
-    text-align: center;
-    font-weight: bold;
-}
-.nogi {
-    position: relative;
-}
-.nogi::before {
-    content: " ";
-    position: absolute;
-    background: tomato;
-    left: 0;
-    width: 20px;
-    top: 0;
-    bottom: 0;
-}
-.nogi::after {
-    content: "NO-GI";
-    position: absolute;
-    left: -10px;
-    top: 50%;
-    transform: rotate(270deg) translateX(20%);
-    font-size: 14px !important;
-}
-tr.thick {
-    height: 125px;
-}
-tr.thick > .content-cell {
-    font-size: 1.2rem !important;
-    line-height: 1.4rem;
-}
-
-        </style>
-	<table class="schedule-table">
-            <!-- Used to define the widths of the columns -->
-            <colgroup>
-                <col style="width: 70px">
-                <col style="width: 155px">
-                <col style="width: 155px">
-                <col style="width: 155px">
-                <col style="width: 155px">
-                <col style="width: 155px">
-                <col style="width: 155px">
-                <col style="width: 155px">
-            </colgroup>
-            <tr>
-                <th></th>
-                <th class="header">MON</th>
-                <th class="header">TUES</th>
-                <th class="header">WED</th>
-                <th class="header">THURS</th>
-                <th class="header">FRI</th>
-                <th class="header">SAT</th>
-                <th class="header">SUN</th>
-            </tr>
-            <tr>
-                <td class="time-cell">6:00am</td>
-                <td class="content-cell">Executive Class<br>6-7am</td>
-                <td class="content-cell"></td>
-                <td class="content-cell">Executive Class<br>6-7am</td>
-                <td class="content-cell"></td>
-                <td class="content-cell nogi">Executive Class<br>6-7am</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">7:00am</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">10:00am</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell" rowspan="2">Yoga<br>10-11am</td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">10:30am</td>
-                <td class="content-cell"></td>
-                <td class="content-cell nogi" rowspan="2">L.E.O. Training<br>10:30-11:30am</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">11:00am</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell" rowspan="3">Open Mat<br>11-1pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">11:30am</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">12:00pm</td>
-                <td class="content-cell">Fundamentals<br>12-1pm</td>
-                <td class="content-cell nogi">Intermediate<br>12-1pm</td>
-                <td class="content-cell">All Levels<br>12-1pm</td>
-                <td class="content-cell">Live Training<br>12-1pm</td>
-                <td class="content-cell">All Levels<br>12-1pm</td>
-                <td class="content-cell" rowspan="2">All Levels<br>12-2pm</td>
-            </tr>
-            <tr>
-                <td class="time-cell">1:00pm</td>
-                <td class="content-cell">Live Training<br>1-1:45pm</td>
-                <td class="content-cell nogi">Live Training<br>1-1:45pm</td>
-                <td class="content-cell">Live Training<br>1-1:45pm</td>
-                <td class="content-cell">Q&amp;A<br>1-1:45pm</td>
-                <td class="content-cell">Live Training<br>1-1:45pm</td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">2:00pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell" rowspan="2">Yoga<br>2-3pm</td>
-            </tr>
-            <tr>
-                <td class="time-cell">3:00pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">4:30pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell">Little Gorillas<br>4:30-5pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell">Little Gorillas<br>4:30-5pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">5:00pm</td>
-                <td class="content-cell">Big Gorillas<br>5-6pm</td>
-                <td class="content-cell">Big Gorillas<br>5-6pm</td>
-                <td class="content-cell">Big Gorillas<br>5-6pm</td>
-                <td class="content-cell nogi">Big Gorillas<br>5-6pm</td>
-                <td class="content-cell">Women's Class<br>5-6pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">6:00pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell" rowspan="2">Open Mat<br>6-7pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">6:15pm</td>
-                <td class="content-cell" rowspan="3">Fundamentals /<br>Intro Class<br>6:15-7:30pm</td>
-                <td class="content-cell nogi" rowspan="3">All Levels<br>6:15-7:30pm</td>
-                <td class="content-cell" rowspan="3">Fundamentals /<br>Intro Class<br>6:15-7:30pm</td>
-                <td class="content-cell nogi" rowspan="2">Fundamentals<br>6:15-7:15pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">7:00pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">7:15pm</td>
-                <td class="content-cell" rowspan="2">Open Mat<br>7:15-9pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-            <tr>
-                <td class="time-cell">7:30pm</td>
-                <td class="content-cell">Intermediate<br>7:30-9pm</td>
-                <td class="content-cell">Competition Class<br>7:30-8:30pm</td>
-                <td class="content-cell">Competition Class<br>7:30-9pm</td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-                <td class="content-cell"></td>
-            </tr>
-        </table>
+            background-image: url(https://static1.squarespace.com/static/5bb5b6b0fd67935469274c58/5fd155e7ce71ee580f9a9df1/5fee595c634c4829a85d6357/1609455968245/F7BA5FCB-764B-4F44-82FB-5F442B0E8E7B.jpg?format=2500w);
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: contrast(0.125);
+        }
+        .schedule-table td,
+        .schedule-table th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            overflow: hidden;
+            word-break: normal;
+            position: relative;
+        }
+        .content-cell {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.42);
+        }
+        .content-cell.nogi {
+            padding-left: 23px;
+        }
+        .header {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: top;
+            background-color: #f0f0f0;
+        }
+        .content-cell,
+        .time-cell {
+            border-color: transparent !important;
+            color: ghostwhite !important;
+        }
+        .time-cell {
+            background-color: transparent;
+            text-align: center;
+            font-weight: bold;
+        }
+        .nogi {
+            position: relative;
+        }
+        .nogi::before {
+            content: " ";
+            position: absolute;
+            background: tomato;
+            left: 0;
+            width: 20px;
+            top: 0;
+            bottom: 0;
+        }
+        .nogi::after {
+            content: "NO-GI";
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: rotate(270deg) translateX(20%);
+            font-size: 14px !important;
+        }
+        tr.thick {
+            height: 125px;
+        }
+        tr.thick > .content-cell {
+            font-size: 1.2rem !important;
+            line-height: 1.4rem;
+        }
+    </style>
+    <table class="schedule-table">
+        <!-- Used to define the widths of the columns -->
+        <colgroup>
+            <col style="width: 70px" />
+            <col style="width: 155px" />
+            <col style="width: 155px" />
+            <col style="width: 155px" />
+            <col style="width: 155px" />
+            <col style="width: 155px" />
+            <col style="width: 155px" />
+            <col style="width: 155px" />
+        </colgroup>
+        <tr>
+            <th></th>
+            <th class="header">MON</th>
+            <th class="header">TUES</th>
+            <th class="header">WED</th>
+            <th class="header">THURS</th>
+            <th class="header">FRI</th>
+            <th class="header">SAT</th>
+            <th class="header">SUN</th>
+        </tr>
+        <tr>
+            <td class="time-cell">6:00am</td>
+            <td class="content-cell">Executive Class<br />6-7am</td>
+            <td class="content-cell"></td>
+            <td class="content-cell">Executive Class<br />6-7am</td>
+            <td class="content-cell"></td>
+            <td class="content-cell nogi">Executive Class<br />6-7am</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">7:00am</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">10:00am</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell" rowspan="2">Yoga<br />10-11am</td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">10:30am</td>
+            <td class="content-cell"></td>
+            <td class="content-cell nogi" rowspan="2">
+                L.E.O. Training<br />10:30-11:30am
+            </td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">11:00am</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell" rowspan="3">Open Mat<br />11-1pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">11:30am</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">12:00pm</td>
+            <td class="content-cell">Fundamentals<br />12-1pm</td>
+            <td class="content-cell nogi">Intermediate<br />12-1pm</td>
+            <td class="content-cell">All Levels<br />12-1pm</td>
+            <td class="content-cell">Live Training<br />12-1pm</td>
+            <td class="content-cell">All Levels<br />12-1pm</td>
+            <td class="content-cell" rowspan="2">All Levels<br />12-2pm</td>
+        </tr>
+        <tr>
+            <td class="time-cell">1:00pm</td>
+            <td class="content-cell">Live Training<br />1-1:45pm</td>
+            <td class="content-cell nogi">Live Training<br />1-1:45pm</td>
+            <td class="content-cell">Live Training<br />1-1:45pm</td>
+            <td class="content-cell">Q&amp;A<br />1-1:45pm</td>
+            <td class="content-cell">Live Training<br />1-1:45pm</td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">2:00pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell" rowspan="2">Yoga<br />2-3pm</td>
+        </tr>
+        <tr>
+            <td class="time-cell">3:00pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">4:30pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell">Little Gorillas<br />4:30-5pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell">Little Gorillas<br />4:30-5pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">5:00pm</td>
+            <td class="content-cell">Big Gorillas<br />5-6pm</td>
+            <td class="content-cell">Big Gorillas<br />5-6pm</td>
+            <td class="content-cell">Big Gorillas<br />5-6pm</td>
+            <td class="content-cell nogi">Big Gorillas<br />5-6pm</td>
+            <td class="content-cell">Women's Class<br />5-6pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">6:00pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell" rowspan="2">Open Mat<br />6-7pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">6:15pm</td>
+            <td class="content-cell" rowspan="3">
+                Fundamentals /<br />Intro Class<br />6:15-7:30pm
+            </td>
+            <td class="content-cell nogi" rowspan="3">
+                All Levels<br />6:15-7:30pm
+            </td>
+            <td class="content-cell" rowspan="3">
+                Fundamentals /<br />Intro Class<br />6:15-7:30pm
+            </td>
+            <td class="content-cell nogi" rowspan="2">
+                Fundamentals<br />6:15-7:15pm
+            </td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">7:00pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">7:15pm</td>
+            <td class="content-cell" rowspan="2">Open Mat<br />7:15-9pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+        <tr>
+            <td class="time-cell">7:30pm</td>
+            <td class="content-cell">Intermediate<br />7:30-9pm</td>
+            <td class="content-cell">Competition Class<br />7:30-8:30pm</td>
+            <td class="content-cell">Competition Class<br />7:30-9pm</td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+            <td class="content-cell"></td>
+        </tr>
+    </table>
 </div>
-
