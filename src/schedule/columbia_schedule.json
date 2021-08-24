@@ -1,0 +1,77 @@
+{
+  "times": [
+    {
+      "name": "6:00am",
+      "classes": [
+        {
+          "label": ["All Level", "Jiu-Jitsu"],
+          "days": ["TUES", "THURS"],
+          "endtime": "7:00am"
+        }
+      ]
+    },
+    {
+      "name": "12:00pm",
+      "classes": [
+        {
+          "label": ["All Levels", "Jiu-Jitsu"],
+          "days": ["MON", "WED"],
+          "endtime": "1:00pm",
+          "tags": {
+            "days": ["MON"],
+            "tag": "nogi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "1:00pm",
+      "classes": [
+        {
+          "label": ["Open Mat"],
+          "days": ["SUN"],
+          "endtime": "2:00pm"
+        }
+      ]
+    },
+    {
+      "name": "5:00pm",
+      "classes": [
+        {
+          "rowspan": "2",
+          "label": ["Big Kids", "5:00-5:55pm", "", "---", "", "Little Kids"],
+          "days": ["MON", "TUES", "WED", "THURS"],
+          "endtime": "5:55pm"
+        }
+      ]
+    },
+    {
+      "name": "5:30pm",
+      "classes": []
+    },
+    {
+      "name": "6:15pm",
+      "classes": [
+        {
+          "label": ["All Levels", "Jiu-Jitsu"],
+          "days": ["MON", "TUES", "THURS"],
+          "endtime": "7:15pm",
+          "tags": {
+            "days": ["THURS"],
+            "tag": "nogi"
+          }
+        },
+        {
+          "label": ["Advanced/Drilling"],
+          "days": ["WED"],
+          "endtime": "7:15pm"
+        },
+        {
+          "label": ["Open Mat", "Jiu-Jitsu"],
+          "days": ["FRI"],
+          "endtime": "7:15pm"
+        }
+      ]
+    }
+  ]
+}
