@@ -1,4 +1,5 @@
 const fs = require('fs');
+const {createContainer} = require("../index");
 const assert = require('assert').strict;
 
 const DIST_DIR = './dist/schedule/';
@@ -16,7 +17,13 @@ fs.readdirSync(DIST_DIR).forEach(filename => {
 });
 
 fs.readdirSync(SRC_DIR).forEach(filename => {
-    let srcHTMLFile = fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS);
+    let srcHTMLFile;
+    if (filename.endsWith(".json")) {
+        let contents = JSON.parse(fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS));
+        srcHTMLFile = createContainer(contents);
+    } else {
+        srcHTMLFile = fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS);
+    }
 
     assert(srcHTMLFile.includes('<%- CSS_STYLES %>'), `src file: (${filename}) should contain CSS_STYLE placeholder`);
 });
