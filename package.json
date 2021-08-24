@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node index.js && npm run format && npm run test",
+    "build": "node index.js && npm run format",
     "format": "prettier --config package.json --write dist/",
     "test": "node tests/schedule_html.test.js"
   },
