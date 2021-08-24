@@ -39,3 +39,4 @@ All of the `crossorigin`, and `type` attributes are necessary due to strict MIME
 
 ### Notes:
 * Using [JSDelivr](https://www.jsdelivr.com/features) for live-script loading
+* Using Prettier to format the built HTML files
