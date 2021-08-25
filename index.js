@@ -7,6 +7,7 @@ const IMG_DIR = "./dist/img/";
 const SRC_DIR = "./src/schedule/";
 const GLOBAL_STYLES_FILENAME = "./global_styles.css";
 const READING_OPTIONS = { encoding: "utf8" };
+const DEFAULT_SORTED_LIST = ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"];
 
 let globalCSS = fs.readFileSync(GLOBAL_STYLES_FILENAME, READING_OPTIONS);
 
@@ -14,6 +15,8 @@ let globalCSS = fs.readFileSync(GLOBAL_STYLES_FILENAME, READING_OPTIONS);
 // TODO: Migrate other schedules over
 
 clearDistAndRebuildEmptyDirs();
+
+let SORTED_LIST;
 
 fs.readdirSync(SRC_DIR).forEach((filename) => {
     let htmlSourceContents = getHtmlContents(filename);
@@ -48,6 +51,12 @@ function getHtmlContents(filename) {
         let contents = JSON.parse(
             fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS)
         );
+        // TODO: Fix this. It ugly.
+        if (contents.sortOrder) {
+            SORTED_LIST = contents.sortOrder;
+        } else {
+            SORTED_LIST = DEFAULT_SORTED_LIST;
+        }
         return createContainer(contents);
     } else {
         return fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS);
@@ -67,10 +76,10 @@ function writeFile(filename, renderedHTMLWithCSS) {
     }
 }
 
-function createContainer({ thick, times }) {
+function createContainer({ thick, times, bodyWidth }) {
     return `
 <div class="code-container">
-    <!-- BODY-1200 -->
+    <!-- BODY-${bodyWidth ? bodyWidth : "1200"} -->
     <style>
         <%- CSS_STYLES %>
     </style>
@@ -185,7 +194,6 @@ function getAllDays({ times }) {
         return [...acc, ...classDays];
     }, []);
 
-    const SORTED_LIST = ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"];
     return [...new Set(allDays)].sort((a, b) => {
         return SORTED_LIST.indexOf(a) > SORTED_LIST.indexOf(b) ? 1 : -1;
     });

@@ -1,4 +1,6 @@
 {
+  "bodyWidth": "1500",
+  "sortOrder": ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"],
   "times": [
     {
       "name": "6:00am",
