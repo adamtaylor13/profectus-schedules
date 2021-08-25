@@ -126,9 +126,9 @@ function renderClasses({ thick, times }) {
     let rowspanTracker = {};
     const allDays = getAllDays({ times });
     return times
-        .map((time) => {
-            console.log("time", time);
-            return `
+        .map(
+            (time) =>
+                `
     <tr ${thick ? `class="thick"` : ""}>
         <td class="time-cell">${time.name}</td>
         ${allDays
@@ -164,8 +164,8 @@ function renderClasses({ thick, times }) {
             .filter(Boolean) // Don't include empty rows
             .join("\n")}
     </tr>
-    `;
-        })
+    `
+        )
         .join("\n");
 }
 
