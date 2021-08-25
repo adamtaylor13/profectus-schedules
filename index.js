@@ -110,23 +110,50 @@ function getRowSpan(classHere) {
 }
 
 function renderClasses({ thick, times }) {
-    const allDays = getAllDays({times});
-    return times.map(time => `
-<tr ${thick ? `class="thick"` : ""}>
-    <td class="time-cell">${time.name}</td>
-    ${allDays.map((day) => {
-        const classHere = getClassOnDay(time.classes, day);
-        if (classHere) {
-            let arr = [...classHere.label]
-            let name = classHere.nameOverride ? classHere.nameOverride : time.name;
-            arr.push(`${trimTimePeriod( name )}-${classHere.endtime}`);
-            return `<td class="content-cell ${getClassForContentCell(classHere, day)}" ${getRowSpan(classHere)}>${arr.join('<br>')}</td>`
-        } else {
-            return `<td class="content-cell"></td>`;
-        }
-    }).join('\n')}
-</tr>
-`).join('\n');
+    let rowspanTracker = {};
+    const allDays = getAllDays({ times });
+    return times
+        .map((time) => {
+            console.log("time", time);
+            return `
+    <tr ${thick ? `class="thick"` : ""}>
+        <td class="time-cell">${time.name}</td>
+        ${allDays
+            .map((day) => {
+                if (rowspanTracker[day]) {
+                    rowspanTracker[day]--;
+                    return "";
+                }
+                const classHere = getClassOnDay(time.classes, day);
+                if (classHere) {
+                    let { rowspan } = classHere;
+                    if (rowspan) {
+                        // TODO: Make this property something like "additionalRows" rather than rowspan?
+                        let number = parseInt(rowspan) - 1;
+                        rowspanTracker[day] =
+                            rowspanTracker[day] === undefined
+                                ? number
+                                : rowspanTracker[day] + number;
+                    }
+                    let arr = [...classHere.label];
+                    let name = classHere.nameOverride
+                        ? classHere.nameOverride
+                        : time.name;
+                    arr.push(`${trimTimePeriod(name)}-${classHere.endtime}`);
+                    return `<td class="content-cell ${getClassForContentCell(
+                        classHere,
+                        day
+                    )}" ${getRowSpan(classHere)}>${arr.join("<br>")}</td>`;
+                } else {
+                    return `<td class="content-cell"></td>`;
+                }
+            })
+            .filter(Boolean) // Don't include empty rows
+            .join("\n")}
+    </tr>
+    `;
+        })
+        .join("\n");
 }
 
 function getClassOnDay(classArray, day) {
