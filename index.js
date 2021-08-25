@@ -12,7 +12,7 @@ const DEFAULT_SORTED_LIST = ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"];
 let globalCSS = fs.readFileSync(GLOBAL_STYLES_FILENAME, READING_OPTIONS);
 
 // TODO: Get body with from JSON rather than markup
-// TODO: Migrate other schedules over
+// TODO: Split functions into modules?
 
 clearDistAndRebuildEmptyDirs();
 
@@ -36,46 +36,30 @@ fs.readdirSync(SRC_DIR).forEach((filename) => {
     );
 });
 
-// TODO: Migrate all stuff to JSON
 function getPngFilename(filename) {
-    if (filename.endsWith(".json")) {
-        return filename.replace(".json", "") + ".png";
-    } else {
-        return filename.replace(".html", "") + ".png";
-    }
+    return filename.replace(".json", "") + ".png";
 }
 
-// TODO: Migrate all stuff to JSON
 function getHtmlContents(filename) {
-    if (filename.endsWith(".json")) {
-        let contents = JSON.parse(
-            fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS)
-        );
-        // TODO: Fix this. It ugly.
-        if (contents.sortOrder) {
-            SORTED_LIST = contents.sortOrder;
-        } else {
-            SORTED_LIST = DEFAULT_SORTED_LIST;
-        }
-        return createContainer(contents);
+    let contents = JSON.parse(
+        fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS)
+    );
+    // TODO: Fix this. It ugly.
+    if (contents.sortOrder) {
+        SORTED_LIST = contents.sortOrder;
     } else {
-        return fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS);
+        SORTED_LIST = DEFAULT_SORTED_LIST;
     }
+    return createContainer(contents);
 }
 
-// TODO: Migrate all stuff to JSON
 function writeFile(filename, renderedHTMLWithCSS) {
     // Write schedule to disk with styles
-    if (filename.endsWith(".json")) {
-        fs.writeFileSync(
-            `${DIST_DIR}${filename.replace("json", "html")}`,
-            renderedHTMLWithCSS
-        );
-    } else {
-        fs.writeFileSync(`${DIST_DIR}${filename}`, renderedHTMLWithCSS);
-    }
+    let saveFilename = `${DIST_DIR}${filename.replace("json", "html")}`;
+    fs.writeFileSync(saveFilename, renderedHTMLWithCSS);
 }
 
+// TODO: Replace this body tag
 function createContainer({ thick, times, bodyWidth }) {
     return `
 <div class="code-container">
@@ -167,6 +151,7 @@ function renderClasses({ thick, times }) {
                         day
                     )}" ${getRowSpan(classHere)}>${arr.join("<br>")}</td>`;
                 } else {
+                    // TODO: Add a comment in the empty cell for what day / time is empty
                     return `<td class="content-cell"></td>`;
                 }
             })
@@ -185,6 +170,7 @@ function getClassOnDay(classArray, day) {
     );
 }
 
+// TODO: Straighten this clusterfuck out. It's completely illegible
 function getAllDays({ times }) {
     let allDays = times.reduce((acc, curr) => {
         let classDays = curr.classes.reduce((acc2, curr2) => {
