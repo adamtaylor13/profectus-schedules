@@ -60,6 +60,7 @@ function writeFile(filename, renderedHTMLWithCSS) {
 }
 
 // TODO: Replace this body tag
+// TODO: Replace the ejs rendering with just a template literal
 function createContainer({ thick, times, bodyWidth }) {
     return `
 <div class="code-container">
