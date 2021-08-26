@@ -75,6 +75,19 @@ test("it throws if you haven't run the necessary generations first", () => {
     expect(() => schedule.generateTableHtmlContent()).not.toThrow();
 });
 
+test("it throws with no bodyWidth", () => {
+    let mockCopy = JSON.parse(JSON.stringify(MOCK_CONFIG));
+    delete mockCopy.bodyWidth;
+
+    const schedule = new ScheduleBuilder(mockCopy, new CssGenerator())
+        .generateColGroup()
+        .generateHeaders()
+        .generateScheduleRows()
+        .generateTableHtmlContent();
+
+    expect(() => schedule.renderForImg()).toThrow();
+});
+
 test("it generates full table html for web", () => {
     const schedule = new ScheduleBuilder(MOCK_CONFIG, new CssGenerator())
         .generateColGroup()

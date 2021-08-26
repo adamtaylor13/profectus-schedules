@@ -10,8 +10,6 @@ const READING_OPTIONS = { encoding: "utf8" };
 
 const css = new CssGenerator();
 
-// TODO: Split functions into modules?
-
 clearDistAndRebuildEmptyDirs();
 
 fs.readdirSync(SRC_DIR).forEach((filename) => {
