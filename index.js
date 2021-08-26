@@ -11,7 +11,6 @@ const DEFAULT_SORTED_LIST = ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"];
 
 let globalCSS = fs.readFileSync(GLOBAL_STYLES_FILENAME, READING_OPTIONS);
 
-// TODO: Get body with from JSON rather than markup
 // TODO: Split functions into modules?
 
 clearDistAndRebuildEmptyDirs();
@@ -19,14 +18,23 @@ clearDistAndRebuildEmptyDirs();
 let SORTED_LIST;
 
 fs.readdirSync(SRC_DIR).forEach((filename) => {
-    let htmlSourceContents = getHtmlContents(filename);
+    let contents = JSON.parse(
+        fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS)
+    );
+
+    // TODO: Fix this. It ugly.
+    if (contents.sortOrder) {
+        SORTED_LIST = contents.sortOrder;
+    } else {
+        SORTED_LIST = DEFAULT_SORTED_LIST;
+    }
+    let htmlSourceContents = createContainer(contents);
+
     let renderedHTMLWithCSS = applyCssStyles(htmlSourceContents, globalCSS);
     writeFile(filename, renderedHTMLWithCSS);
 
     let pngFilename = getPngFilename(filename);
-    let bodyWidth = getBodyWidth(htmlSourceContents);
-    let imgCSS = bodyWidth ? globalCSS + bodyWidth : globalCSS;
-    imgCSS += getBodyStylesForScreenshot();
+    let imgCSS = globalCSS + getBodyStylesForScreenshot(contents);
 
     nodeHtmlToImage({
         output: IMG_DIR + pngFilename,
@@ -40,31 +48,16 @@ function getPngFilename(filename) {
     return filename.replace(".json", "") + ".png";
 }
 
-function getHtmlContents(filename) {
-    let contents = JSON.parse(
-        fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS)
-    );
-    // TODO: Fix this. It ugly.
-    if (contents.sortOrder) {
-        SORTED_LIST = contents.sortOrder;
-    } else {
-        SORTED_LIST = DEFAULT_SORTED_LIST;
-    }
-    return createContainer(contents);
-}
-
 function writeFile(filename, renderedHTMLWithCSS) {
     // Write schedule to disk with styles
     let saveFilename = `${DIST_DIR}${filename.replace("json", "html")}`;
     fs.writeFileSync(saveFilename, renderedHTMLWithCSS);
 }
 
-// TODO: Replace this body tag
 // TODO: Replace the ejs rendering with just a template literal
-function createContainer({ thick, times, bodyWidth }) {
+function createContainer({ thick, times }) {
     return `
 <div class="code-container">
-    <!-- BODY-${bodyWidth ? bodyWidth : "1200"} -->
     <style>
         <%- CSS_STYLES %>
     </style>
@@ -190,17 +183,14 @@ function applyCssStyles(contents, css) {
     return ejs.render(contents, { CSS_STYLES: css });
 }
 
-function getBodyWidth(html) {
-    // Throw this comment with a width to apply a body width
-    const BODY_WIDTH_MATCHER = /<!-- BODY-(\d*?) -->/;
-    let match = html.match(BODY_WIDTH_MATCHER);
+function getBodyStylesForScreenshot({ bodyWidth }) {
+    if (!bodyWidth) {
+        throw new Error("Must supply a bodyWidth");
+    }
 
-    return match && match[1] ? `body { width: ${match[1]}px }` : -1;
-}
-
-function getBodyStylesForScreenshot() {
     return `
     body { 
+        width: ${bodyWidth}px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -209,7 +199,8 @@ function getBodyStylesForScreenshot() {
     .code-container {
         margin: 0 !important;
         overflow-x: unset !important;
-    }`;
+    }
+    `;
 }
 
 function clearDistAndRebuildEmptyDirs() {
