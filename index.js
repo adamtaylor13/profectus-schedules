@@ -35,7 +35,7 @@ fs.readdirSync(SRC_DIR).forEach((filename) => {
     let pngFilename = filename.replace(".json", "") + ".png";
     nodeHtmlToImage({
         output: IMG_DIR + pngFilename,
-        html: renderWithCss(getImgCss(contents)),
+        html: renderWithCss(getImgCss(globalCSS, contents)),
     }).then(() =>
         console.log(`Image: ${pngFilename} was created successfully!`)
     );
@@ -174,13 +174,13 @@ function getAllDays({ times }) {
     });
 }
 
-function getImgCss({ bodyWidth }) {
+function getImgCss(globalCss, { bodyWidth }) {
     if (!bodyWidth) {
         throw new Error("Must supply a bodyWidth");
     }
 
     return `
-    ${globalCSS}
+    ${globalCss}
     body { 
         width: ${bodyWidth}px;
         display: flex;
@@ -201,3 +201,7 @@ function clearDistAndRebuildEmptyDirs() {
     fs.mkdirSync(DIST_DIR);
     fs.mkdirSync(IMG_DIR);
 }
+
+module.exports = {
+    getImgCss,
+};
