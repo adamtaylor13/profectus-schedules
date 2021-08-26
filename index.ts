@@ -1,24 +1,27 @@
+import * as fs from "fs";
 import ScheduleBuilder from "./src/ScheduleBuilder";
-
-const fs = require("fs");
-const nodeHtmlToImage = require("node-html-to-image");
-const { CssGenerator } = require("./src/CssGenerator");
+import CssGenerator from "./src/CssGenerator";
+import nodeHtmlToImage from "node-html-to-image";
+import { DEFAULT_READING_OPTIONS } from "./src/constants";
 
 const DIST_SCHEDULE_DIR = "./dist/schedule/";
 const DIST_IMG_DIR = "./dist/img/";
 const SRC_SCHEDULE_DIR = "./src/schedule/";
-const READING_OPTIONS = { encoding: "utf8" };
 
 const css = new CssGenerator();
 
 clearDistAndRebuildEmptyDirs();
 
 fs.readdirSync(SRC_SCHEDULE_DIR).forEach((filename) => {
-    let contents = JSON.parse(
-        fs.readFileSync(`${SRC_SCHEDULE_DIR}${filename}`, READING_OPTIONS)
+    // TODO: Create a type for our configs
+    let config = JSON.parse(
+        fs.readFileSync(
+            `${SRC_SCHEDULE_DIR}${filename}`,
+            DEFAULT_READING_OPTIONS
+        )
     );
 
-    const schedule = new ScheduleBuilder(contents, css)
+    const schedule = new ScheduleBuilder(config, css)
         .generateColGroup()
         .generateHeaders()
         .generateScheduleRows()

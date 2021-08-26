@@ -1,7 +1,7 @@
-const fs = require("fs");
+import * as fs from "fs";
+import { DEFAULT_READING_OPTIONS } from "./constants";
 
-class CssGenerator {
-    READING_OPTIONS = { encoding: "utf8" };
+export default class CssGenerator {
     GLOBAL_STYLES_FILENAME = "./global_styles.css";
 
     GLOBAL_CSS;
@@ -9,7 +9,7 @@ class CssGenerator {
     constructor() {
         this.GLOBAL_CSS = fs.readFileSync(
             this.GLOBAL_STYLES_FILENAME,
-            this.READING_OPTIONS
+            DEFAULT_READING_OPTIONS
         );
     }
 
@@ -37,5 +37,3 @@ class CssGenerator {
             }`;
     }
 }
-
-module.exports = { CssGenerator };
