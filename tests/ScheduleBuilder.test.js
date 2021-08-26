@@ -1,5 +1,5 @@
-const { CssGenerator } = require("../CssGenerator");
-const { ScheduleBuilder } = require("../ScheduleBuilder");
+const { CssGenerator } = require("../src/CssGenerator");
+const { ScheduleBuilder } = require("../src/ScheduleBuilder");
 
 const MOCK_CONFIG = {
     bodyWidth: "808",
