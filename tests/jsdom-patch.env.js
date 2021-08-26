@@ -1,8 +1,8 @@
-const fs = require("fs");
 const Environment = require("jest-environment-jsdom");
 
 /**
- * A custom environment to set the TextEncoder that is required by JSDOM
+ * A custom environment to set the TextEncoder/TextDecoder that is required by JSDOM
+ * see: https://github.com/jsdom/jsdom/issues/2524
  */
 module.exports = class JsdomPatch extends Environment {
     async setup() {
@@ -12,6 +12,5 @@ module.exports = class JsdomPatch extends Environment {
             this.global.TextEncoder = TextEncoder;
             this.global.TextDecoder = TextDecoder;
         }
-        this.global.fs = fs;
     }
 };
