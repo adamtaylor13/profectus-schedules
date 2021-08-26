@@ -1,5 +1,4 @@
 const fs = require("fs");
-const ejs = require("ejs");
 const nodeHtmlToImage = require("node-html-to-image");
 
 const DIST_DIR = "./dist/schedule/";
@@ -28,63 +27,65 @@ fs.readdirSync(SRC_DIR).forEach((filename) => {
     } else {
         SORTED_LIST = DEFAULT_SORTED_LIST;
     }
-    let htmlSourceContents = createContainer(contents);
 
-    let renderedHTMLWithCSS = applyCssStyles(htmlSourceContents, globalCSS);
-    writeFile(filename, renderedHTMLWithCSS);
+    const tableHtmlContent = getTableHtmlContent(contents);
+    const renderWithCss = createTableContainer(tableHtmlContent);
+    writeHtmlToDisk(filename, renderWithCss(globalCSS));
 
     let pngFilename = filename.replace(".json", "") + ".png";
-    let imgCSS = globalCSS + getBodyStylesForScreenshot(contents);
     nodeHtmlToImage({
         output: IMG_DIR + pngFilename,
-        html: applyCssStyles(htmlSourceContents, imgCSS),
+        html: renderWithCss(getImgCss(contents)),
     }).then(() =>
         console.log(`Image: ${pngFilename} was created successfully!`)
     );
 });
 
 // Write schedule to disk with styles
-function writeFile(filename, renderedHTMLWithCSS) {
+function writeHtmlToDisk(filename, renderedHTMLWithCSS) {
     let saveFilename = `${DIST_DIR}${filename.replace("json", "html")}`;
     fs.writeFileSync(saveFilename, renderedHTMLWithCSS);
 }
 
-function createContainer({ thick, times }) {
+function getTableHtmlContent({ times, thick }) {
     return `
-<div class="code-container">
-    <style>
-        <%- CSS_STYLES %>
-    </style>
-    <table class="schedule-table">
-        ${renderColGroup(times)}
-        ${renderHeaders(times)}
-        ${renderClasses({ thick, times })}
-    </table>
-</div>
-`;
+        <table class="schedule-table">
+            ${renderColGroup(times)}
+            ${renderHeaders(times)}
+            ${renderClasses({ thick, times })}
+        </table>`;
+}
+
+// Note it's a curried function
+function createTableContainer(tableHtmlContent) {
+    return (cssStyles) => `
+        <div class="code-container">
+            <style>
+                ${cssStyles}
+            </style>
+            ${tableHtmlContent}
+        </div>`;
 }
 
 function renderColGroup(times) {
     return `
-<!-- Used to define the widths of the columns -->
-<colgroup>
-    <col style="width: 70px">
-    ${getAllDays({ times })
-        .map(() => `<col style="width: 155px">`)
-        .join("\n")}
-</colgroup>
-    `;
+        <!-- Used to define the widths of the columns -->
+        <colgroup>
+            <col style="width: 70px">
+            ${getAllDays({ times })
+                .map(() => `<col style="width: 155px">`)
+                .join("\n")}
+        </colgroup>`;
 }
 
 function renderHeaders(times) {
     return `
-<tr>
-    <th></th>
-    ${getAllDays({ times })
-        .map((day) => `<th class="header">${day}</th>`)
-        .join("\n\t")}
-</tr>
-    `;
+        <tr>
+            <th></th>
+            ${getAllDays({ times })
+                .map((day) => `<th class="header">${day}</th>`)
+                .join("\n\t")}
+        </tr>`;
 }
 
 function getClassForContentCell(classHere, day) {
@@ -173,16 +174,13 @@ function getAllDays({ times }) {
     });
 }
 
-function applyCssStyles(contents, css) {
-    return ejs.render(contents, { CSS_STYLES: css });
-}
-
-function getBodyStylesForScreenshot({ bodyWidth }) {
+function getImgCss({ bodyWidth }) {
     if (!bodyWidth) {
         throw new Error("Must supply a bodyWidth");
     }
 
     return `
+    ${globalCSS}
     body { 
         width: ${bodyWidth}px;
         display: flex;
@@ -205,5 +203,5 @@ function clearDistAndRebuildEmptyDirs() {
 }
 
 module.exports = {
-    createContainer,
+    createTableContainer,
 };
