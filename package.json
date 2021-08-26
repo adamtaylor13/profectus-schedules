@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node index.js && npm run format",
+    "dev": "tsc .",
+    "build": "ts-node index.ts && npm run format",
     "format": "prettier --config package.json --write dist/",
     "test": "jest"
   },
@@ -15,7 +16,9 @@
     "jsdom": "^17.0.0",
     "node-html-to-image": "^3.1.0",
     "prettier": "2.3.2",
-    "require-text": "0.0.1"
+    "require-text": "0.0.1",
+    "ts-node": "^10.2.1",
+    "typescript": "4.3.5"
   },
   "devDependencies": {
     "jest": "^27.0.6",

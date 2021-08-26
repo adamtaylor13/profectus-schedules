@@ -20,7 +20,7 @@ function getRowSpan(classHere) {
     return classHere.rowspan ? `rowspan="${classHere.rowspan}"` : "";
 }
 
-class ScheduleBuilder {
+export default class ScheduleBuilder {
     DEFAULT_SORTED_LIST = ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"];
 
     config;
@@ -41,13 +41,16 @@ class ScheduleBuilder {
 
     // TODO: Is this memoized or called every damn time?
     allSortedDays() {
-        let allDaysWithDupes = this.config.times.reduce((acc, curr) => {
-            let allClassDays = curr.classes.reduce(
-                (acc2, curr2) => [...acc2, ...curr2.days],
-                []
-            );
-            return [...acc, ...allClassDays];
-        }, []);
+        let allDaysWithDupes: string[] = this.config.times.reduce(
+            (acc, curr) => {
+                let allClassDays = curr.classes.reduce(
+                    (acc2, curr2) => [...acc2, ...curr2.days],
+                    []
+                );
+                return [...acc, ...allClassDays];
+            },
+            []
+        );
 
         return [...new Set(allDaysWithDupes)].sort((a, b) => {
             return this.config.sortedList.indexOf(a) >
@@ -165,5 +168,3 @@ class ScheduleBuilder {
         );
     }
 }
-
-module.exports = { ScheduleBuilder };

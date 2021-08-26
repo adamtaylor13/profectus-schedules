@@ -1,7 +1,8 @@
+import ScheduleBuilder from "./src/ScheduleBuilder";
+
 const fs = require("fs");
 const nodeHtmlToImage = require("node-html-to-image");
 const { CssGenerator } = require("./src/CssGenerator");
-const { ScheduleBuilder } = require("./src/ScheduleBuilder");
 
 const DIST_SCHEDULE_DIR = "./dist/schedule/";
 const DIST_IMG_DIR = "./dist/img/";
