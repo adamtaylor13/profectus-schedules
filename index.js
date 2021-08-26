@@ -14,18 +14,14 @@ let globalCSS = fs.readFileSync(GLOBAL_STYLES_FILENAME, READING_OPTIONS);
 
 clearDistAndRebuildEmptyDirs();
 
-let SORTED_LIST;
-
 fs.readdirSync(SRC_DIR).forEach((filename) => {
     let contents = JSON.parse(
         fs.readFileSync(`${SRC_DIR}${filename}`, READING_OPTIONS)
     );
 
-    // TODO: Fix this. It ugly.
-    if (contents.sortOrder) {
-        SORTED_LIST = contents.sortOrder;
-    } else {
-        SORTED_LIST = DEFAULT_SORTED_LIST;
+    // TODO: Still pretty ugly. Let's define this on all schedules.
+    if (!contents.sortedList) {
+        contents.sortedList = DEFAULT_SORTED_LIST;
     }
 
     const tableHtmlContent = getTableHtmlContent(contents);
@@ -47,12 +43,12 @@ function writeHtmlToDisk(filename, renderedHTMLWithCSS) {
     fs.writeFileSync(saveFilename, renderedHTMLWithCSS);
 }
 
-function getTableHtmlContent({ times, thick }) {
+function getTableHtmlContent(contents) {
     return `
         <table class="schedule-table">
-            ${renderColGroup(times)}
-            ${renderHeaders(times)}
-            ${renderClasses({ thick, times })}
+            ${renderColGroup(contents)}
+            ${renderHeaders(contents)}
+            ${renderClasses(contents)}
         </table>`;
 }
 
@@ -67,22 +63,22 @@ function createTableContainer(tableHtmlContent) {
         </div>`;
 }
 
-function renderColGroup(times) {
+function renderColGroup(contents) {
     return `
         <!-- Used to define the widths of the columns -->
         <colgroup>
             <col style="width: 70px">
-            ${getAllDays({ times })
+            ${getAllDays(contents)
                 .map(() => `<col style="width: 155px">`)
                 .join("\n")}
         </colgroup>`;
 }
 
-function renderHeaders(times) {
+function renderHeaders(contents) {
     return `
         <tr>
             <th></th>
-            ${getAllDays({ times })
+            ${getAllDays(contents)
                 .map((day) => `<th class="header">${day}</th>`)
                 .join("\n\t")}
         </tr>`;
@@ -104,9 +100,9 @@ function getRowSpan(classHere) {
     return classHere.rowspan ? `rowspan="${classHere.rowspan}"` : "";
 }
 
-function renderClasses({ thick, times }) {
+function renderClasses({ thick, times, sortedList }) {
     let rowspanTracker = {};
-    const allDays = getAllDays({ times });
+    const allDays = getAllDays({ times, sortedList });
     return times
         .map(
             (time) =>
@@ -159,18 +155,17 @@ function getClassOnDay(classArray, day) {
     );
 }
 
-// TODO: Straighten this clusterfuck out. It's completely illegible
-function getAllDays({ times }) {
-    let allDays = times.reduce((acc, curr) => {
-        let classDays = curr.classes.reduce((acc2, curr2) => {
-            return new Set([...acc2, ...curr2.days]);
-        }, []);
-
-        return [...acc, ...classDays];
+function getAllDays({ times, sortedList }) {
+    let allDaysWithDupes = times.reduce((acc, curr) => {
+        let allClassDays = curr.classes.reduce(
+            (acc2, curr2) => [...acc2, ...curr2.days],
+            []
+        );
+        return [...acc, ...allClassDays];
     }, []);
 
-    return [...new Set(allDays)].sort((a, b) => {
-        return SORTED_LIST.indexOf(a) > SORTED_LIST.indexOf(b) ? 1 : -1;
+    return [...new Set(allDaysWithDupes)].sort((a, b) => {
+        return sortedList.indexOf(a) > sortedList.indexOf(b) ? 1 : -1;
     });
 }
 
@@ -204,4 +199,5 @@ function clearDistAndRebuildEmptyDirs() {
 
 module.exports = {
     getImgCss,
+    getAllDays,
 };
