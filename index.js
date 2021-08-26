@@ -33,9 +33,8 @@ fs.readdirSync(SRC_DIR).forEach((filename) => {
     let renderedHTMLWithCSS = applyCssStyles(htmlSourceContents, globalCSS);
     writeFile(filename, renderedHTMLWithCSS);
 
-    let pngFilename = getPngFilename(filename);
+    let pngFilename = filename.replace(".json", "") + ".png";
     let imgCSS = globalCSS + getBodyStylesForScreenshot(contents);
-
     nodeHtmlToImage({
         output: IMG_DIR + pngFilename,
         html: applyCssStyles(htmlSourceContents, imgCSS),
@@ -44,17 +43,12 @@ fs.readdirSync(SRC_DIR).forEach((filename) => {
     );
 });
 
-function getPngFilename(filename) {
-    return filename.replace(".json", "") + ".png";
-}
-
+// Write schedule to disk with styles
 function writeFile(filename, renderedHTMLWithCSS) {
-    // Write schedule to disk with styles
     let saveFilename = `${DIST_DIR}${filename.replace("json", "html")}`;
     fs.writeFileSync(saveFilename, renderedHTMLWithCSS);
 }
 
-// TODO: Replace the ejs rendering with just a template literal
 function createContainer({ thick, times }) {
     return `
 <div class="code-container">
