@@ -201,7 +201,3 @@ function clearDistAndRebuildEmptyDirs() {
     fs.mkdirSync(DIST_DIR);
     fs.mkdirSync(IMG_DIR);
 }
-
-module.exports = {
-    createTableContainer,
-};
