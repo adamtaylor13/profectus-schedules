@@ -22,18 +22,21 @@ function getRowSpan(classHere) {
 
 class ScheduleBuilder {
     DEFAULT_SORTED_LIST = ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"];
+
     config;
     columnGroup;
     headers;
     scheduleRows;
     fullHtmlContent;
+    cssGenerator;
 
-    constructor(config) {
+    constructor(config, cssGenerator) {
         // // TODO: Still pretty ugly. Let's define this on all schedules.
         if (!config.sortedList) {
             config.sortedList = this.DEFAULT_SORTED_LIST;
         }
         this.config = config;
+        this.cssGenerator = cssGenerator;
         return this;
     }
 
@@ -151,6 +154,16 @@ class ScheduleBuilder {
             </style>
             ${this.fullHtmlContent}
         </div>`;
+    }
+
+    renderForWeb() {
+        return this.renderWithCss(this.cssGenerator.cssForSite());
+    }
+
+    renderForImg() {
+        return this.renderWithCss(
+            this.cssGenerator.cssForImg(this.config.bodyWidth)
+        );
     }
 }
 
