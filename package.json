@@ -6,14 +6,16 @@
   "scripts": {
     "build": "node index.js && npm run format",
     "format": "prettier --config package.json --write dist/",
-    "test": "node tests/schedule_html.test.js"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jest-environment-jsdom": "^27.0.6",
+    "jsdom": "^17.0.0",
     "node-html-to-image": "^3.1.0",
-    "require-text": "0.0.1",
-    "prettier": "2.3.2"
+    "prettier": "2.3.2",
+    "require-text": "0.0.1"
   },
   "devDependencies": {
     "jest": "^27.0.6",
