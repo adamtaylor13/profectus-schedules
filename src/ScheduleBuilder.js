@@ -31,7 +31,6 @@ class ScheduleBuilder {
     cssGenerator;
 
     constructor(config, cssGenerator) {
-        // // TODO: Still pretty ugly. Let's define this on all schedules.
         if (!config.sortedList) {
             config.sortedList = this.DEFAULT_SORTED_LIST;
         }
