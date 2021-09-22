@@ -17,7 +17,7 @@
       "classes": [
         {
           "label": ["All Levels", "Jiu-Jitsu"],
-          "days": ["MON", "WED"],
+          "days": ["MON", "WED", "FRI"],
           "endtime": "1:00pm",
           "tags": {
             "days": ["MON"],
