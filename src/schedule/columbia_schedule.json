@@ -75,6 +75,20 @@
           "endtime": "7:15pm"
         }
       ]
+    },
+    {
+      "name": "7:15pm",
+      "classes": [
+        {
+          "label": ["Live Training"],
+          "days": ["MON", "TUES", "WED", "THUR"],
+          "endtime": "8:00pm",
+          "tags": {
+            "days": ["MON", "TUES", "WED", "THUR"],
+            "tag": "both"
+          }
+        }
+      ]
     }
   ]
 }
