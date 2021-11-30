@@ -9,6 +9,11 @@
           "label": ["All Levels", "Jiu-Jitsu"],
           "days": ["TUES", "THUR"],
           "endtime": "7:00am"
+        },
+        {
+          "label": ["Open Mat"],
+          "days": ["WED"],
+          "endtime": "7:00am"
         }
       ]
     },
@@ -23,6 +28,11 @@
             "days": ["MON"],
             "tag": "nogi"
           }
+        },
+        {
+          "label": ["Judo Class"],
+          "days": ["SUN"],
+          "endtime": "1:00pm"
         }
       ]
     },
@@ -53,12 +63,33 @@
       "classes": []
     },
     {
+      "name": "6:00pm",
+      "classes": [
+        {
+          "label": ["Drilling"],
+          "days": ["MON", "TUES", "WED", "THUR"],
+          "endtime": "6:30pm"
+        }
+      ]
+    },
+    {
       "name": "6:15pm",
+      "classes": [
+        {
+          "rowspan": 2,
+          "label": ["Open Mat", "Jiu-Jitsu"],
+          "days": ["FRI"],
+          "endtime": "7:15pm"
+        }
+      ]
+    },
+    {
+      "name": "6:30pm",
       "classes": [
         {
           "label": ["All Levels", "Jiu-Jitsu"],
           "days": ["MON", "TUES", "THUR"],
-          "endtime": "7:15pm",
+          "endtime": "7:30pm",
           "tags": {
             "days": ["THUR"],
             "tag": "nogi"
@@ -67,22 +98,17 @@
         {
           "label": ["Advanced/Drilling"],
           "days": ["WED"],
-          "endtime": "7:15pm"
-        },
-        {
-          "label": ["Open Mat", "Jiu-Jitsu"],
-          "days": ["FRI"],
-          "endtime": "7:15pm"
+          "endtime": "7:30pm"
         }
       ]
     },
     {
-      "name": "7:15pm",
+      "name": "7:30pm",
       "classes": [
         {
           "label": ["Live Training"],
           "days": ["MON", "TUES", "WED", "THUR"],
-          "endtime": "8:00pm",
+          "endtime": "8:15pm",
           "tags": {
             "days": ["MON", "TUES", "WED", "THUR"],
             "tag": "both"
