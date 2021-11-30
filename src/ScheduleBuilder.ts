@@ -131,6 +131,18 @@ export default class ScheduleBuilder {
         return this;
     }
 
+    insertBottomContent() {
+        if (!this.config.bottomContent) {
+            return "";
+        }
+
+        return `
+            <tr>
+                <td colspan="8" style="color: white;">${this.config.bottomContent}</td>
+            </tr>
+        `;
+    }
+
     generateTableHtmlContent() {
         if (!this.columnGroup || !this.headers || !this.scheduleRows) {
             throw new Error(
@@ -143,6 +155,7 @@ export default class ScheduleBuilder {
             ${this.columnGroup}
             ${this.headers}
             ${this.scheduleRows}
+            ${this.insertBottomContent()}
         </table>`;
 
         return this;
