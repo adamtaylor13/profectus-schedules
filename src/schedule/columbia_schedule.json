@@ -22,12 +22,17 @@
       "classes": [
         {
           "label": ["All Levels", "Jiu-Jitsu"],
-          "days": ["MON", "WED", "FRI"],
+          "days": ["MON", "TUES","WED", "FRI"],
           "endtime": "1:00pm",
           "tags": {
             "days": ["MON"],
             "tag": "nogi"
           }
+        },
+        {
+          "label": ["Open Mat", "Jiu-Jitsu"],
+          "days": ["THUR"],
+          "endtime": "1:00pm"
         },
         {
           "label": ["Judo Class"],
