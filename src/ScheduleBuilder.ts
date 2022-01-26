@@ -22,6 +22,11 @@ function getRowSpan(classHere) {
     return classHere.rowspan ? `rowspan="${classHere.rowspan}"` : "";
 }
 
+function renderEmptyContentCell(day, time) {
+    // Leave the day/time in the cell for clearer built files
+    return `<td class="content-cell"><!-- ${day} @ ${time.name} --></td>`;
+}
+
 export default class ScheduleBuilder {
     config;
     columnGroup;
@@ -116,7 +121,7 @@ export default class ScheduleBuilder {
                         day
                     )}" ${getRowSpan(classHere)}>${arr.join("<br>")}</td>`;
                 } else {
-                    return `<td class="content-cell"><!-- ${day} @ ${time.name} --></td>`;
+                    return renderEmptyContentCell(day, time);
                 }
             })
             .filter(Boolean) // Don't include empty rows
