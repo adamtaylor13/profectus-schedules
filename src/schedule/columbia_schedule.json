@@ -1,5 +1,5 @@
 {
-  "bodyWidth": "1200",
+  "bodyWidth": "1600",
   "thick": true,
   "times": [
     {
@@ -18,6 +18,26 @@
       ]
     },
     {
+      "name": "9:00am",
+      "classes": [
+        {
+          "label": ["Judo Class"],
+          "days": ["SAT"],
+          "endtime": "10:00am"
+        }
+      ]
+    },
+    {
+      "name": "10:00am",
+      "classes": [
+        {
+          "label": ["Open Mat", "Jiu-Jitsu"],
+          "days": ["SAT"],
+          "endtime": "11:00am"
+        }
+      ]
+    },
+    {
       "name": "12:00pm",
       "classes": [
         {
@@ -32,11 +52,6 @@
         {
           "label": ["Open Mat", "Jiu-Jitsu"],
           "days": ["THUR"],
-          "endtime": "1:00pm"
-        },
-        {
-          "label": ["Judo Class"],
-          "days": ["SUN"],
           "endtime": "1:00pm"
         }
       ]
