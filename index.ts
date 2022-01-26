@@ -2,13 +2,11 @@ import * as fs from "fs";
 import ScheduleBuilder from "./src/ScheduleBuilder";
 import CssGenerator from "./src/CssGenerator";
 import nodeHtmlToImage from "node-html-to-image";
-import { DEFAULT_READING_OPTIONS } from "./src/constants";
 import schedules from "./src/schedule";
 import { Schedule } from "./src/schedule";
 
 const DIST_SCHEDULE_DIR = "./dist/schedule/";
 const DIST_IMG_DIR = "./dist/img/";
-const SRC_SCHEDULE_DIR = "./src/schedule/";
 
 const css = new CssGenerator();
 

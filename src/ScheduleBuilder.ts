@@ -1,3 +1,5 @@
+import { DEFAULT_DAY_ORDER } from "./constants";
+
 function getClassForContentCell(classHere, day) {
     if (classHere.tags) {
         return classHere.tags.days.includes(day) ? classHere.tags.tag : "";
@@ -21,8 +23,6 @@ function getRowSpan(classHere) {
 }
 
 export default class ScheduleBuilder {
-    DEFAULT_SORTED_LIST = ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"];
-
     config;
     columnGroup;
     headers;
@@ -31,9 +31,7 @@ export default class ScheduleBuilder {
     cssGenerator;
 
     constructor(config, cssGenerator) {
-        if (!config.sortedList) {
-            config.sortedList = this.DEFAULT_SORTED_LIST;
-        }
+        config.sortedList = config.sortedList ?? DEFAULT_DAY_ORDER;
         this.config = config;
         this.cssGenerator = cssGenerator;
         return this;
