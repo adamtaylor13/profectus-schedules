@@ -116,8 +116,7 @@ export default class ScheduleBuilder {
                         day
                     )}" ${getRowSpan(classHere)}>${arr.join("<br>")}</td>`;
                 } else {
-                    // TODO: Add a comment in the empty cell for what day / time is empty
-                    return `<td class="content-cell"></td>`;
+                    return `<td class="content-cell"><!-- ${day} @ ${time.name} --></td>`;
                 }
             })
             .filter(Boolean) // Don't include empty rows
