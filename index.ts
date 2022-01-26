@@ -3,6 +3,8 @@ import ScheduleBuilder from "./src/ScheduleBuilder";
 import CssGenerator from "./src/CssGenerator";
 import nodeHtmlToImage from "node-html-to-image";
 import { DEFAULT_READING_OPTIONS } from "./src/constants";
+import schedules from "./src/schedule";
+import { Schedule } from "./src/schedule";
 
 const DIST_SCHEDULE_DIR = "./dist/schedule/";
 const DIST_IMG_DIR = "./dist/img/";
@@ -12,24 +14,16 @@ const css = new CssGenerator();
 
 clearDistAndRebuildEmptyDirs();
 
-fs.readdirSync(SRC_SCHEDULE_DIR).forEach((filename) => {
-    // TODO: Create a type for our configs
-    let config = JSON.parse(
-        fs.readFileSync(
-            `${SRC_SCHEDULE_DIR}${filename}`,
-            DEFAULT_READING_OPTIONS
-        )
-    );
-
-    const schedule = new ScheduleBuilder(config, css)
+schedules.forEach((scheduleConfig: Schedule) => {
+    const schedule = new ScheduleBuilder(scheduleConfig, css)
         .generateColGroup()
         .generateHeaders()
         .generateScheduleRows()
         .generateTableHtmlContent();
 
-    writeHtmlToDisk(filename, schedule.renderForWeb());
+    writeHtmlToDisk(scheduleConfig.distFilename, schedule.renderForWeb());
 
-    let pngFilename = filename.replace(".json", "") + ".png";
+    let pngFilename = scheduleConfig.distFilename.replace(".html", ".png");
     nodeHtmlToImage({
         output: DIST_IMG_DIR + pngFilename,
         html: schedule.renderForImg(),
@@ -40,10 +34,7 @@ fs.readdirSync(SRC_SCHEDULE_DIR).forEach((filename) => {
 
 // Write schedule to disk with styles
 function writeHtmlToDisk(filename, renderedHTMLWithCSS) {
-    let saveFilename = `${DIST_SCHEDULE_DIR}${filename.replace(
-        "json",
-        "html"
-    )}`;
+    let saveFilename = `${DIST_SCHEDULE_DIR}${filename}`;
     fs.writeFileSync(saveFilename, renderedHTMLWithCSS);
 }
 
