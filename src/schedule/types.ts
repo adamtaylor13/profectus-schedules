@@ -6,8 +6,7 @@ export type Day =
     | "FRI"
     | "SAT"
     | "SUN"
-    | "Monday - Friday"
-    | "Every Day";
+    | "Monday - Friday";
 
 // Vertical styling that correspond with a CSS class
 // ex. <td class="nogi" />

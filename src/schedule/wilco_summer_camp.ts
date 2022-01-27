@@ -11,7 +11,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Drop Off", "Breakfast", "Tech Time"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "8:00am",
                 },
             ],
@@ -21,7 +21,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Jiu-Jitsu Class"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "9:00",
                 },
             ],
@@ -31,7 +31,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Snack Time"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "9:30",
                 },
             ],
@@ -41,7 +41,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Planned Activity"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "11:00",
                 },
             ],
@@ -51,7 +51,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Lunch"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "12:00",
                 },
             ],
@@ -61,7 +61,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Move Time / Rest"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "2:00",
                 },
             ],
@@ -81,7 +81,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Free Time"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "3:30",
                 },
             ],
@@ -91,7 +91,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Clean Up"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "4:00",
                 },
             ],
@@ -101,7 +101,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Tech Time"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "5:00",
                 },
             ],
@@ -111,7 +111,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Jiu-Jitsu Class"],
-                    days: ["Every Day"],
+                    days: ["Monday - Friday"],
                     endtime: "6:30",
                 },
             ],
