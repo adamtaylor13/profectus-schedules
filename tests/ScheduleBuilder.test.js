@@ -1,6 +1,7 @@
 import ScheduleBuilder from "../src/ScheduleBuilder";
 import CssGenerator from "../src/CssGenerator";
 
+// TODO: This should be a ScheduleConfig type
 const MOCK_CONFIG = {
     bodyWidth: "808",
     sortedList: ["FRI", "MON", "WED", "TUES", "THUR", "SAT", "SUN"],

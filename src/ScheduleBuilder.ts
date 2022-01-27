@@ -2,6 +2,10 @@ import { DEFAULT_DAY_ORDER } from "./constants";
 import { Day, ScheduleConfig } from "./schedule";
 import { ClassDef, ClassTime } from "./schedule/types";
 
+/**
+ * TODO: Keep adding more strong typing
+ */
+
 function getClassForContentCell(classHere: ClassTime, day: Day) {
     if (classHere.tags) {
         return classHere.tags.days.includes(day) ? classHere.tags.tag : "";
