@@ -29,8 +29,7 @@ function renderEmptyContentCell(day, time) {
     return `<td class="content-cell"><!-- ${day} @ ${time.name} --></td>`;
 }
 
-function renderTableCells(day: Day, time: ClassDef): string {
-    let rowspanTracker: { [d in Day as string]: number } = {};
+function renderTableCells(rowspanTracker, day: Day, time: ClassDef): string {
     if (rowspanTracker[day]) {
         rowspanTracker[day]--;
         return "";
@@ -117,13 +116,14 @@ export default class ScheduleBuilder {
     }
 
     generateScheduleRows() {
+        let rowspanTracker: { [d in Day as string]: number } = {};
         this.scheduleRows = this.config.times
             .map(
                 (time) => `
     <tr ${this.config.thick ? `class="thick"` : ""}>
         <td class="time-cell">${time.name}</td>
         ${this.allSortedDays()
-            .map((day) => renderTableCells(day, time))
+            .map((day) => renderTableCells(rowspanTracker, day, time))
             .filter(Boolean) // Don't include empty rows
             .join("\n")}
     </tr>
