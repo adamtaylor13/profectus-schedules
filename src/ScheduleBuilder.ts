@@ -1,6 +1,8 @@
 import { DEFAULT_DAY_ORDER } from "./constants";
+import { Day, ScheduleConfig } from "./schedule";
+import { ClassDef, ClassTime } from "./schedule/types";
 
-function getClassForContentCell(classHere, day) {
+function getClassForContentCell(classHere: ClassTime, day: Day) {
     if (classHere.tags) {
         return classHere.tags.days.includes(day) ? classHere.tags.tag : "";
     } else {
@@ -8,7 +10,7 @@ function getClassForContentCell(classHere, day) {
     }
 }
 
-function getClassOnDay(classArray, day) {
+function getClassOnDay(classArray: ClassTime[], day: Day): ClassTime | false {
     return classArray.reduce(
         (acc, curr) => (acc ? acc : curr.days.includes(day) ? curr : false),
         false
@@ -27,6 +29,37 @@ function renderEmptyContentCell(day, time) {
     return `<td class="content-cell"><!-- ${day} @ ${time.name} --></td>`;
 }
 
+function renderTableCells(day: Day, time: ClassDef): string {
+    let rowspanTracker: { [d in Day as string]: number } = {};
+    if (rowspanTracker[day]) {
+        rowspanTracker[day]--;
+        return "";
+    }
+    const classHere: ClassTime | false = getClassOnDay(time.classes, day);
+
+    if (!classHere) {
+        return renderEmptyContentCell(day, time);
+    }
+
+    let { rowspan } = classHere;
+    if (rowspan) {
+        // TODO: Make this property something like "additionalRows" rather than rowspan?
+        let number = rowspan - 1; // TODO: Why do we do this?
+        rowspanTracker[day] =
+            rowspanTracker[day] === undefined
+                ? number
+                : rowspanTracker[day] + number;
+    }
+    let arr = [...classHere.label];
+    let name = classHere.nameOverride ? classHere.nameOverride : time.name;
+    arr.push(`${trimTimePeriod(name)}-${classHere.endtime}`);
+    const multilineContent = arr.join("<br>");
+
+    const classForContentCell = getClassForContentCell(classHere, day);
+    const rowSpan = getRowSpan(classHere);
+    return `<td class="content-cell ${classForContentCell}" ${rowSpan}>${multilineContent}</td>`;
+}
+
 export default class ScheduleBuilder {
     config;
     columnGroup;
@@ -35,7 +68,7 @@ export default class ScheduleBuilder {
     fullHtmlContent;
     cssGenerator;
 
-    constructor(config, cssGenerator) {
+    constructor(config: ScheduleConfig, cssGenerator) {
         config.sortedList = config.sortedList ?? DEFAULT_DAY_ORDER;
         this.config = config;
         this.cssGenerator = cssGenerator;
@@ -43,17 +76,14 @@ export default class ScheduleBuilder {
     }
 
     // TODO: Is this memoized or called every damn time?
-    allSortedDays() {
-        let allDaysWithDupes: string[] = this.config.times.reduce(
-            (acc, curr) => {
-                let allClassDays = curr.classes.reduce(
-                    (acc2, curr2) => [...acc2, ...curr2.days],
-                    []
-                );
-                return [...acc, ...allClassDays];
-            },
-            []
-        );
+    allSortedDays(): Day[] {
+        let allDaysWithDupes: Day[] = this.config.times.reduce((acc, curr) => {
+            let allClassDays: Day[] = curr.classes.reduce(
+                (acc2, curr2) => [...acc2, ...curr2.days],
+                []
+            );
+            return [...acc, ...allClassDays];
+        }, []);
 
         return [...new Set(allDaysWithDupes)].sort((a, b) => {
             return this.config.sortedList.indexOf(a) >
@@ -87,43 +117,13 @@ export default class ScheduleBuilder {
     }
 
     generateScheduleRows() {
-        let rowspanTracker = {};
         this.scheduleRows = this.config.times
             .map(
-                (time) =>
-                    `
+                (time) => `
     <tr ${this.config.thick ? `class="thick"` : ""}>
         <td class="time-cell">${time.name}</td>
         ${this.allSortedDays()
-            .map((day) => {
-                if (rowspanTracker[day]) {
-                    rowspanTracker[day]--;
-                    return "";
-                }
-                const classHere = getClassOnDay(time.classes, day);
-                if (classHere) {
-                    let { rowspan } = classHere;
-                    if (rowspan) {
-                        // TODO: Make this property something like "additionalRows" rather than rowspan?
-                        let number = parseInt(rowspan) - 1;
-                        rowspanTracker[day] =
-                            rowspanTracker[day] === undefined
-                                ? number
-                                : rowspanTracker[day] + number;
-                    }
-                    let arr = [...classHere.label];
-                    let name = classHere.nameOverride
-                        ? classHere.nameOverride
-                        : time.name;
-                    arr.push(`${trimTimePeriod(name)}-${classHere.endtime}`);
-                    return `<td class="content-cell ${getClassForContentCell(
-                        classHere,
-                        day
-                    )}" ${getRowSpan(classHere)}>${arr.join("<br>")}</td>`;
-                } else {
-                    return renderEmptyContentCell(day, time);
-                }
-            })
+            .map((day) => renderTableCells(day, time))
             .filter(Boolean) // Don't include empty rows
             .join("\n")}
     </tr>
