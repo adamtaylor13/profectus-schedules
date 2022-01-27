@@ -1,6 +1,6 @@
-import { Schedule } from "./types";
+import { ScheduleConfig } from "./types";
 
-export const ColumbiaSchedule: Schedule = {
+export const ColumbiaSchedule: ScheduleConfig = {
     distFilename: "columbia_schedule.html",
     bodyWidth: "1600",
     thick: true,

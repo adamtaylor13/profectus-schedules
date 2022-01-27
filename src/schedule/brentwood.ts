@@ -1,6 +1,6 @@
-import { Schedule } from "./types";
+import { ScheduleConfig } from "./types";
 
-export const BrentwoodSchedule: Schedule = {
+export const BrentwoodSchedule: ScheduleConfig = {
     distFilename: "brentwood_schedule.html",
     bodyWidth: "1500",
     sortedList: ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"],

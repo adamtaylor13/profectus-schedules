@@ -30,7 +30,7 @@ export type ClassDef = {
     classes: ClassTime[];
 };
 
-export type Schedule = {
+export type ScheduleConfig = {
     distFilename: string; // The resulting filename from building the schedule
     bodyWidth: "1200" | "1500" | "1600"; // Does this need to be defined? Can it just be a string?
     thick?: boolean;

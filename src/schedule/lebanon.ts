@@ -1,6 +1,6 @@
-import { Schedule } from "./types";
+import { ScheduleConfig } from "./types";
 
-export const LebanonSchedule: Schedule = {
+export const LebanonSchedule: ScheduleConfig = {
     distFilename: "lebanon_schedule.html",
     bodyWidth: "1500",
     times: [

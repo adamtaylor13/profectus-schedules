@@ -1,6 +1,6 @@
-import { Schedule } from "./types";
+import { ScheduleConfig } from "./types";
 
-export const FairviewSchedule: Schedule = {
+export const FairviewSchedule: ScheduleConfig = {
     distFilename: "fairview_schedule.html",
     bodyWidth: "1200",
     times: [

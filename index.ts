@@ -3,7 +3,7 @@ import ScheduleBuilder from "./src/ScheduleBuilder";
 import CssGenerator from "./src/CssGenerator";
 import nodeHtmlToImage from "node-html-to-image";
 import schedules from "./src/schedule";
-import { Schedule } from "./src/schedule";
+import { ScheduleConfig } from "./src/schedule";
 
 const DIST_SCHEDULE_DIR = "./dist/schedule/";
 const DIST_IMG_DIR = "./dist/img/";
@@ -12,7 +12,7 @@ const css = new CssGenerator();
 
 clearDistAndRebuildEmptyDirs();
 
-schedules.forEach((scheduleConfig: Schedule) => {
+schedules.forEach((scheduleConfig: ScheduleConfig) => {
     const schedule = new ScheduleBuilder(scheduleConfig, css)
         .generateColGroup()
         .generateHeaders()

@@ -1,6 +1,6 @@
-import { Schedule } from "./types";
+import { ScheduleConfig } from "./types";
 
-export const WilcoSummerCampSchedule: Schedule = {
+export const WilcoSummerCampSchedule: ScheduleConfig = {
     distFilename: "wilco_summer_camp_schedule.html",
     bodyWidth: "1500",
     bottomContent:
