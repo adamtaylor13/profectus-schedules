@@ -1,5 +1,5 @@
-const { CssGenerator } = require("../src/CssGenerator");
-const { ScheduleBuilder } = require("../src/ScheduleBuilder");
+import ScheduleBuilder from "../src/ScheduleBuilder";
+import CssGenerator from "../src/CssGenerator";
 
 const MOCK_CONFIG = {
     bodyWidth: "808",
@@ -40,7 +40,7 @@ const MOCK_CONFIG = {
 };
 
 test("it sets a default sorted list", () => {
-    const schedule = new ScheduleBuilder({});
+    const schedule = new ScheduleBuilder({}, new CssGenerator());
     expect(schedule.config.sortedList).toEqual([
         "SUN",
         "MON",
@@ -53,7 +53,7 @@ test("it sets a default sorted list", () => {
 });
 
 test("it recursively gets and sorts all days within a times structure", () => {
-    const schedule = new ScheduleBuilder(MOCK_CONFIG);
+    const schedule = new ScheduleBuilder(MOCK_CONFIG, new CssGenerator());
     expect(schedule.allSortedDays()).toEqual([
         "FRI",
         "MON",
@@ -64,7 +64,7 @@ test("it recursively gets and sorts all days within a times structure", () => {
 });
 
 test("it throws if you haven't run the necessary generations first", () => {
-    const schedule = new ScheduleBuilder(MOCK_CONFIG);
+    const schedule = new ScheduleBuilder(MOCK_CONFIG, new CssGenerator());
 
     expect(() => schedule.generateTableHtmlContent()).toThrow();
     schedule.generateColGroup();
@@ -155,7 +155,7 @@ test("it generates full table html for web", () => {
     text-align: center;
     background-color: rgba(255,255,255,0.42);
 }
-.content-cell.nogi {
+.content-cell.nogi, .content-cell.both {
     padding-left: 23px;
 }
 .header {
@@ -173,7 +173,7 @@ test("it generates full table html for web", () => {
     text-align: center;
     font-weight: bold;
 }
-.nogi {
+.nogi,.both {
     position: relative;
 }
 .nogi::before {
@@ -185,11 +185,28 @@ test("it generates full table html for web", () => {
     top: 0;
     bottom: 0;
 }
+.both::before {
+    content: \\" \\";
+    position: absolute;
+    background: #4527c9;
+    left: 0;
+    width: 20px;
+    top: 0;
+    bottom: 0;
+}
 .nogi::after {
     content: \\"NO-GI\\";
     position: absolute;
     left: -10px;
     top: 50%;
+    transform: rotate(270deg) translateX(20%);
+    font-size: 14px !important;
+}
+.both::after {
+    content: \\"GI + NO-GI\\";
+    position: absolute;
+    left: -26px;
+    top: 54%;
     transform: rotate(270deg) translateX(20%);
     font-size: 14px !important;
 }
@@ -226,21 +243,22 @@ tr.thick > .content-cell {
             
     <tr >
         <td class=\\"time-cell\\">foo</td>
-        <td class=\\"content-cell\\"></td>
+        <td class=\\"content-cell\\"><!-- FRI @ foo --></td>
 <td class=\\"content-cell \\" rowspan=\\"2\\">FOO LABEL<br>foo-whenever</td>
 <td class=\\"content-cell \\" >FOO 2 LABEL<br>kuzco-you want</td>
 <td class=\\"content-cell \\" rowspan=\\"2\\">FOO LABEL<br>foo-whenever</td>
-<td class=\\"content-cell\\"></td>
+<td class=\\"content-cell\\"><!-- THUR @ foo --></td>
     </tr>
     
 
     <tr >
         <td class=\\"time-cell\\">bar</td>
         <td class=\\"content-cell \\" >BAR LABEL<br>bar-today?</td>
-<td class=\\"content-cell\\"></td>
+<td class=\\"content-cell\\"><!-- WED @ bar --></td>
 <td class=\\"content-cell nogi\\" >BAR LABEL<br>bar-today?</td>
     </tr>
     
+            
         </table>
         </div>"
 `);
@@ -314,7 +332,7 @@ test("it generates full table html for img", () => {
     text-align: center;
     background-color: rgba(255,255,255,0.42);
 }
-.content-cell.nogi {
+.content-cell.nogi, .content-cell.both {
     padding-left: 23px;
 }
 .header {
@@ -332,7 +350,7 @@ test("it generates full table html for img", () => {
     text-align: center;
     font-weight: bold;
 }
-.nogi {
+.nogi,.both {
     position: relative;
 }
 .nogi::before {
@@ -344,11 +362,28 @@ test("it generates full table html for img", () => {
     top: 0;
     bottom: 0;
 }
+.both::before {
+    content: \\" \\";
+    position: absolute;
+    background: #4527c9;
+    left: 0;
+    width: 20px;
+    top: 0;
+    bottom: 0;
+}
 .nogi::after {
     content: \\"NO-GI\\";
     position: absolute;
     left: -10px;
     top: 50%;
+    transform: rotate(270deg) translateX(20%);
+    font-size: 14px !important;
+}
+.both::after {
+    content: \\"GI + NO-GI\\";
+    position: absolute;
+    left: -26px;
+    top: 54%;
     transform: rotate(270deg) translateX(20%);
     font-size: 14px !important;
 }
@@ -396,21 +431,22 @@ tr.thick > .content-cell {
             
     <tr >
         <td class=\\"time-cell\\">foo</td>
-        <td class=\\"content-cell\\"></td>
+        <td class=\\"content-cell\\"><!-- FRI @ foo --></td>
 <td class=\\"content-cell \\" rowspan=\\"2\\">FOO LABEL<br>foo-whenever</td>
 <td class=\\"content-cell \\" >FOO 2 LABEL<br>kuzco-you want</td>
 <td class=\\"content-cell \\" rowspan=\\"2\\">FOO LABEL<br>foo-whenever</td>
-<td class=\\"content-cell\\"></td>
+<td class=\\"content-cell\\"><!-- THUR @ foo --></td>
     </tr>
     
 
     <tr >
         <td class=\\"time-cell\\">bar</td>
         <td class=\\"content-cell \\" >BAR LABEL<br>bar-today?</td>
-<td class=\\"content-cell\\"></td>
+<td class=\\"content-cell\\"><!-- WED @ bar --></td>
 <td class=\\"content-cell nogi\\" >BAR LABEL<br>bar-today?</td>
     </tr>
     
+            
         </table>
         </div>"
 `);
