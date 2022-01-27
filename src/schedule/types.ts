@@ -1,4 +1,4 @@
-type Day =
+export type Day =
     | "MON"
     | "TUES"
     | "WED"
@@ -13,7 +13,7 @@ type Day =
 // ex. <td class="nogi" />
 type Tag = "nogi" | "both";
 
-type ClassTime = {
+export type ClassTime = {
     label: string[];
     days: Day[];
     endtime: string;
@@ -25,7 +25,7 @@ type ClassTime = {
     };
 };
 
-type ClassDef = {
+export type ClassDef = {
     name: string;
     classes: ClassTime[];
 };
