@@ -6,8 +6,9 @@
 var currentScript = document.currentScript;
 var scheduleLocation =
     currentScript.attributes["data-schedule-location"].nodeValue;
-var SCHEDULE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/schedule/${scheduleLocation}_schedule.html`;
-var IMAGE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/main/dist/img/${scheduleLocation}_schedule.png`;
+var branch = currentScript.attributes["data-branch"].nodeValue;
+var SCHEDULE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/${branch}/dist/schedule/${scheduleLocation}_schedule.html`;
+var IMAGE_URL = `https://raw.githubusercontent.com/adamtaylor13/profectus-schedules/${branch}/dist/img/${scheduleLocation}_schedule.png`;
 var xhr = new XMLHttpRequest();
 
 var screenTooSmall = window.outerWidth <= 1000;
