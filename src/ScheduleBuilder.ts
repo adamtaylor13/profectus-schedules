@@ -105,7 +105,7 @@ export default class ScheduleBuilder {
                 )) {
                     let dayMapElementElement = this.timeMap[time][day];
                     eventualFoo.push(
-                        dayMapElementElement ?? [{ label: "EMPTY_RENDER " }]
+                        dayMapElementElement ?? [{ label: "EMPTY_RENDER" }]
                     );
                 }
                 rows.push({ rowKey: time, cols: eventualFoo });
@@ -252,7 +252,7 @@ export default class ScheduleBuilder {
                     const multilineContent = arr.join("<br>");
                     let span = self.getSpan(classTime);
                     // prettier-ignore
-                    return `<td class="content-cell${classForContentCell}" ${span}>${multilineContent}</td>`;
+                    return `<td class="content-cell ${classForContentCell}" ${span}>${multilineContent}</td>`;
                 }
             }
         });

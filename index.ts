@@ -70,7 +70,7 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
                 timeMap[name][day].push({
                     ...classRest,
                     day,
-                    starttime: name,
+                    time: name,
                     span,
                 });
             }
