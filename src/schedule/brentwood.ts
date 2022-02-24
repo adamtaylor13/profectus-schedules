@@ -28,7 +28,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
             name: "10:00am",
             classes: [
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["Yoga"],
                     days: ["SAT"],
                     endtime: "11:00am",
@@ -39,7 +39,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
             name: "10:30am",
             classes: [
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["L.E.O. Training"],
                     days: ["TUES"],
                     endtime: "11:30am",
@@ -54,7 +54,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
             name: "11:00am",
             classes: [
                 {
-                    rowspan: 3,
+                    stretch: 3,
                     label: ["Open Mat"],
                     days: ["SAT"],
                     endtime: "1:00pm",
@@ -69,7 +69,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
             name: "12:00pm",
             classes: [
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["Competition Live Training"],
                     days: ["TUES", "THUR"],
                     endtime: "1:30pm",
@@ -89,7 +89,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                     endtime: "1:00pm",
                 },
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["All Levels"],
                     days: ["SUN"],
                     endtime: "2:00pm",
@@ -110,7 +110,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
             name: "2:00pm",
             classes: [
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["Yoga"],
                     days: ["SUN"],
                     endtime: "3:00pm",
@@ -154,7 +154,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
             name: "6:00pm",
             classes: [
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["Open Mat"],
                     days: ["FRI"],
                     endtime: "7:00pm",
@@ -165,13 +165,13 @@ export const BrentwoodSchedule: ScheduleConfig = {
             name: "6:15pm",
             classes: [
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["All Levels /", "Fundamentals"],
                     days: ["MON", "WED"],
                     endtime: "7:15pm",
                 },
                 {
-                    rowspan: 3,
+                    stretch: 3,
                     label: ["All Levels"],
                     days: ["TUES"],
                     endtime: "7:30pm",
@@ -181,7 +181,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                     },
                 },
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["Fundamentals"],
                     days: ["THUR"],
                     endtime: "7:15pm",
@@ -200,13 +200,13 @@ export const BrentwoodSchedule: ScheduleConfig = {
             name: "7:15pm",
             classes: [
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["Jiu Jitsu Practice"],
                     days: ["MON", "WED"],
                     endtime: "8:15pm",
                 },
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["Open Mat"],
                     days: ["THUR"],
                     endtime: "9:00pm",

@@ -102,7 +102,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
             name: "6:15pm",
             classes: [
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["Open Mat", "Jiu-Jitsu"],
                     days: ["FRI"],
                     endtime: "7:15pm",

@@ -18,7 +18,7 @@ export type ClassTime = {
     days: Day[];
     endtime: string;
     nameOverride?: string;
-    rowspan?: number;
+    stretch?: number; // The number of blocks this schedule should span
     tags?: {
         days: Day[];
         tag: Tag;

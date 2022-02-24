@@ -48,7 +48,7 @@ export const LebanonSchedule: ScheduleConfig = {
             name: "5:30pm",
             classes: [
                 {
-                    rowspan: 2,
+                    stretch: 2,
                     label: ["Little Dragons"],
                     days: ["MON", "TUES", "WED", "THUR", "FRI"],
                     endtime: "6:30pm",

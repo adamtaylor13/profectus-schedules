@@ -19,15 +19,6 @@ function trimTimePeriod(name) {
     return name.replace(/[ap]m/g, "");
 }
 
-function getRowSpan(classHere) {
-    return classHere.rowspan ? `rowspan="${classHere.rowspan}"` : "";
-}
-
-function renderEmptyContentCell(day, time, minColspan) {
-    // Leave the day/time in the cell for clearer built files
-    return `<td class="content-cell" colspan="${minColspan}"><!-- ${day} @ ${time} --></td>`;
-}
-
 export default class ScheduleBuilder {
     config;
     columnGroup;
@@ -118,7 +109,7 @@ export default class ScheduleBuilder {
 
     generateScheduleRows() {
         let self = this;
-        let rowspanTracker: { [d in Day as string]: number } = {};
+        let dayspanTracker: { [d in Day as string]: number } = {};
         this.scheduleRows = this.sortedYAxis()
             .map(
                 (yAxisKey) => `
@@ -129,7 +120,7 @@ export default class ScheduleBuilder {
                 let maxClassesAtThisTime =
                     self.xAxis[xAxisKey][yAxisKey]?.length ?? 1; // TODO: This is because sometimes it's emtpy (i.e. no definition)
                 return this.renderTableCells(
-                    rowspanTracker,
+                    dayspanTracker,
                     self.yAxis,
                     yAxisKey,
                     self.xAxis,
@@ -148,18 +139,18 @@ export default class ScheduleBuilder {
 
     // TODO: Refactor to use class references
     renderTableCells(
-        rowspanTracker,
+        dayspanTracker,
         yAxis,
         yAxisKey,
         xAxis,
         xAxisKey,
-        minColspan: number
+        maxSimulClassNum: number
     ) {
         const day = this.getDaySeriesKey(xAxisKey, yAxisKey);
         const time = this.getTimeSeriesKey(xAxisKey, yAxisKey);
 
-        if (rowspanTracker[yAxisKey]) {
-            rowspanTracker[yAxisKey]--;
+        if (dayspanTracker[day]) {
+            dayspanTracker[day]--;
             return "";
         }
 
@@ -171,18 +162,18 @@ export default class ScheduleBuilder {
         );
 
         if (!classesHere?.length) {
-            return renderEmptyContentCell(day, time, minColspan);
+            return this.renderEmptyContentCell(day, time, maxSimulClassNum);
         }
 
         return classesHere.map((classHere) => {
-            let { rowspan } = classHere;
-            if (rowspan) {
+            let { stretch } = classHere;
+            if (stretch) {
                 // TODO: Make this property something like "additionalRows" rather than rowspan?
-                let number = rowspan - 1; // TODO: Why do we do this?
-                rowspanTracker[day] =
-                    rowspanTracker[day] === undefined
+                let number = stretch - 1; // TODO: Why do we do this?
+                dayspanTracker[day] =
+                    dayspanTracker[day] === undefined
                         ? number
-                        : rowspanTracker[day] + number;
+                        : dayspanTracker[day] + number;
             }
             let arr = [...classHere.label];
             let time = classHere.nameOverride
@@ -192,13 +183,22 @@ export default class ScheduleBuilder {
             const multilineContent = arr.join("<br>");
 
             const classForContentCell = getClassForContentCell(classHere, day);
-            // TODO: How to handle inverted spanning?
-            const rowSpan = getRowSpan(classHere);
+
+            const rowspan = classHere.stretch
+                ? `rowspan="${classHere.stretch}"`
+                : "";
+            const colspan = `colspan="${maxSimulClassNum}"`;
+
             return `<td class="content-cell 
                 ${classForContentCell}" 
-                ${rowSpan} 
-                colspan="${minColspan}">${multilineContent}</td>`;
+                ${rowspan} 
+                ${colspan}>${multilineContent}</td>`;
         });
+    }
+
+    renderEmptyContentCell(day, time, maxSimulClasses) {
+        // Leave the day/time in the cell for clearer built files
+        return `<td class="content-cell" colspan="${maxSimulClasses}"><!-- ${day} @ ${time} --></td>`;
     }
 
     insertBottomContent() {
