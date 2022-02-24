@@ -34,7 +34,7 @@ clearDistAndRebuildEmptyDirs();
 schedules.forEach((scheduleConfig: ScheduleConfig) => {
     const dayMap = {};
     const timeMap = {};
-    let maxNumSimultaneousClasses = 1;
+    let maxNumSimultaneousClasses = scheduleConfig.maxSimultaneousClasses ?? 1;
 
     for (const time of scheduleConfig.times) {
         const { name } = time;
@@ -48,10 +48,6 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
                 dayMap[day] = dayMap[day] ?? {};
                 if (dayMap[day][name]) {
                     let numClasses = dayMap[day][name].length + 1; // +1 because this class is going in the list
-                    maxNumSimultaneousClasses = Math.max(
-                        numClasses,
-                        maxNumSimultaneousClasses
-                    );
                     span = maxNumSimultaneousClasses / numClasses;
                     dayMap[day][name].push({
                         ...classRest,
@@ -66,13 +62,27 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
                     dayMap[day][name].push({ ...classRest, time: name });
                 }
 
-                timeMap[name][day] = timeMap[name][day] ?? [];
-                timeMap[name][day].push({
-                    ...classRest,
-                    day,
-                    time: name,
-                    span,
-                });
+                if (timeMap[name][day]) {
+                    let numClasses = timeMap[name][day].length + 1;
+                    span = maxNumSimultaneousClasses / numClasses;
+                    timeMap[name][day].push({
+                        ...classRest,
+                        day,
+                        time: name,
+                        span,
+                    });
+                    timeMap[name][day].forEach((classTime, index) => {
+                        timeMap[name][day][index] = { ...classTime, span };
+                    });
+                } else {
+                    timeMap[name][day] = [];
+                    timeMap[name][day].push({
+                        ...classRest,
+                        day,
+                        time: name,
+                        span,
+                    });
+                }
             }
         }
     }

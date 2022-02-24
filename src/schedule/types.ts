@@ -38,6 +38,7 @@ export type ScheduleConfig = {
     times: ClassDef[];
     bottomContent?: string; // Notes at the bottom of the schedule
     sortedList?: Day[]; // Change the ordering of the days from standard layout
+    maxSimultaneousClasses?: number;
 };
 
 export type Col = ClassTime;

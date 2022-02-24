@@ -201,7 +201,12 @@ export default class ScheduleBuilder {
             .map((row) => {
                 let rowKey = row.rowKey === "SIMUL" ? "" : row.rowKey;
                 let flatMap = row.cols.flatMap((foo) => self.renderColumn(foo));
-                let span = row.rowKey === "SIMUL" ? "" : self.getSpan({});
+                let span =
+                    row.rowKey === "SIMUL"
+                        ? ""
+                        : self.config.invert
+                        ? self.getSpan({})
+                        : ""; // Only the day headers inherit span settings
                 let s =
                     row.rowKey === "SIMUL"
                         ? ""
