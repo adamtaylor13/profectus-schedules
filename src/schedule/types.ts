@@ -13,6 +13,7 @@ export type Day =
 type Tag = "nogi" | "both";
 
 export type ClassTime = {
+    uuid?: string;
     label: string[];
     days: Day[];
     endtime: string;
@@ -31,7 +32,7 @@ export type ClassDef = {
 
 export type ScheduleConfig = {
     distFilename: string; // The resulting filename from building the schedule
-    bodyWidth: "1200" | "1500" | "1600"; // Does this need to be defined? Can it just be a string?
+    bodyWidth: "1200" | "1500" | "1600" | "2400"; // Does this need to be defined? Can it just be a string?
     thick?: boolean;
     times: ClassDef[];
     bottomContent?: string; // Notes at the bottom of the schedule

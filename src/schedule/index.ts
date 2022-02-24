@@ -8,10 +8,10 @@ import { ScheduleConfig, Day } from "./types";
 
 export { ScheduleConfig, Day };
 export default [
-    BrentwoodSchedule,
+    // BrentwoodSchedule,
     ColumbiaSchedule,
-    FairviewSchedule,
-    LebanonSchedule,
-    WilcoAfterSchoolSchedule,
-    WilcoSummerCampSchedule,
+    // FairviewSchedule,
+    // LebanonSchedule,
+    // WilcoAfterSchoolSchedule,
+    // WilcoSummerCampSchedule,
 ];

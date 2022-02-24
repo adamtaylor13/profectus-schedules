@@ -2,7 +2,7 @@ import { ScheduleConfig } from "./types";
 
 export const ColumbiaSchedule: ScheduleConfig = {
     distFilename: "columbia_schedule.html",
-    bodyWidth: "1600",
+    bodyWidth: "2400",
     thick: true,
     times: [
         {
@@ -73,18 +73,14 @@ export const ColumbiaSchedule: ScheduleConfig = {
             name: "5:00pm",
             classes: [
                 {
-                    nameOverride: "5:30pm",
-                    rowspan: 2,
-                    label: [
-                        "Big Kids",
-                        "5:00-5:55pm",
-                        "",
-                        "---",
-                        "",
-                        "Little Kids",
-                    ],
-                    days: ["MON", "TUES", "WED", "THUR"],
-                    endtime: "5:55pm",
+                    label: ["Kids 1", "(3-5 years)", "Mat 1"],
+                    days: ["MON", "WED"],
+                    endtime: "6:00pm",
+                },
+                {
+                    label: ["Kids 3", "(9-14 years)", "Mat 2"],
+                    days: ["MON", "WED"],
+                    endtime: "6:00pm",
                 },
             ],
         },
