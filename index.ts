@@ -1,8 +1,10 @@
 import * as fs from "fs";
 import ScheduleBuilder from "./src/ScheduleBuilder";
 import CssGenerator from "./src/CssGenerator";
-import nodeHtmlToImage from "node-html-to-image";
 import schedules, { ScheduleConfig } from "./src/schedule";
+import { DEFAULT_DAY_ORDER } from "./src/constants";
+import { orderBySortedList, timeSort } from "./src/tools";
+import * as util from "util";
 
 const DIST_SCHEDULE_DIR = "./dist/schedule/";
 const DIST_IMG_DIR = "./dist/img/";
@@ -42,20 +44,35 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
             // @ts-ignore - TODO: How do I make TS recognize this?
             classRest.uuid = JSON.stringify(clazz).hashCode();
             for (const day of days) {
+                let span = maxNumSimultaneousClasses;
                 dayMap[day] = dayMap[day] ?? {};
                 if (dayMap[day][name]) {
-                    dayMap[day][name].push({ ...classRest, time: name });
+                    let numClasses = dayMap[day][name].length + 1; // +1 because this class is going in the list
                     maxNumSimultaneousClasses = Math.max(
-                        dayMap[day][name].length,
+                        numClasses,
                         maxNumSimultaneousClasses
                     );
+                    span = maxNumSimultaneousClasses / numClasses;
+                    dayMap[day][name].push({
+                        ...classRest,
+                        time: name,
+                        span: span,
+                    });
+                    dayMap[day][name].forEach((classTime, index) => {
+                        dayMap[day][name][index] = { ...classTime, span };
+                    });
                 } else {
                     dayMap[day][name] = [];
                     dayMap[day][name].push({ ...classRest, time: name });
                 }
 
                 timeMap[name][day] = timeMap[name][day] ?? [];
-                timeMap[name][day].push({ ...classRest, day });
+                timeMap[name][day].push({
+                    ...classRest,
+                    day,
+                    starttime: name,
+                    span,
+                });
             }
         }
     }
@@ -64,12 +81,76 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
     const xAxis = dayMap;
     const yAxis = timeMap;
 
+    // console.log("dayMap", dayMap);
+    let rows = [];
+    let secondClass;
+
+    // For invert where rows === days
+    // for (const day of Object.keys(dayMap).sort(
+    //     orderBySortedList(DEFAULT_DAY_ORDER)
+    // )) {
+    //     let columns = [];
+    //     let simultaneousColumns = [];
+    //
+    //     for (const time of Object.keys(timeMap)) {
+    //         let dayMapElementElement = dayMap[day][time] ?? [
+    //             { label: "EMPTY_CELL" },
+    //         ];
+    //
+    //         // TODO: WIll fail with more than 2 simul classes
+    //         let hasSimulClass = dayMapElementElement[1];
+    //         if (hasSimulClass) {
+    //             let [firstClass, secondClass] = dayMapElementElement;
+    //             columns.push([firstClass]);
+    //             simultaneousColumns.push([secondClass]);
+    //         } else {
+    //             columns.push(dayMapElementElement);
+    //             simultaneousColumns.push([{ label: "NO_RENDER" }]);
+    //         }
+    //     }
+    //
+    //     rows.push({ rowKey: day, cols: columns });
+    //     let theSimultaneousRow = {
+    //         rowKey: "SIMUL",
+    //         cols: simultaneousColumns,
+    //     };
+    //     // Should only contain the single class being on the next row
+    //     rows.push(theSimultaneousRow);
+    // }
+
+    let invert = false;
+
+    // For regular where rows === time
+    // for (const time of Object.keys(timeMap).sort(timeSort)) {
+    //     let eventualFoo = [];
+    //     for (const day of Object.keys(dayMap).sort(
+    //         orderBySortedList(DEFAULT_DAY_ORDER)
+    //     )) {
+    //         let dayMapElementElement = timeMap[time][day];
+    //         eventualFoo.push(
+    //             dayMapElementElement ?? [{ label: "EMPTY_RENDER " }]
+    //             // JSON.parse(
+    //             //     `[${`{ "label": "EMPTY_RENDER" },`
+    //             //         .repeat(maxNumSimultaneousClasses)
+    //             //         .slice(0, -1)}]`
+    //             // )
+    //         );
+    //     }
+    //     rows.push({ rowKey: time, cols: eventualFoo });
+    // }
+
+    // rows.forEach((row) => {
+    //     console.log("row", util.inspect(row, false, null, true));
+    // });
+    // console.log(invert ? "rows" : "cols", rows.length);
+    // console.log("timeMap", timeMap);
+
     const schedule = new ScheduleBuilder({
         scheduleConfig,
         cssGenerator,
-        xAxis,
-        yAxis,
-        minColspan: maxNumSimultaneousClasses
+        timeMap,
+        dayMap,
+        minColspan: maxNumSimultaneousClasses,
     })
         .generateColGroup()
         .generateHeaders()
@@ -78,13 +159,13 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
 
     writeHtmlToDisk(scheduleConfig.distFilename, schedule.renderForWeb());
 
-    let pngFilename = scheduleConfig.distFilename.replace(".html", ".png");
-    nodeHtmlToImage({
-        output: DIST_IMG_DIR + pngFilename,
-        html: schedule.renderForImg(),
-    }).then(() =>
-        console.log(`Image: ${pngFilename} was created successfully!`)
-    );
+    // let pngFilename = scheduleConfig.distFilename.replace(".html", ".png");
+    // nodeHtmlToImage({
+    //     output: DIST_IMG_DIR + pngFilename,
+    //     html: schedule.renderForImg(),
+    // }).then(() =>
+    //     console.log(`Image: ${pngFilename} was created successfully!`)
+    // );
 });
 
 // Write schedule to disk with styles
@@ -98,4 +179,7 @@ function clearDistAndRebuildEmptyDirs() {
     fs.rmdirSync(DIST_IMG_DIR, { recursive: true });
     fs.mkdirSync(DIST_SCHEDULE_DIR);
     fs.mkdirSync(DIST_IMG_DIR);
+}
+function noEmptyRenders({ label }) {
+    return label !== "EMPTY_RENDER";
 }

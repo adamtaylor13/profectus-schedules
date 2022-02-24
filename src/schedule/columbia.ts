@@ -4,6 +4,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
     distFilename: "columbia_schedule.html",
     bodyWidth: "2400",
     thick: true,
+    invert: true,
     times: [
         {
             name: "6:00am",
@@ -92,6 +93,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
             name: "6:00pm",
             classes: [
                 {
+                    stretch: 2,
                     label: ["Drilling"],
                     days: ["MON", "TUES", "WED", "THUR"],
                     endtime: "6:30pm",

@@ -39,3 +39,10 @@ export type ScheduleConfig = {
     bottomContent?: string; // Notes at the bottom of the schedule
     sortedList?: Day[]; // Change the ordering of the days from standard layout
 };
+
+export type Col = ClassTime;
+
+export type Row = {
+    rowKey: string;
+    cols: Array<Array<Col>>;
+};
