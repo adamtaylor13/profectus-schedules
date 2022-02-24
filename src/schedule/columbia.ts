@@ -113,17 +113,13 @@ export const ColumbiaSchedule: ScheduleConfig = {
             name: "6:30pm",
             classes: [
                 {
-                    label: ["All Levels", "Jiu-Jitsu"],
-                    days: ["MON", "TUES", "THUR"],
+                    label: ["Gi Beginner", "Adult / Teen", "Mat 1"],
+                    days: ["MON", "WED"],
                     endtime: "7:30pm",
-                    tags: {
-                        days: ["THUR"],
-                        tag: "nogi",
-                    },
                 },
                 {
-                    label: ["Advanced/Drilling"],
-                    days: ["WED"],
+                    label: ["Gi Intermediate", "Adult", "Mat 2"],
+                    days: ["MON", "WED"],
                     endtime: "7:30pm",
                 },
             ],

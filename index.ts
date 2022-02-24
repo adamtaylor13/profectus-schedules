@@ -27,6 +27,10 @@ String.prototype.hashCode = function () {
 
 clearDistAndRebuildEmptyDirs();
 
+// TODO: Make a hashmap of classes so that it's easier to work with in schedule builder
+// TODO: Pre-generate minColspan
+// TODO: Pre-generate allSortedDays
+
 schedules.forEach((scheduleConfig: ScheduleConfig) => {
     const schedule = new ScheduleBuilder(scheduleConfig, css)
         .generateColGroup()
