@@ -1,6 +1,7 @@
 import { DEFAULT_DAY_ORDER } from "./constants";
-import { Day, ScheduleConfig } from "./schedule";
-import { ClassDef, ClassTime } from "./schedule/types";
+import { Day } from "./schedule";
+import { ClassTime } from "./schedule/types";
+import { orderBySortedList, timeSort } from "./tools";
 
 /**
  * TODO: Keep adding more strong typing
@@ -14,11 +15,6 @@ function getClassForContentCell(classHere: ClassTime, day: Day) {
     }
 }
 
-function getClassesOnDay(classArray: ClassTime[], day: Day) {
-    return classArray.reduce((acc, curr) => {
-        return curr.days.includes(day) ? [...acc, curr] : [];
-    }, []);
-}
 function trimTimePeriod(name) {
     return name.replace(/[ap]m/g, "");
 }
@@ -29,130 +25,76 @@ function getRowSpan(classHere) {
 
 function renderEmptyContentCell(day, time, minColspan) {
     // Leave the day/time in the cell for clearer built files
-    return `<td class="content-cell" colspan="${minColspan}"><!-- ${day} @ ${time.name} --></td>`;
-}
-
-function renderTableCells(
-    rowspanTracker,
-    day: Day,
-    time: ClassDef,
-    minColspan: number,
-    simultaneousClasses
-) {
-    if (rowspanTracker[day]) {
-        rowspanTracker[day]--;
-        return "";
-    }
-    const classesHere: ClassTime[] = getClassesOnDay(time.classes, day);
-
-    if (!classesHere.length) {
-        return renderEmptyContentCell(day, time, minColspan);
-    }
-
-    return classesHere.map((classHere) => {
-        let { rowspan } = classHere;
-        if (rowspan) {
-            // TODO: Make this property something like "additionalRows" rather than rowspan?
-            let number = rowspan - 1; // TODO: Why do we do this?
-            rowspanTracker[day] =
-                rowspanTracker[day] === undefined
-                    ? number
-                    : rowspanTracker[day] + number;
-        }
-        let arr = [...classHere.label];
-        let name = classHere.nameOverride ? classHere.nameOverride : time.name;
-        arr.push(`${trimTimePeriod(name)}-${classHere.endtime}`);
-        const multilineContent = arr.join("<br>");
-
-        const classForContentCell = getClassForContentCell(classHere, day);
-        const rowSpan = getRowSpan(classHere);
-        return `<td class="content-cell 
-                ${classForContentCell}" 
-                ${rowSpan} 
-                colspan="${
-                    simultaneousClasses[classHere.uuid]
-                        ? minColspan - (classesHere.length - 1)
-                        : minColspan
-                }">${multilineContent}</td>`;
-    });
+    return `<td class="content-cell" colspan="${minColspan}"><!-- ${day} @ ${time} --></td>`;
 }
 
 export default class ScheduleBuilder {
     config;
     columnGroup;
     headers;
-    scheduleRows;
+    scheduleRows; // TODO: Rename to just rows? yAxis row?
     fullHtmlContent;
     cssGenerator;
-    simultaneousClassDays: { [k in number]?: ClassTime } = {};
-    minimumColspan: number = 1;
+    minColspan: number;
+    xAxis: {};
+    yAxis: {};
 
-    constructor(config: ScheduleConfig, cssGenerator) {
-        config.sortedList = config.sortedList ?? DEFAULT_DAY_ORDER;
-        this.config = config;
-        this.config.times.forEach((time) => {
-            time.classes.forEach((clazz) => {
-                // @ts-ignore
-                clazz.uuid = JSON.stringify(clazz).hashCode();
-            });
-        });
-        this.allSortedDays(); // TODO: This is a hack; we should pre-generate our minColSpan
-
+    constructor({ scheduleConfig, cssGenerator, xAxis, yAxis, minColspan }) {
+        scheduleConfig.sortedList =
+            scheduleConfig.sortedList ?? DEFAULT_DAY_ORDER;
+        this.config = scheduleConfig;
         this.cssGenerator = cssGenerator;
+        this.minColspan = minColspan;
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
+        if (this.config.invert) {
+            this.xAxis = yAxis;
+            this.yAxis = xAxis;
+        }
         return this;
     }
 
-    // TODO: Is this memoized or called every damn time?
-    allSortedDays(): Day[] {
-        let self = this;
-        let allDaysWithDupes: Day[] = this.config.times.reduce(
-            (acc, curr: ClassDef) => {
-                let classDays = {};
-                for (const clazz of curr.classes) {
-                    for (const day of clazz.days) {
-                        if (classDays[day]) {
-                            // Then we've got a day with simultaneous classes
-                            self.simultaneousClassDays[clazz.uuid] = clazz;
-                            // @ts-ignore
-                            self.simultaneousClassDays[classDays[day].uuid] =
-                                classDays[day];
-                            self.minimumColspan = 2; // TODO: When does this go up to 3?
-                        } else {
-                            classDays[day] = clazz;
-                        }
-                    }
-                }
+    // TODO: Memoize this
+    sortedXAxis() {
+        let sort = this.config.invert
+            ? timeSort
+            : orderBySortedList(this.config.sortedList);
+        return Object.keys(this.xAxis).sort(sort);
+    }
 
-                let allClassDays: Day[] = curr.classes.reduce(
-                    (acc2, curr2) => [...acc2, ...curr2.days],
-                    []
-                );
-                return [...acc, ...allClassDays];
-            },
-            []
-        );
+    // TODO: Memoize this
+    sortedYAxis() {
+        let sort = this.config.invert
+            ? orderBySortedList(this.config.sortedList)
+            : timeSort;
+        return Object.keys(this.yAxis).sort(sort);
+    }
 
-        return [...new Set(allDaysWithDupes)].sort((a, b) => {
-            return this.config.sortedList.indexOf(a) >
-                this.config.sortedList.indexOf(b)
-                ? 1
-                : -1;
-        });
+    getTimeSeriesKey(xAxisKey, yAxisKey) {
+        return this.config.invert ? xAxisKey : yAxisKey;
+    }
+
+    getDaySeriesKey(xAxisKey, yAxisKey) {
+        return this.config.invert ? yAxisKey : xAxisKey;
+    }
+
+    getClassesFromSeriesAxes(xAxis, xAxisKey, yAxis, yAxisKey) {
+        return this.config.invert
+            ? yAxis[yAxisKey][xAxisKey]
+            : xAxis[xAxisKey][yAxisKey];
     }
 
     generateColGroup() {
         let self = this;
-        let width = 250 / self.minimumColspan;
+        let width = 250 / self.minColspan;
         this.columnGroup = `
         <!-- Used to define the widths of the columns -->
         <colgroup>
             <col style="width: 70px">
-            ${this.allSortedDays()
-                .map((foo) => {
-                    let hasSimultaneousClass =
-                        !!self.simultaneousClassDays[foo];
+            ${this.sortedXAxis()
+                .map(() => {
                     return `<col style="width: ${width}px">`.repeat(
-                        self.minimumColspan
+                        self.minColspan
                     );
                 })
                 .join("\n")}
@@ -165,11 +107,9 @@ export default class ScheduleBuilder {
         this.headers = `
         <tr>
             <th></th>
-            ${this.allSortedDays()
-                .map((day) => {
-                    let hasSimultaneousClass =
-                        !!self.simultaneousClassDays[day];
-                    return `<th class="header" colspan="${self.minimumColspan}">${day}</th>`;
+            ${this.sortedXAxis()
+                .map((xDataKey) => {
+                    return `<th class="header" colspan="${self.minColspan}">${xDataKey}</th>`;
                 })
                 .join("\n\t")}
         </tr>`;
@@ -179,27 +119,22 @@ export default class ScheduleBuilder {
     generateScheduleRows() {
         let self = this;
         let rowspanTracker: { [d in Day as string]: number } = {};
-        this.scheduleRows = this.config.times
+        this.scheduleRows = this.sortedYAxis()
             .map(
-                (time) => `
+                (yAxisKey) => `
     <tr ${this.config.thick ? `class="thick"` : ""}>
-        <td class="time-cell">${time.name}</td>
-        ${this.allSortedDays()
-            .flatMap((day) => {
-                let additionalColspan = self.simultaneousClassDays[day] ?? 0;
-                let thisIsASimultaneousClass = time.classes.reduce(
-                    (acc, curr) => {
-                        return !!self.simultaneousClassDays[curr.uuid];
-                    },
-                    false
-                );
-
-                return renderTableCells(
+        <td class="time-cell">${yAxisKey}</td>
+        ${this.sortedXAxis()
+            .flatMap((xAxisKey) => {
+                let maxClassesAtThisTime =
+                    self.xAxis[xAxisKey][yAxisKey]?.length ?? 1; // TODO: This is because sometimes it's emtpy (i.e. no definition)
+                return this.renderTableCells(
                     rowspanTracker,
-                    day,
-                    time,
-                    self.minimumColspan,
-                    self.simultaneousClassDays
+                    self.yAxis,
+                    yAxisKey,
+                    self.xAxis,
+                    xAxisKey,
+                    self.minColspan / maxClassesAtThisTime
                 );
             })
             .filter(Boolean) // Don't include empty rows
@@ -209,6 +144,61 @@ export default class ScheduleBuilder {
             )
             .join("\n");
         return this;
+    }
+
+    // TODO: Refactor to use class references
+    renderTableCells(
+        rowspanTracker,
+        yAxis,
+        yAxisKey,
+        xAxis,
+        xAxisKey,
+        minColspan: number
+    ) {
+        const day = this.getDaySeriesKey(xAxisKey, yAxisKey);
+        const time = this.getTimeSeriesKey(xAxisKey, yAxisKey);
+
+        if (rowspanTracker[yAxisKey]) {
+            rowspanTracker[yAxisKey]--;
+            return "";
+        }
+
+        const classesHere = this.getClassesFromSeriesAxes(
+            xAxis,
+            xAxisKey,
+            yAxis,
+            yAxisKey
+        );
+
+        if (!classesHere?.length) {
+            return renderEmptyContentCell(day, time, minColspan);
+        }
+
+        return classesHere.map((classHere) => {
+            let { rowspan } = classHere;
+            if (rowspan) {
+                // TODO: Make this property something like "additionalRows" rather than rowspan?
+                let number = rowspan - 1; // TODO: Why do we do this?
+                rowspanTracker[day] =
+                    rowspanTracker[day] === undefined
+                        ? number
+                        : rowspanTracker[day] + number;
+            }
+            let arr = [...classHere.label];
+            let time = classHere.nameOverride
+                ? classHere.nameOverride
+                : classHere.time;
+            arr.push(`${trimTimePeriod(time)}-${classHere.endtime}`);
+            const multilineContent = arr.join("<br>");
+
+            const classForContentCell = getClassForContentCell(classHere, day);
+            // TODO: How to handle inverted spanning?
+            const rowSpan = getRowSpan(classHere);
+            return `<td class="content-cell 
+                ${classForContentCell}" 
+                ${rowSpan} 
+                colspan="${minColspan}">${multilineContent}</td>`;
+        });
     }
 
     insertBottomContent() {

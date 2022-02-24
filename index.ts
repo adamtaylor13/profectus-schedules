@@ -2,13 +2,12 @@ import * as fs from "fs";
 import ScheduleBuilder from "./src/ScheduleBuilder";
 import CssGenerator from "./src/CssGenerator";
 import nodeHtmlToImage from "node-html-to-image";
-import schedules from "./src/schedule";
-import { ScheduleConfig } from "./src/schedule";
+import schedules, { ScheduleConfig } from "./src/schedule";
 
 const DIST_SCHEDULE_DIR = "./dist/schedule/";
 const DIST_IMG_DIR = "./dist/img/";
 
-const css = new CssGenerator();
+const cssGenerator = new CssGenerator();
 
 // Stolen: https://stackoverflow.com/a/7616484/6535053
 // @ts-ignore
@@ -27,12 +26,51 @@ String.prototype.hashCode = function () {
 
 clearDistAndRebuildEmptyDirs();
 
-// TODO: Make a hashmap of classes so that it's easier to work with in schedule builder
-// TODO: Pre-generate minColspan
-// TODO: Pre-generate allSortedDays
+// TODO: Calculate all the times in increments of 15min and then plot out all the
+//    classes. We will remove rows with no classes.
 
 schedules.forEach((scheduleConfig: ScheduleConfig) => {
-    const schedule = new ScheduleBuilder(scheduleConfig, css)
+    const dayMap = {};
+    const timeMap = {};
+    let maxNumSimultaneousClasses = 1;
+
+    for (const time of scheduleConfig.times) {
+        const { name } = time;
+        timeMap[name] = timeMap[name] ?? {};
+        for (const clazz of time.classes) {
+            const { days, ...classRest } = clazz;
+            // @ts-ignore - TODO: How do I make TS recognize this?
+            classRest.uuid = JSON.stringify(clazz).hashCode();
+            for (const day of days) {
+                dayMap[day] = dayMap[day] ?? {};
+                if (dayMap[day][name]) {
+                    dayMap[day][name].push({ ...classRest, time: name });
+                    maxNumSimultaneousClasses = Math.max(
+                        dayMap[day][name].length,
+                        maxNumSimultaneousClasses
+                    );
+                } else {
+                    dayMap[day][name] = [];
+                    dayMap[day][name].push({ ...classRest, time: name });
+                }
+
+                timeMap[name][day] = timeMap[name][day] ?? [];
+                timeMap[name][day].push({ ...classRest, day });
+            }
+        }
+    }
+
+    // By default, the xAxis is days of the week and the yAxis are the class times
+    const xAxis = dayMap;
+    const yAxis = timeMap;
+
+    const schedule = new ScheduleBuilder({
+        scheduleConfig,
+        cssGenerator,
+        xAxis,
+        yAxis,
+        minColspan: maxNumSimultaneousClasses
+    })
         .generateColGroup()
         .generateHeaders()
         .generateScheduleRows()

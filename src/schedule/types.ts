@@ -34,6 +34,7 @@ export type ScheduleConfig = {
     distFilename: string; // The resulting filename from building the schedule
     bodyWidth: "1200" | "1500" | "1600" | "2400"; // Does this need to be defined? Can it just be a string?
     thick?: boolean;
+    invert?: boolean; // Swap the x/y axes
     times: ClassDef[];
     bottomContent?: string; // Notes at the bottom of the schedule
     sortedList?: Day[]; // Change the ordering of the days from standard layout
