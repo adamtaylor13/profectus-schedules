@@ -59,7 +59,7 @@ export type ScheduleConfig = {
 
 export type Col = {
     label?: string[];
-    type: RobustClassTime["type"];
+    type: ColType;
 };
 
 export type Row = {
@@ -68,9 +68,12 @@ export type Row = {
     cols: Array<Array<Col>>;
 };
 
+export type ColType = "class" | "EMPTY" | "NULL";
+
 // TODO: rename this garbage
 export type RobustClassTime = Omit<ClassTime, "days"> & {
-    type: "class" | "EMPTY" | "NULL";
+    type: ColType;
+    simultaneousTimeHash: number; // The number that, should it match, indicates a class is at the same time as another class
     day: Day;
     time: Time;
     span?: number;

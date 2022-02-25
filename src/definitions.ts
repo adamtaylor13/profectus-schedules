@@ -4,6 +4,7 @@ declare interface String {
 
 declare interface Object {
     typedKeys<T>(input: T): Array<keyof T>;
+    inspect(msg: string): void;
 }
 
 // Stolen: https://stackoverflow.com/a/7616484/6535053
@@ -22,4 +23,9 @@ String.prototype.hashCode = function () {
 
 Object.prototype.typedKeys = function (input) {
     return Object.keys(input) as Array<keyof typeof input>;
+};
+
+Object.prototype.inspect = function (msg) {
+    const util = require("util");
+    console.log(msg, util.inspect(this, false, null, true));
 };
