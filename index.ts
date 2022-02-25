@@ -110,6 +110,7 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
 
     writeHtmlToDisk(scheduleConfig.distFilename, schedule.renderForWeb());
 
+    // TODO: NO MORE IMAGES
     // let pngFilename = scheduleConfig.distFilename.replace(".html", ".png");
     // nodeHtmlToImage({
     //     output: DIST_IMG_DIR + pngFilename,
