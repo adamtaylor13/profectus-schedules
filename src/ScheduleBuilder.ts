@@ -74,7 +74,7 @@ export default class ScheduleBuilder {
         if (this.config.invert) {
             self.spanProp = "rowspan";
             for (const day of Object.keys(this.dayMap).sort(
-                orderBySortedList(DEFAULT_DAY_ORDER)
+                orderBySortedList(self.config.sortedList)
             )) {
                 let columns: ColumnCell[] = [];
                 let simultaneousColumns: ColumnCell[] = [];
@@ -125,7 +125,7 @@ export default class ScheduleBuilder {
             for (const time of Object.keys(this.timeMap).sort(timeSort)) {
                 let cols: ColumnCell[] = [];
                 for (const day of Object.keys(this.dayMap).sort(
-                    orderBySortedList(DEFAULT_DAY_ORDER)
+                    orderBySortedList(self.config.sortedList)
                 )) {
                     let classList: ClassColumn[] = this.timeMap[time][day];
                     if (!classList) {
@@ -161,7 +161,8 @@ export default class ScheduleBuilder {
     generateColGroup() {
         let self = this;
         // let width = 250 / self.minColspan;
-        let width = self.config.invert ? 250 : 250 / self.minColspan;
+        // let width = self.config.invert ? 250 : 250 / self.minColspan;
+        let width = 155;
         this.columnGroup = `
         <!-- Used to define the widths of the columns -->
         <colgroup>
@@ -235,8 +236,13 @@ export default class ScheduleBuilder {
             }
             case "CLASS": {
                 assertClassTime(col);
+                let stretch = col.stretch
+                    ? `${self.config.invert ? `colspan` : `rowspan`}="${
+                          col.stretch
+                      }"`
+                    : "";
                 // prettier-ignore
-                return `<td class="content-cell ${getClassForContentCell(col)}" ${col.spanProp}>${generateClassColumnContent(col)}</td>`;
+                return `<td class="content-cell ${getClassForContentCell(col)}" ${col.spanProp} ${stretch}>${generateClassColumnContent(col)}</td>`;
             }
             default: {
                 // TODO: Make this assert unreachable
