@@ -41,9 +41,36 @@ export type ScheduleConfig = {
     maxSimultaneousClasses?: number;
 };
 
-export type Col = ClassTime;
+export type Col = {
+    label?: string[];
+    type: RobustClassTime["type"];
+};
 
 export type Row = {
     rowKey: string;
+    rowType: "class" | "overlap";
     cols: Array<Array<Col>>;
+};
+
+type TimeString = string; // eg "7:00pm"
+
+// TODO: rename this garbage
+export type RobustClassTime = Omit<ClassTime, "days"> & {
+    type: "class" | "EMPTY" | "NULL";
+    day: Day;
+    time: ClassDef["name"];
+    span?: number;
+    spanProp?: `rowspan="${number}"`;
+};
+
+export type DayMap = {
+    [key in Day]?: {
+        [key in TimeString]: RobustClassTime[];
+    };
+};
+
+export type TimeMap = {
+    [key in TimeString]: {
+        [key in Day]?: RobustClassTime[];
+    };
 };

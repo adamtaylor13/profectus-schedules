@@ -2,9 +2,8 @@ import * as fs from "fs";
 import ScheduleBuilder from "./src/ScheduleBuilder";
 import CssGenerator from "./src/CssGenerator";
 import schedules, { ScheduleConfig } from "./src/schedule";
-import { DEFAULT_DAY_ORDER } from "./src/constants";
-import { orderBySortedList, timeSort } from "./src/tools";
 import * as util from "util";
+import { DayMap, RobustClassTime, TimeMap } from "./src/schedule/types";
 
 const DIST_SCHEDULE_DIR = "./dist/schedule/";
 const DIST_IMG_DIR = "./dist/img/";
@@ -32,15 +31,15 @@ clearDistAndRebuildEmptyDirs();
 //    classes. We will remove rows with no classes.
 
 schedules.forEach((scheduleConfig: ScheduleConfig) => {
-    const dayMap = {};
-    const timeMap = {};
+    const dayMap: DayMap = {};
+    const timeMap: TimeMap = {};
     let maxNumSimultaneousClasses = scheduleConfig.maxSimultaneousClasses ?? 1;
 
     for (const time of scheduleConfig.times) {
         const { name } = time;
         timeMap[name] = timeMap[name] ?? {};
         for (const clazz of time.classes) {
-            const { days, ...classRest } = clazz;
+            let { days, ...classRest } = clazz;
             // @ts-ignore - TODO: How do I make TS recognize this?
             classRest.uuid = JSON.stringify(clazz).hashCode();
             for (const day of days) {
@@ -51,6 +50,8 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
                     span = maxNumSimultaneousClasses / numClasses;
                     dayMap[day][name].push({
                         ...classRest,
+                        type: "class",
+                        day,
                         time: name,
                         span: span,
                     });
@@ -58,8 +59,9 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
                         dayMap[day][name][index] = { ...classTime, span };
                     });
                 } else {
-                    dayMap[day][name] = [];
-                    dayMap[day][name].push({ ...classRest, time: name });
+                    dayMap[day][name] = [
+                        { ...classRest, type: "class", day, time: name },
+                    ];
                 }
 
                 if (timeMap[name][day]) {
@@ -67,6 +69,7 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
                     span = maxNumSimultaneousClasses / numClasses;
                     timeMap[name][day].push({
                         ...classRest,
+                        type: "class",
                         day,
                         time: name,
                         span,
@@ -78,6 +81,7 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
                     timeMap[name][day] = [];
                     timeMap[name][day].push({
                         ...classRest,
+                        type: "class",
                         day,
                         time: name,
                         span,
@@ -87,74 +91,11 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
         }
     }
 
-    // By default, the xAxis is days of the week and the yAxis are the class times
-    const xAxis = dayMap;
-    const yAxis = timeMap;
-
-    // console.log("dayMap", dayMap);
-    let rows = [];
-    let secondClass;
-
-    // For invert where rows === days
-    // for (const day of Object.keys(dayMap).sort(
-    //     orderBySortedList(DEFAULT_DAY_ORDER)
-    // )) {
-    //     let columns = [];
-    //     let simultaneousColumns = [];
-    //
-    //     for (const time of Object.keys(timeMap)) {
-    //         let dayMapElementElement = dayMap[day][time] ?? [
-    //             { label: "EMPTY_CELL" },
-    //         ];
-    //
-    //         // TODO: WIll fail with more than 2 simul classes
-    //         let hasSimulClass = dayMapElementElement[1];
-    //         if (hasSimulClass) {
-    //             let [firstClass, secondClass] = dayMapElementElement;
-    //             columns.push([firstClass]);
-    //             simultaneousColumns.push([secondClass]);
-    //         } else {
-    //             columns.push(dayMapElementElement);
-    //             simultaneousColumns.push([{ label: "NO_RENDER" }]);
-    //         }
-    //     }
-    //
-    //     rows.push({ rowKey: day, cols: columns });
-    //     let theSimultaneousRow = {
-    //         rowKey: "SIMUL",
-    //         cols: simultaneousColumns,
-    //     };
-    //     // Should only contain the single class being on the next row
-    //     rows.push(theSimultaneousRow);
-    // }
-
-    let invert = false;
-
-    // For regular where rows === time
-    // for (const time of Object.keys(timeMap).sort(timeSort)) {
-    //     let eventualFoo = [];
-    //     for (const day of Object.keys(dayMap).sort(
-    //         orderBySortedList(DEFAULT_DAY_ORDER)
-    //     )) {
-    //         let dayMapElementElement = timeMap[time][day];
-    //         eventualFoo.push(
-    //             dayMapElementElement ?? [{ label: "EMPTY_RENDER " }]
-    //             // JSON.parse(
-    //             //     `[${`{ "label": "EMPTY_RENDER" },`
-    //             //         .repeat(maxNumSimultaneousClasses)
-    //             //         .slice(0, -1)}]`
-    //             // )
-    //         );
-    //     }
-    //     rows.push({ rowKey: time, cols: eventualFoo });
-    // }
-
-    // rows.forEach((row) => {
-    //     console.log("row", util.inspect(row, false, null, true));
-    // });
-    // console.log(invert ? "rows" : "cols", rows.length);
+    // console.log("dayMap", util.inspect(dayMap, false, null, true));
     // console.log("timeMap", timeMap);
 
+    let invert = scheduleConfig.invert;
+    console.log("invert?", invert);
     const schedule = new ScheduleBuilder({
         scheduleConfig,
         cssGenerator,

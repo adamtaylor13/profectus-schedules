@@ -1,6 +1,13 @@
 import { DEFAULT_DAY_ORDER } from "./constants";
 import { Day } from "./schedule";
-import { ClassTime, Col, Row } from "./schedule/types";
+import {
+    ClassTime,
+    Col,
+    DayMap,
+    RobustClassTime,
+    Row,
+    TimeMap,
+} from "./schedule/types";
 import { orderBySortedList, timeSort } from "./tools";
 import * as util from "util";
 
@@ -8,16 +15,19 @@ import * as util from "util";
  * TODO: Keep adding more strong typing
  */
 
-function getClassForContentCell(classHere: ClassTime, day: Day) {
-    if (classHere.tags) {
-        return classHere.tags.days.includes(day) ? classHere.tags.tag : "";
-    } else {
-        return "";
-    }
+function getClassForContentCell(classHere: RobustClassTime) {
+    let maybeTags = classHere?.tags;
+    return maybeTags?.days?.includes(classHere.day) ? maybeTags?.tag : "";
 }
 
 function trimTimePeriod(name) {
     return name.replace(/[ap]m/g, "");
+}
+
+function assertClassTime(col: any): asserts col is RobustClassTime {
+    if (!col.day) {
+        throw new Error("This isn't a robust class time");
+    }
 }
 
 export default class ScheduleBuilder {
@@ -30,8 +40,8 @@ export default class ScheduleBuilder {
     minColspan: number;
     xAxis: {};
     yAxis: {};
-    dayMap: any;
-    timeMap: any;
+    dayMap: DayMap;
+    timeMap: TimeMap;
     spanProp: "colspan" | "rowspan";
 
     constructor({
@@ -53,24 +63,23 @@ export default class ScheduleBuilder {
     }
 
     getRows(): Row[] {
-        let rows = [];
+        const EMPTY_COL: Col = { label: [""], type: "EMPTY" };
+        const NULL_COL: Col = { label: [""], type: "NULL" };
+        let rows: Row[] = [];
 
         if (this.config.invert) {
             this.spanProp = "rowspan";
             for (const day of Object.keys(this.dayMap).sort(
                 orderBySortedList(DEFAULT_DAY_ORDER)
             )) {
-                let columns = [];
-                let simultaneousColumns = [];
+                let columns: Col[][] = [];
+                let simultaneousColumns: Col[][] = [];
 
                 for (const time of Object.keys(this.timeMap).sort(timeSort)) {
-                    let dayMapElementElement = this.dayMap[day][time] ?? [
-                        { label: "EMPTY_RENDER" },
-                    ];
+                    // prettier-ignore
+                    let dayMapElementElement: RobustClassTime[] = this.dayMap[day][time] ?? [EMPTY_COL];
 
                     dayMapElementElement.forEach((maybeClass) => {
-                        // TODO: Dont override this, just add a new property
-                        // debugger;
                         if (maybeClass.span) {
                             maybeClass.spanProp = `rowspan="${maybeClass.span}"`;
                         }
@@ -80,17 +89,19 @@ export default class ScheduleBuilder {
                     let hasSimulClass = dayMapElementElement[1];
                     if (hasSimulClass) {
                         let [firstClass, secondClass] = dayMapElementElement;
-                        columns.push([firstClass]);
-                        simultaneousColumns.push([secondClass]);
+
+                        columns.push([{ ...firstClass }]);
+                        simultaneousColumns.push([{ ...secondClass }]);
                     } else {
-                        columns.push(dayMapElementElement);
-                        simultaneousColumns.push([{ label: "NO_RENDER" }]);
+                        columns.push([{ ...dayMapElementElement[0] }]);
+                        simultaneousColumns.push([NULL_COL]);
                     }
                 }
 
-                rows.push({ rowKey: day, cols: columns });
-                let theSimultaneousRow = {
+                rows.push({ rowKey: day, rowType: "class", cols: columns });
+                let theSimultaneousRow: Row = {
                     rowKey: "SIMUL",
+                    rowType: "overlap",
                     cols: simultaneousColumns,
                 };
                 // Should only contain the single class being on the next row
@@ -103,19 +114,22 @@ export default class ScheduleBuilder {
                 for (const day of Object.keys(this.dayMap).sort(
                     orderBySortedList(DEFAULT_DAY_ORDER)
                 )) {
-                    let dayMapElementElement = this.timeMap[time][day];
-                    eventualFoo.push(
-                        dayMapElementElement ?? [{ label: "EMPTY_RENDER" }]
-                    );
+                    // prettier-ignore
+                    let dayMapElementElement: RobustClassTime[] = this.timeMap[time][day] ?? [EMPTY_COL];
+                    eventualFoo.push(dayMapElementElement);
                 }
-                rows.push({ rowKey: time, cols: eventualFoo });
+                rows.push({
+                    rowKey: time,
+                    rowType: "class",
+                    cols: eventualFoo,
+                });
             }
         }
 
-        console.log(
-            this.config.invert ? "rows" : "cols",
-            util.inspect(rows, false, null, true)
-        );
+        // console.log(
+        //     this.config.invert ? "rows" : "cols",
+        //     util.inspect(rows, false, null, true)
+        // );
         return rows;
     }
 
@@ -228,34 +242,25 @@ export default class ScheduleBuilder {
 
     renderColumn(cols: Col[]) {
         const self = this;
-        let map = cols.map((classTime) => {
-            // TODO: Empty / No render should be arrays as well or maybe labels shouldnt' be arrays
-            const label =
-                classTime.label instanceof Array
-                    ? classTime.label.join("")
-                    : classTime.label;
-            switch (label) {
-                case "EMPTY_RENDER": {
-                    return self.renderEmptyContentCell(classTime);
+        let map = cols.map((col) => {
+            switch (col.type) {
+                case "EMPTY": {
+                    return self.renderEmptyContentCell(col);
                 }
-                case "NO_RENDER": {
-                    // TODO: Maybe just this?
-                    return "";
+                case "NULL": {
+                    return null;
                 }
                 default: {
-                    const classForContentCell = getClassForContentCell(
-                        classTime,
-                        // @ts-ignore // TODO: Document this comes from map
-                        classTime.day
-                    );
-                    let arr = [...classTime.label];
-                    let time = classTime.nameOverride
-                        ? classTime.nameOverride
+                    assertClassTime(col);
+                    const classForContentCell = getClassForContentCell(col);
+                    let arr = [...col.label];
+                    let time = col.nameOverride
+                        ? col.nameOverride
                         : // @ts-ignore
-                          classTime.time;
-                    arr.push(`${trimTimePeriod(time)}-${classTime.endtime}`);
+                          col.time;
+                    arr.push(`${trimTimePeriod(time)}-${col.endtime}`);
                     const multilineContent = arr.join("<br>");
-                    let span = self.getSpan(classTime);
+                    let span = self.getSpan(col);
                     // prettier-ignore
                     return `<td class="content-cell ${classForContentCell}" ${span}>${multilineContent}</td>`;
                 }
