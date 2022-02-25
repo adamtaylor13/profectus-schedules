@@ -25,17 +25,33 @@ export type ClassTime = {
     };
 };
 
-export type ClassDef = {
-    name: string;
-    classes: ClassTime[];
-};
+type TimeSuffix = "am" | "pm";
+type QuarterTime = "00" | "15" | "30" | "45";
+type Hour =
+    | "1"
+    | "2"
+    | "3"
+    | "4"
+    | "5"
+    | "6"
+    | "7"
+    | "8"
+    | "9"
+    | "10"
+    | "11"
+    | "12";
+export type Time = `${Hour}:${QuarterTime}${TimeSuffix}`;
 
 export type ScheduleConfig = {
     distFilename: string; // The resulting filename from building the schedule
     bodyWidth: "1200" | "1500" | "1600" | "2400"; // Does this need to be defined? Can it just be a string?
     thick?: boolean;
     invert?: boolean; // Swap the x/y axes
-    times: ClassDef[];
+    times: {
+        [key in Time]?: {
+            classes: ClassTime[];
+        };
+    };
     bottomContent?: string; // Notes at the bottom of the schedule
     sortedList?: Day[]; // Change the ordering of the days from standard layout
     maxSimultaneousClasses?: number;
@@ -58,7 +74,7 @@ type TimeString = string; // eg "7:00pm"
 export type RobustClassTime = Omit<ClassTime, "days"> & {
     type: "class" | "EMPTY" | "NULL";
     day: Day;
-    time: ClassDef["name"];
+    time: Time;
     span?: number;
     spanProp?: `rowspan="${number}"`;
 };

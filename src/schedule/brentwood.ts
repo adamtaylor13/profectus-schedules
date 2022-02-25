@@ -5,9 +5,8 @@ export const BrentwoodSchedule: ScheduleConfig = {
     bodyWidth: "1500",
     sortedList: ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"],
     bottomContent: "*Call ahead due to irregular bi-weekly schedule",
-    times: [
-        {
-            name: "6:00am",
+    times: {
+        "6:00am": {
             classes: [
                 {
                     label: ["All Levels"],
@@ -20,12 +19,10 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "7:00am",
+        "7:00am": {
             classes: [],
         },
-        {
-            name: "10:00am",
+        "10:00am": {
             classes: [
                 {
                     stretch: 2,
@@ -35,8 +32,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "10:30am",
+        "10:30am": {
             classes: [
                 {
                     stretch: 2,
@@ -50,8 +46,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "11:00am",
+        "11:00am": {
             classes: [
                 {
                     stretch: 3,
@@ -61,12 +56,10 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "11:30am",
+        "11:30am": {
             classes: [],
         },
-        {
-            name: "12:00pm",
+        "12:00pm": {
             classes: [
                 {
                     stretch: 2,
@@ -96,8 +89,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "1:00pm",
+        "1:00pm": {
             classes: [
                 {
                     label: ["Live Training"],
@@ -106,8 +98,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "2:00pm",
+        "2:00pm": {
             classes: [
                 {
                     stretch: 2,
@@ -117,12 +108,10 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "3:00pm",
+        "3:00pm": {
             classes: [],
         },
-        {
-            name: "4:30pm",
+        "4:30pm": {
             classes: [
                 {
                     label: ["Little Gorillas"],
@@ -131,8 +120,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "5:00pm",
+        "5:00pm": {
             classes: [
                 {
                     label: ["Big Gorillas"],
@@ -150,8 +138,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "6:00pm",
+        "6:00pm": {
             classes: [
                 {
                     stretch: 2,
@@ -161,8 +148,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "6:15pm",
+        "6:15pm": {
             classes: [
                 {
                     stretch: 2,
@@ -192,12 +178,10 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "7:00pm",
+        "7:00pm": {
             classes: [],
         },
-        {
-            name: "7:15pm",
+        "7:15pm": {
             classes: [
                 {
                     stretch: 2,
@@ -213,8 +197,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "7:30pm",
+        "7:30pm": {
             classes: [
                 {
                     label: ["Drilling Class"],
@@ -223,5 +206,5 @@ export const BrentwoodSchedule: ScheduleConfig = {
                 },
             ],
         },
-    ],
+    },
 };

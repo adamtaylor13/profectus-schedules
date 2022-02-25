@@ -3,9 +3,8 @@ import { ScheduleConfig } from "./types";
 export const WilcoAfterSchoolSchedule: ScheduleConfig = {
     distFilename: "wilco_after_school_program_schedule.html",
     bodyWidth: "1500",
-    times: [
-        {
-            name: "2:30pm",
+    times: {
+        "2:30pm": {
             classes: [
                 {
                     label: ["After-School Pick up route"],
@@ -14,8 +13,7 @@ export const WilcoAfterSchoolSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "3:30pm",
+        "3:30pm": {
             classes: [
                 {
                     label: ["After-School Jiu-Jitsu Class"],
@@ -24,8 +22,7 @@ export const WilcoAfterSchoolSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "4:00pm",
+        "4:00pm": {
             classes: [
                 {
                     label: ["Free Time"],
@@ -34,8 +31,7 @@ export const WilcoAfterSchoolSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "5:00pm",
+        "5:00pm": {
             classes: [
                 {
                     label: [
@@ -47,8 +43,7 @@ export const WilcoAfterSchoolSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "5:30pm",
+        "5:30pm": {
             classes: [
                 {
                     label: ["Little Dragons - Kids Jiu-Jitsu", "(Ages 7-12)"],
@@ -57,5 +52,5 @@ export const WilcoAfterSchoolSchedule: ScheduleConfig = {
                 },
             ],
         },
-    ],
+    },
 };

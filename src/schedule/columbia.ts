@@ -5,10 +5,8 @@ export const ColumbiaSchedule: ScheduleConfig = {
     bodyWidth: "2400",
     thick: true,
     maxSimultaneousClasses: 2,
-    invert: true,
-    times: [
-        {
-            name: "6:00am",
+    times: {
+        "6:00am": {
             classes: [
                 {
                     label: ["All Levels", "Jiu-Jitsu"],
@@ -22,8 +20,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "9:00am",
+        "9:00am": {
             classes: [
                 {
                     label: ["Judo Class"],
@@ -32,8 +29,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "10:00am",
+        "10:00am": {
             classes: [
                 {
                     label: ["Open Mat", "Jiu-Jitsu"],
@@ -42,8 +38,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "12:00pm",
+        "12:00pm": {
             classes: [
                 {
                     label: ["All Levels", "Jiu-Jitsu"],
@@ -61,8 +56,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "1:00pm",
+        "1:00pm": {
             classes: [
                 {
                     label: ["Open Mat"],
@@ -71,8 +65,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "5:00pm",
+        "5:00pm": {
             classes: [
                 {
                     label: ["Kids 1", "(3-5 years)", "Mat 1"],
@@ -86,12 +79,10 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "5:30pm",
+        "5:30pm": {
             classes: [],
         },
-        {
-            name: "6:00pm",
+        "6:00pm": {
             classes: [
                 {
                     stretch: 2,
@@ -101,8 +92,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "6:15pm",
+        "6:15pm": {
             classes: [
                 {
                     stretch: 2,
@@ -112,8 +102,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "6:30pm",
+        "6:30pm": {
             classes: [
                 {
                     label: ["Gi Beginner", "Adult / Teen", "Mat 1"],
@@ -127,8 +116,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "7:30pm",
+        "7:30pm": {
             classes: [
                 {
                     label: ["Live Training"],
@@ -141,5 +129,5 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-    ],
+    },
 };

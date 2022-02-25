@@ -5,9 +5,8 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
     bodyWidth: "1500",
     bottomContent:
         "*Field Trip Form Attached; Destination suject to change.\nSpecial T-shirts provided for Field Trip Day.",
-    times: [
-        {
-            name: "6:30",
+    times: {
+         "6:30am":{
             classes: [
                 {
                     label: ["Drop Off", "Breakfast", "Tech Time"],
@@ -16,8 +15,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "8:00",
+         "8:00am":{
             classes: [
                 {
                     label: ["Jiu-Jitsu Class"],
@@ -26,8 +24,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "9:00",
+         "9:00am":{
             classes: [
                 {
                     label: ["Snack Time"],
@@ -36,8 +33,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "9:30",
+         "9:30am":{
             classes: [
                 {
                     label: ["Planned Activity"],
@@ -46,8 +42,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "11:00",
+         "11:00am":{
             classes: [
                 {
                     label: ["Lunch"],
@@ -56,8 +51,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "12:00",
+         "12:00pm":{
             classes: [
                 {
                     label: ["Move Time / Rest"],
@@ -66,8 +60,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "1:00",
+         "1:00pm":{
             classes: [
                 {
                     label: ["Field Trips*"],
@@ -76,8 +69,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "2:00",
+         "2:00pm":{
             classes: [
                 {
                     label: ["Free Time"],
@@ -86,8 +78,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "3:30",
+         "3:30pm":{
             classes: [
                 {
                     label: ["Clean Up"],
@@ -96,8 +87,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "4:00",
+         "4:00pm":{
             classes: [
                 {
                     label: ["Tech Time"],
@@ -106,8 +96,7 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "5:00",
+         "5:00pm":{
             classes: [
                 {
                     label: ["Jiu-Jitsu Class"],
@@ -116,5 +105,5 @@ export const WilcoSummerCampSchedule: ScheduleConfig = {
                 },
             ],
         },
-    ],
+    }
 };

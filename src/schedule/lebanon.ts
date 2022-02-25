@@ -3,9 +3,8 @@ import { ScheduleConfig } from "./types";
 export const LebanonSchedule: ScheduleConfig = {
     distFilename: "lebanon_schedule.html",
     bodyWidth: "1500",
-    times: [
-        {
-            name: "9:00am",
+    times: {
+        "9:00am": {
             classes: [
                 {
                     label: ["Fundamental / Intermediate"],
@@ -14,8 +13,7 @@ export const LebanonSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "11:00am",
+        "11:00am": {
             classes: [
                 {
                     label: ["Little Dragons"],
@@ -24,8 +22,7 @@ export const LebanonSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "12:00pm",
+        "12:00pm": {
             classes: [
                 {
                     label: ["Open Mat"],
@@ -34,8 +31,7 @@ export const LebanonSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "5:00pm",
+        "5:00pm": {
             classes: [
                 {
                     label: ["Little Dragons"],
@@ -44,8 +40,7 @@ export const LebanonSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "5:30pm",
+        "5:30pm": {
             classes: [
                 {
                     stretch: 2,
@@ -59,12 +54,10 @@ export const LebanonSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "6:30pm",
+        "6:30pm": {
             classes: [],
         },
-        {
-            name: "6:45pm",
+        "6:45pm": {
             classes: [
                 {
                     label: ["Fundamental / Intermediate"],
@@ -82,8 +75,7 @@ export const LebanonSchedule: ScheduleConfig = {
                 },
             ],
         },
-        {
-            name: "8:00pm",
+        "8:00pm": {
             classes: [
                 {
                     label: ["Advanced / Competition Team"],
@@ -92,5 +84,5 @@ export const LebanonSchedule: ScheduleConfig = {
                 },
             ],
         },
-    ],
+    },
 };
