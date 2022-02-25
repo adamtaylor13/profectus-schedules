@@ -22,9 +22,7 @@ schedules.forEach((scheduleConfig: ScheduleConfig) => {
     const timeMap: TimeMap = {};
     let maxNumSimultaneousClasses = scheduleConfig.maxSimultaneousClasses ?? 1;
 
-    for (const time of Object.keys(scheduleConfig.times) as Array<
-        keyof ScheduleConfig["times"]
-    >) {
+    for (const time of Object.typedKeys(scheduleConfig.times)) {
         const { classes } = scheduleConfig.times[time];
         timeMap[time] = timeMap[time] ?? {};
         for (const clazz of classes) {
