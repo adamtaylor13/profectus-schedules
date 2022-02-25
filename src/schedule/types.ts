@@ -68,8 +68,6 @@ export type Row = {
     cols: Array<Array<Col>>;
 };
 
-type TimeString = string; // eg "7:00pm"
-
 // TODO: rename this garbage
 export type RobustClassTime = Omit<ClassTime, "days"> & {
     type: "class" | "EMPTY" | "NULL";
@@ -81,12 +79,12 @@ export type RobustClassTime = Omit<ClassTime, "days"> & {
 
 export type DayMap = {
     [key in Day]?: {
-        [key in TimeString]: RobustClassTime[];
+        [key in Time]?: RobustClassTime[];
     };
 };
 
 export type TimeMap = {
-    [key in TimeString]: {
+    [key in Time]?: {
         [key in Day]?: RobustClassTime[];
     };
 };
