@@ -8,7 +8,8 @@
     "debug": "node --inspect -r ts-node/register index.ts",
     "build": "ts-node index.ts && npm run format",
     "format": "prettier --config package.json --write dist/",
-    "test": "jest"
+    "test": "jest",
+    "test:divergence": "jest tests/divergence.test.ts"
   },
   "author": "",
   "license": "ISC",

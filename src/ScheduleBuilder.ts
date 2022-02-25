@@ -1,24 +1,38 @@
 import { DEFAULT_DAY_ORDER } from "./constants";
-import { Col, DayMap, RobustClassTime, Row, TimeMap } from "./schedule/types";
+import {
+    ColumnCell,
+    DayMap,
+    ClassColumn,
+    Row,
+    TimeMap,
+    BasicColumn,
+} from "./schedule/types";
 import { orderBySortedList, timeSort } from "./tools";
 
 /**
  * TODO: Keep adding more strong typing
  */
 
-function getClassForContentCell(classHere: RobustClassTime) {
+function getClassForContentCell(classHere: ClassColumn) {
     let maybeTags = classHere?.tags;
     return maybeTags?.days?.includes(classHere.day) ? maybeTags?.tag : "";
 }
 
-function trimTimePeriod(name) {
+function trimTimePeriod(col: ClassColumn) {
+    let name = col?.nameOverride ?? col.time;
     return name.replace(/[ap]m/g, "");
 }
 
-function assertClassTime(col: any): asserts col is RobustClassTime {
+function assertClassTime(col: any): asserts col is ClassColumn {
     if (!col.day) {
         throw new Error("This isn't a robust class time");
     }
+}
+
+function generateClassColumnContent(col: ClassColumn) {
+    let arr = [...col.label];
+    arr.push(`${trimTimePeriod(col)}-${col.endtime}`);
+    return arr.join("<br>");
 }
 
 export default class ScheduleBuilder {
@@ -53,8 +67,8 @@ export default class ScheduleBuilder {
 
     getRows(): Row[] {
         const self = this;
-        const EMPTY_COL: Omit<Col, "spanProp"> = { type: "EMPTY" };
-        const NULL_COL: Omit<Col, "spanProp"> = { type: "NULL" };
+        const EMPTY_COL: BasicColumn = { type: "EMPTY" };
+        const NULL_COL: BasicColumn = { type: "NULL" };
         let rows: Row[] = [];
 
         if (this.config.invert) {
@@ -62,12 +76,12 @@ export default class ScheduleBuilder {
             for (const day of Object.keys(this.dayMap).sort(
                 orderBySortedList(DEFAULT_DAY_ORDER)
             )) {
-                let columns: Col[] = [];
-                let simultaneousColumns: Col[] = [];
+                let columns: ColumnCell[] = [];
+                let simultaneousColumns: ColumnCell[] = [];
 
                 for (const time of Object.keys(this.timeMap).sort(timeSort)) {
                     // TODO: Will fail with more than 2 overlapping classes
-                    let classList: RobustClassTime[] = this.dayMap[day][time];
+                    let classList: ClassColumn[] = this.dayMap[day][time];
                     if (!classList) {
                         columns.push(EMPTY_COL);
                         simultaneousColumns.push(NULL_COL);
@@ -79,18 +93,18 @@ export default class ScheduleBuilder {
                     if (overlapClass) {
                         columns.push({
                             ...firstClass,
-                            type: "class",
+                            type: "CLASS",
                             spanProp: `${self.spanProp}="${firstClass.span}"`,
                         });
                         simultaneousColumns.push({
                             ...overlapClass,
-                            type: "class",
+                            type: "CLASS",
                             spanProp: `${self.spanProp}="${overlapClass.span}"`,
                         });
                     } else {
                         columns.push({
                             ...classList[0],
-                            type: "class",
+                            type: "CLASS",
                             spanProp: `${self.spanProp}="${classList[0].span}"`,
                         });
                         simultaneousColumns.push(NULL_COL);
@@ -109,29 +123,25 @@ export default class ScheduleBuilder {
         } else {
             self.spanProp = "colspan";
             for (const time of Object.keys(this.timeMap).sort(timeSort)) {
-                let cols: Col[] = [];
+                let cols: ColumnCell[] = [];
                 for (const day of Object.keys(this.dayMap).sort(
                     orderBySortedList(DEFAULT_DAY_ORDER)
                 )) {
-                    let classList: RobustClassTime[] = this.timeMap[time][day];
+                    let classList: ClassColumn[] = this.timeMap[time][day];
                     if (!classList) {
                         cols.push(EMPTY_COL);
                     } else {
                         cols.push(
-                            ...classList.map((r) => ({
-                                ...r,
-                                spanProp: `${self.spanProp}="${
-                                    r.span ?? self.minColspan
-                                }"`,
-                            }))
+                            ...classList.map((r) => {
+                                const spanNumber = r.span ?? self.minColspan;
+                                const spanProp =
+                                    `${self.spanProp}="${spanNumber}"` as const;
+                                return { ...r, spanProp };
+                            })
                         );
                     }
                 }
-                rows.push({
-                    rowKey: time,
-                    rowType: "class",
-                    cols,
-                });
+                rows.push({ rowKey: time, rowType: "class", cols });
             }
         }
 
@@ -214,7 +224,7 @@ export default class ScheduleBuilder {
         return this;
     }
 
-    renderColumn(col: Col) {
+    renderColumn(col: ColumnCell) {
         const self = this;
         switch (col.type) {
             case "EMPTY": {
@@ -223,18 +233,14 @@ export default class ScheduleBuilder {
             case "NULL": {
                 return null;
             }
-            default: {
+            case "CLASS": {
                 assertClassTime(col);
-                const classForContentCell = getClassForContentCell(col);
-                let arr = [...col.label];
-                let time = col.nameOverride
-                    ? col.nameOverride
-                    : // @ts-ignore
-                      col.time;
-                arr.push(`${trimTimePeriod(time)}-${col.endtime}`);
-                const multilineContent = arr.join("<br>");
                 // prettier-ignore
-                return `<td class="content-cell ${classForContentCell}" ${col.spanProp}>${multilineContent}</td>`;
+                return `<td class="content-cell ${getClassForContentCell(col)}" ${col.spanProp}>${generateClassColumnContent(col)}</td>`;
+            }
+            default: {
+                // TODO: Make this assert unreachable
+                throw new Error("WHAT");
             }
         }
     }

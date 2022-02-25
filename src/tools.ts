@@ -1,5 +1,5 @@
 import { ScheduleConfig } from "./schedule";
-import { DayMap, RobustClassTime, TimeMap } from "./schedule/types";
+import { DayMap, ClassColumn, TimeMap } from "./schedule/types";
 
 export const orderBySortedList = (sortedList) => (a, b) => {
     return sortedList.indexOf(a) > sortedList.indexOf(b) ? 1 : -1;
@@ -14,21 +14,21 @@ export const timeSort = (a, b) => {
 
 export function forEachClass(
     scheduleConfig: ScheduleConfig,
-    doThing: (robustClass: RobustClassTime) => void
+    doThing: (classColumn: ClassColumn) => void
 ) {
     for (const time of Object.typedKeys(scheduleConfig.times)) {
         const { classes } = scheduleConfig.times[time];
         for (const clazz of classes) {
             let { days, ...classRest } = clazz;
             for (const day of days) {
-                const robustClass = {
+                const classColumn = {
                     ...classRest,
                     simultaneousTimeHash: day.hashCode() + time.hashCode(),
                     day,
                     time,
-                    type: "class" as const,
+                    type: "CLASS" as const,
                 };
-                doThing(robustClass);
+                doThing(classColumn);
             }
         }
     }

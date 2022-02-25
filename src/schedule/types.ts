@@ -57,28 +57,18 @@ export type ScheduleConfig = {
     maxSimultaneousClasses?: number;
 };
 
-export type ColType = "class" | "EMPTY" | "NULL";
+const ClassCol = "CLASS" as const;
+const EmptyCol = "EMPTY" as const;
+const NullCol = "NULL" as const;
 
-type BasicColumn = {
-    type: ColType;
-};
-type ClassColumn = {
-    type: "class";
-    label: string[];
-    spanProp: `${"rowspan" | "colspan"}="${number}"`;
-};
+export type ColType = typeof ClassCol | typeof EmptyCol | typeof NullCol;
 
-export type Col = BasicColumn | ClassColumn;
-
-export type Row = {
-    rowKey?: string;
-    rowType: "class" | "overlap";
-    cols: Col[];
+export type BasicColumn = {
+    type: typeof EmptyCol | typeof NullCol;
 };
 
-// TODO: rename this garbage
-export type RobustClassTime = Omit<ClassTime, "days"> & {
-    type: ColType;
+export type ClassColumn = Omit<ClassTime, "days"> & {
+    type: typeof ClassCol;
     simultaneousTimeHash: number; // The number that, should it match, indicates a class is at the same time as another class
     day: Day;
     time: Time;
@@ -86,14 +76,22 @@ export type RobustClassTime = Omit<ClassTime, "days"> & {
     spanProp?: `${"rowspan" | "colspan"}="${number}"`;
 };
 
+export type ColumnCell = BasicColumn | ClassColumn;
+
+export type Row = {
+    rowKey?: string;
+    rowType: "class" | "overlap";
+    cols: ColumnCell[];
+};
+
 export type DayMap = {
     [key in Day]?: {
-        [key in Time]?: RobustClassTime[];
+        [key in Time]?: ClassColumn[];
     };
 };
 
 export type TimeMap = {
     [key in Time]?: {
-        [key in Day]?: RobustClassTime[];
+        [key in Day]?: ClassColumn[];
     };
 };
