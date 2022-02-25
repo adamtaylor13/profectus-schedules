@@ -162,6 +162,7 @@ export default class ScheduleBuilder {
         let self = this;
         // let width = 250 / self.minColspan;
         // let width = self.config.invert ? 250 : 250 / self.minColspan;
+        // TODO: This is a good baseline, but doesn't work with simultaneous classes
         let width = 155;
         this.columnGroup = `
         <!-- Used to define the widths of the columns -->
