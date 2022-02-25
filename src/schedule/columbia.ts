@@ -4,6 +4,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
     distFilename: "columbia_schedule.html",
     bodyWidth: "2400",
     thick: true,
+    invert: true,
     maxSimultaneousClasses: 2,
     times: {
         "6:00am": {

@@ -29,8 +29,6 @@ export default class ScheduleBuilder {
     fullHtmlContent;
     cssGenerator;
     minColspan: number;
-    xAxis: {};
-    yAxis: {};
     dayMap: DayMap;
     timeMap: TimeMap;
     spanProp: "colspan" | "rowspan";
@@ -68,43 +66,45 @@ export default class ScheduleBuilder {
                 let simultaneousColumns: Col[] = [];
 
                 for (const time of Object.keys(this.timeMap).sort(timeSort)) {
-                    // prettier-ignore
-                    let dayMapElementElement: RobustClassTime[] = this.dayMap[day][time] ?? [EMPTY_COL];
+                    // TODO: Will fail with more than 2 overlapping classes
+                    let classList: RobustClassTime[] = this.dayMap[day][time];
+                    if (!classList) {
+                        columns.push(EMPTY_COL);
+                        simultaneousColumns.push(NULL_COL);
+                        continue;
+                    }
 
-                    // TODO: WIll fail with more than 2 simul classes
-                    let hasOverlapClass = dayMapElementElement[1];
-                    if (hasOverlapClass) {
-                        let [firstClass, secondClass] = dayMapElementElement;
+                    // TODO: This will fail if we have more than 1 overlap class (i.e. a 3rd index)
+                    let [firstClass, overlapClass] = classList;
+                    if (overlapClass) {
                         columns.push({
                             ...firstClass,
                             type: "class",
                             spanProp: `${self.spanProp}="${firstClass.span}"`,
                         });
                         simultaneousColumns.push({
-                            ...secondClass,
+                            ...overlapClass,
                             type: "class",
-                            spanProp: `${self.spanProp}="${secondClass.span}"`,
+                            spanProp: `${self.spanProp}="${overlapClass.span}"`,
                         });
-                    } else if (dayMapElementElement[0].type === "EMPTY") {
-                        columns.push(EMPTY_COL);
-                        simultaneousColumns.push(NULL_COL);
                     } else {
                         columns.push({
-                            ...dayMapElementElement[0],
+                            ...classList[0],
                             type: "class",
-                            spanProp: `${self.spanProp}="${dayMapElementElement[0].span}"`,
+                            spanProp: `${self.spanProp}="${classList[0].span}"`,
                         });
                         simultaneousColumns.push(NULL_COL);
                     }
                 }
 
+                // Thought: If we use a fori loop here, we can actually build the next row
+                // as needed, rather than doing a bunch of checks. :thinking:
                 rows.push({ rowKey: day, rowType: "class", cols: columns });
-                let theSimultaneousRow: Row = {
+                let overlapRow: Row = {
                     rowType: "overlap",
                     cols: simultaneousColumns,
                 };
-                // Should only contain the single class being on the next row
-                rows.push(theSimultaneousRow);
+                rows.push(overlapRow);
             }
         } else {
             self.spanProp = "colspan";
@@ -113,16 +113,19 @@ export default class ScheduleBuilder {
                 for (const day of Object.keys(this.dayMap).sort(
                     orderBySortedList(DEFAULT_DAY_ORDER)
                 )) {
-                    // prettier-ignore
-                    let dayMapElementElement: RobustClassTime[] = this.timeMap[time][day] ?? [{ ...EMPTY_COL, spanProp: `${self.spanProp}="${self.minColspan}"` }];
-                    cols.push(
-                        ...dayMapElementElement.map((r) => ({
-                            ...r,
-                            spanProp: `${self.spanProp}="${
-                                r.span ?? self.minColspan
-                            }"` as const,
-                        }))
-                    );
+                    let classList: RobustClassTime[] = this.timeMap[time][day];
+                    if (!classList) {
+                        cols.push(EMPTY_COL);
+                    } else {
+                        cols.push(
+                            ...classList.map((r) => ({
+                                ...r,
+                                spanProp: `${self.spanProp}="${
+                                    r.span ?? self.minColspan
+                                }"`,
+                            }))
+                        );
+                    }
                 }
                 rows.push({
                     rowKey: time,
