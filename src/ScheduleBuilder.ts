@@ -1,15 +1,6 @@
 import { DEFAULT_DAY_ORDER } from "./constants";
-import { Day } from "./schedule";
-import {
-    ClassTime,
-    Col,
-    DayMap,
-    RobustClassTime,
-    Row,
-    TimeMap,
-} from "./schedule/types";
+import { Col, DayMap, RobustClassTime, Row, TimeMap } from "./schedule/types";
 import { orderBySortedList, timeSort } from "./tools";
-import * as util from "util";
 
 /**
  * TODO: Keep adding more strong typing
@@ -63,44 +54,52 @@ export default class ScheduleBuilder {
     }
 
     getRows(): Row[] {
-        const EMPTY_COL: Col = { label: [""], type: "EMPTY" };
-        const NULL_COL: Col = { label: [""], type: "NULL" };
+        const self = this;
+        const EMPTY_COL: Omit<Col, "spanProp"> = { type: "EMPTY" };
+        const NULL_COL: Omit<Col, "spanProp"> = { type: "NULL" };
         let rows: Row[] = [];
 
         if (this.config.invert) {
-            this.spanProp = "rowspan";
+            self.spanProp = "rowspan";
             for (const day of Object.keys(this.dayMap).sort(
                 orderBySortedList(DEFAULT_DAY_ORDER)
             )) {
-                let columns: Col[][] = [];
-                let simultaneousColumns: Col[][] = [];
+                let columns: Col[] = [];
+                let simultaneousColumns: Col[] = [];
 
                 for (const time of Object.keys(this.timeMap).sort(timeSort)) {
                     // prettier-ignore
                     let dayMapElementElement: RobustClassTime[] = this.dayMap[day][time] ?? [EMPTY_COL];
 
-                    dayMapElementElement.forEach((maybeClass) => {
-                        if (maybeClass.span) {
-                            maybeClass.spanProp = `rowspan="${maybeClass.span}"`;
-                        }
-                    });
-
                     // TODO: WIll fail with more than 2 simul classes
-                    let hasSimulClass = dayMapElementElement[1];
-                    if (hasSimulClass) {
+                    let hasOverlapClass = dayMapElementElement[1];
+                    if (hasOverlapClass) {
                         let [firstClass, secondClass] = dayMapElementElement;
-
-                        columns.push([{ ...firstClass }]);
-                        simultaneousColumns.push([{ ...secondClass }]);
+                        columns.push({
+                            ...firstClass,
+                            type: "class",
+                            spanProp: `${self.spanProp}="${firstClass.span}"`,
+                        });
+                        simultaneousColumns.push({
+                            ...secondClass,
+                            type: "class",
+                            spanProp: `${self.spanProp}="${secondClass.span}"`,
+                        });
+                    } else if (dayMapElementElement[0].type === "EMPTY") {
+                        columns.push(EMPTY_COL);
+                        simultaneousColumns.push(NULL_COL);
                     } else {
-                        columns.push([{ ...dayMapElementElement[0] }]);
-                        simultaneousColumns.push([NULL_COL]);
+                        columns.push({
+                            ...dayMapElementElement[0],
+                            type: "class",
+                            spanProp: `${self.spanProp}="${dayMapElementElement[0].span}"`,
+                        });
+                        simultaneousColumns.push(NULL_COL);
                     }
                 }
 
                 rows.push({ rowKey: day, rowType: "class", cols: columns });
                 let theSimultaneousRow: Row = {
-                    rowKey: "SIMUL",
                     rowType: "overlap",
                     cols: simultaneousColumns,
                 };
@@ -108,32 +107,35 @@ export default class ScheduleBuilder {
                 rows.push(theSimultaneousRow);
             }
         } else {
-            this.spanProp = "colspan";
+            self.spanProp = "colspan";
             for (const time of Object.keys(this.timeMap).sort(timeSort)) {
-                let eventualFoo = [];
+                let cols: Col[] = [];
                 for (const day of Object.keys(this.dayMap).sort(
                     orderBySortedList(DEFAULT_DAY_ORDER)
                 )) {
                     // prettier-ignore
-                    let dayMapElementElement: RobustClassTime[] = this.timeMap[time][day] ?? [EMPTY_COL];
-                    eventualFoo.push(dayMapElementElement);
+                    let dayMapElementElement: RobustClassTime[] = this.timeMap[time][day] ?? [{ ...EMPTY_COL, spanProp: `${self.spanProp}="${self.minColspan}"` }];
+                    cols.push(
+                        ...dayMapElementElement.map((r) => ({
+                            ...r,
+                            spanProp: `${self.spanProp}="${
+                                r.span ?? self.minColspan
+                            }"` as const,
+                        }))
+                    );
                 }
                 rows.push({
                     rowKey: time,
                     rowType: "class",
-                    cols: eventualFoo,
+                    cols,
                 });
             }
         }
 
-        // console.log(
-        //     this.config.invert ? "rows" : "cols",
-        //     util.inspect(rows, false, null, true)
-        // );
         return rows;
     }
 
-    // TODO: Memoize this
+    // TODO: Figure a better way to get the colGroup generated
     sortedXAxis() {
         let sort = this.config.invert
             ? timeSort
@@ -141,36 +143,6 @@ export default class ScheduleBuilder {
 
         let o = this.config.invert ? this.timeMap : this.dayMap;
         return Object.keys(o).sort(sort);
-    }
-
-    // TODO: Memoize this
-    sortedYAxis() {
-        let sort = this.config.invert
-            ? orderBySortedList(this.config.sortedList)
-            : timeSort;
-        return Object.keys(this.timeMap).sort(sort);
-    }
-
-    getTimeSeriesKey(xAxisKey, yAxisKey) {
-        return this.config.invert ? xAxisKey : yAxisKey;
-    }
-
-    getDaySeriesKey(xAxisKey, yAxisKey) {
-        return this.config.invert ? yAxisKey : xAxisKey;
-    }
-
-    getColspan(classHere) {
-        return this.config.invert ? classHere.stretch ?? 1 : this.minColspan;
-    }
-
-    getRowspan(classHere) {
-        return this.config.invert ? this.minColspan : classHere.stretch ?? 1;
-    }
-
-    getClassesFromSeriesAxes(xAxis, xAxisKey, yAxis, yAxisKey) {
-        return this.config.invert
-            ? yAxis[yAxisKey][xAxisKey]
-            : xAxis[xAxisKey][yAxisKey];
     }
 
     generateColGroup() {
@@ -213,22 +185,21 @@ export default class ScheduleBuilder {
 
         this.scheduleRows = rows
             .map((row) => {
-                let rowKey = row.rowKey === "SIMUL" ? "" : row.rowKey;
-                let flatMap = row.cols.flatMap((foo) => self.renderColumn(foo));
-                let span =
-                    row.rowKey === "SIMUL"
+                let headerSpan =
+                    row.rowType === "overlap"
                         ? ""
                         : self.config.invert
-                        ? self.getSpan({})
+                        ? `${self.spanProp}="${self.minColspan}"`
                         : ""; // Only the day headers inherit span settings
                 let s =
-                    row.rowKey === "SIMUL"
+                    row.rowType === "overlap"
                         ? ""
-                        : `<td class="time-cell"${span}>${rowKey}</td>`;
+                        : `<td class="time-cell"${headerSpan}>${row.rowKey}</td>`;
                 let renderedRow = `
         <tr ${this.config.thick ? `class="thick"` : ""}>
             ${s}
-            ${flatMap
+            ${row.cols
+                .map((foo) => self.renderColumn(foo))
                 .filter(Boolean) // Don't include empty rows
                 .join("\n")}
         </tr>`;
@@ -240,134 +211,34 @@ export default class ScheduleBuilder {
         return this;
     }
 
-    renderColumn(cols: Col[]) {
+    renderColumn(col: Col) {
         const self = this;
-        let map = cols.map((col) => {
-            switch (col.type) {
-                case "EMPTY": {
-                    return self.renderEmptyContentCell(col);
-                }
-                case "NULL": {
-                    return null;
-                }
-                default: {
-                    assertClassTime(col);
-                    const classForContentCell = getClassForContentCell(col);
-                    let arr = [...col.label];
-                    let time = col.nameOverride
-                        ? col.nameOverride
-                        : // @ts-ignore
-                          col.time;
-                    arr.push(`${trimTimePeriod(time)}-${col.endtime}`);
-                    const multilineContent = arr.join("<br>");
-                    let span = self.getSpan(col);
-                    // prettier-ignore
-                    return `<td class="content-cell ${classForContentCell}" ${span}>${multilineContent}</td>`;
-                }
+        switch (col.type) {
+            case "EMPTY": {
+                return self.renderEmptyContentCell(col);
             }
-        });
-
-        return map.filter(Boolean).join("\n");
+            case "NULL": {
+                return null;
+            }
+            default: {
+                assertClassTime(col);
+                const classForContentCell = getClassForContentCell(col);
+                let arr = [...col.label];
+                let time = col.nameOverride
+                    ? col.nameOverride
+                    : // @ts-ignore
+                      col.time;
+                arr.push(`${trimTimePeriod(time)}-${col.endtime}`);
+                const multilineContent = arr.join("<br>");
+                // prettier-ignore
+                return `<td class="content-cell ${classForContentCell}" ${col.spanProp}>${multilineContent}</td>`;
+            }
+        }
     }
 
-    getSpan(classTime) {
-        const self = this;
-        return classTime?.spanProp
-            ? // @ts-ignore
-              classTime?.spanProp
-            : // @ts-ignore
-            classTime?.span
-            ? // @ts-ignore
-              `${self.spanProp}="${classTime?.span}"`
-            : `${self.spanProp}="${self.minColspan}"`;
-    }
-
-    // potentiallyEmptyRows({ xAxisKey, extraClasses }) {
-    //     const self = this;
-    //     // const rowspan = self.config.invert
-    //     //     ? `rowspan="${self.minColspan}"`
-    //     //     : "";
-    //     const rowspan = ""; // TODO: TR doesn't need rowspan does it?
-    //     if (extraClasses) {
-    //         // debugger;
-    //     }
-    //     return `<tr ${rowspan}>${this.sortedXAxis().map((innerXAxisKey) => {
-    //         return innerXAxisKey === xAxisKey
-    //             ? extraClasses[0]
-    //             : self.renderEmptyContentCell("", "", self.minColspan);
-    //     })}</tr>`.repeat(self.minColspan - 1);
-    // }
-
-    // // TODO: Refactor to use class references
-    // renderTableCells(
-    //     dayspanTracker,
-    //     yAxis,
-    //     yAxisKey,
-    //     xAxis,
-    //     xAxisKey,
-    //     maxSimulClassNum: number
-    // ): string[] {
-    //     const self = this;
-    //     const day = this.getDaySeriesKey(xAxisKey, yAxisKey);
-    //     const time = this.getTimeSeriesKey(xAxisKey, yAxisKey);
-    //
-    //     if (dayspanTracker[day]) {
-    //         dayspanTracker[day]--;
-    //         return [""];
-    //     }
-    //
-    //     const classesHere = this.getClassesFromSeriesAxes(
-    //         xAxis,
-    //         xAxisKey,
-    //         yAxis,
-    //         yAxisKey
-    //     );
-    //
-    //     if (!classesHere?.length) {
-    //         return [this.renderEmptyContentCell(day, time, maxSimulClassNum)];
-    //     }
-    //
-    //     return classesHere.map((classHere) => {
-    //         let { stretch } = classHere;
-    //         if (stretch) {
-    //             // TODO: Make this property something like "additionalRows" rather than rowspan?
-    //             let number = stretch - 1; // TODO: Why do we do this?
-    //             dayspanTracker[day] =
-    //                 dayspanTracker[day] === undefined
-    //                     ? number
-    //                     : dayspanTracker[day] + number;
-    //         }
-    //         let arr = [...classHere.label];
-    //         let time = classHere.nameOverride
-    //             ? classHere.nameOverride
-    //             : classHere.time;
-    //         arr.push(`${trimTimePeriod(time)}-${classHere.endtime}`);
-    //         const multilineContent = arr.join("<br>");
-    //
-    //         const classForContentCell = getClassForContentCell(classHere, day);
-    //
-    //         const rowspan = self.config.invert
-    //             ? `rowspan="${maxSimulClassNum}"`
-    //             : classHere.stretch
-    //             ? `rowspan="${classHere.stretch}"`
-    //             : "";
-    //         const colspan = self.config.invert
-    //             ? classHere.stretch
-    //                 ? `colspan="${classHere.stretch}"`
-    //                 : ``
-    //             : `colspan="${maxSimulClassNum}"`;
-    //
-    //         return `<td class="content-cell
-    //             ${classForContentCell}"
-    //             ${rowspan}
-    //             ${colspan}>${multilineContent}</td>`;
-    //     });
-    // }
-    //
     renderEmptyContentCell(classTime) {
         // Leave the day/time in the cell for clearer built files
-        let span = classTime.span ?? `${this.spanProp}="${this.minColspan}"`;
-        return `<td class="content-cell" ${span}><!-- ${classTime.day} @ ${classTime.time} --></td>`;
+        return `<td class="content-cell" ${this.spanProp}="${this.minColspan}"><!-- ${classTime.day} @ ${classTime.time} --></td>`;
     }
 
     insertBottomContent() {
