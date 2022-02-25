@@ -237,7 +237,7 @@ export default class ScheduleBuilder {
             case "CLASS": {
                 assertClassTime(col);
                 let stretch =
-                    self.config.invert && col.stretch
+                    !self.config.invert && col.stretch
                         ? `${self.config.invert ? `colspan` : `rowspan`}="${
                               col.stretch
                           }"`

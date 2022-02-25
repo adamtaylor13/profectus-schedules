@@ -20,7 +20,13 @@ export const BrentwoodSchedule: ScheduleConfig = {
             ],
         },
         "7:00am": {
-            classes: [],
+            classes: [
+                {
+                    label: [""],
+                    days: ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"],
+                    endtime: "",
+                },
+            ],
         },
         "10:00am": {
             classes: [
@@ -109,7 +115,13 @@ export const BrentwoodSchedule: ScheduleConfig = {
             ],
         },
         "3:00pm": {
-            classes: [],
+            classes: [
+                {
+                    label: [""],
+                    days: ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"],
+                    endtime: "",
+                },
+            ],
         },
         "4:30pm": {
             classes: [
@@ -179,7 +191,13 @@ export const BrentwoodSchedule: ScheduleConfig = {
             ],
         },
         "7:00pm": {
-            classes: [],
+            classes: [
+                {
+                    label: [""],
+                    days: ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"],
+                    endtime: "",
+                },
+            ],
         },
         "7:15pm": {
             classes: [
