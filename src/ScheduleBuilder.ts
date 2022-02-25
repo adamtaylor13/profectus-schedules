@@ -236,11 +236,12 @@ export default class ScheduleBuilder {
             }
             case "CLASS": {
                 assertClassTime(col);
-                let stretch = col.stretch
-                    ? `${self.config.invert ? `colspan` : `rowspan`}="${
-                          col.stretch
-                      }"`
-                    : "";
+                let stretch =
+                    self.config.invert && col.stretch
+                        ? `${self.config.invert ? `colspan` : `rowspan`}="${
+                              col.stretch
+                          }"`
+                        : "";
                 // prettier-ignore
                 return `<td class="content-cell ${getClassForContentCell(col)}" ${col.spanProp} ${stretch}>${generateClassColumnContent(col)}</td>`;
             }

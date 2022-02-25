@@ -68,8 +68,8 @@ export type BasicColumn = {
 };
 
 export type ClassColumn = Omit<ClassTime, "days"> & {
-    type: typeof ClassCol;
-    simultaneousTimeHash: number; // The number that, should it match, indicates a class is at the same time as another class
+    type: ColType;
+    simultaneousTimeHash?: number; // The number that, should it match, indicates a class is at the same time as another class
     day: Day;
     time: Time;
     span?: number;
@@ -86,12 +86,12 @@ export type Row = {
 
 export type DayMap = {
     [key in Day]?: {
-        [key in Time]?: ClassColumn[];
+        [key in Time]?: ColumnCell[];
     };
 };
 
 export type TimeMap = {
     [key in Time]?: {
-        [key in Day]?: ClassColumn[];
+        [key in Day]?: ColumnCell[];
     };
 };

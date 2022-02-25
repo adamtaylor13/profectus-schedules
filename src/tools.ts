@@ -1,5 +1,5 @@
-import { ScheduleConfig } from "./schedule";
-import { DayMap, ClassColumn, TimeMap } from "./schedule/types";
+import { Day, ScheduleConfig } from "./schedule";
+import { DayMap, ClassColumn, TimeMap, ClassTime } from "./schedule/types";
 
 export const orderBySortedList = (sortedList) => (a, b) => {
     return sortedList.indexOf(a) > sortedList.indexOf(b) ? 1 : -1;
@@ -12,21 +12,71 @@ export const timeSort = (a, b) => {
     );
 };
 
+/**
+ * For classes with a custom "stretch" property, we need to account for how
+ * many rows they will cross. The easiest way to do that is to inject a NULL
+ * into the very next block that a class will occupy. This is the next
+ * timeblock-same day. Normal schedules, this is the next row, for inverted
+ * schedules it's the very next <td>.
+ */
+function injectNullBlockForStretch(
+    classRest: Omit<ClassTime, "days">,
+    index: number,
+    scheduleConfig: ScheduleConfig,
+    day: Day,
+    doThing: (classColumn: ClassColumn) => void
+) {
+    let numStretch = classRest.stretch - 1; // TODO: This may cause off-by-one-errors later. By default EVERY block occupies at least 1
+    let iKeeper = index;
+    while (numStretch > 0) {
+        let nextTimePeriod = Object.typedKeys(scheduleConfig.times)[
+            iKeeper + 1
+        ];
+        let nullInsertedClass = {
+            ...classRest,
+            simultaneousTimeHash:
+                day.hashCode() + nextTimePeriod.hashCode() + "NULL".hashCode(),
+            day,
+            time: nextTimePeriod,
+            type: "NULL" as const,
+        };
+        doThing(nullInsertedClass);
+        ++iKeeper;
+        --numStretch;
+    }
+}
+
 export function forEachClass(
     scheduleConfig: ScheduleConfig,
     doThing: (classColumn: ClassColumn) => void
 ) {
-    for (const time of Object.typedKeys(scheduleConfig.times)) {
+    for (let i = 0; i < Object.typedKeys(scheduleConfig.times).length; i++) {
+        const time = Object.typedKeys(scheduleConfig.times)[i];
         const { classes } = scheduleConfig.times[time];
         for (const clazz of classes) {
             let { days, ...classRest } = clazz;
             for (const day of days) {
+                let type = classRest.label[0]
+                    ? ("CLASS" as const)
+                    : ("NULL" as const);
+
+                // TODO: What about inverted schedules?
+                if (classRest.stretch && !scheduleConfig.invert) {
+                    injectNullBlockForStretch(
+                        classRest,
+                        i,
+                        scheduleConfig,
+                        day,
+                        doThing
+                    );
+                }
+
                 const classColumn = {
                     ...classRest,
                     simultaneousTimeHash: day.hashCode() + time.hashCode(),
                     day,
                     time,
-                    type: "CLASS" as const,
+                    type: type,
                 };
                 doThing(classColumn);
             }
@@ -42,7 +92,7 @@ export function generateDayMap(
 ) {
     let dayMap: DayMap = {};
     forEachClass(scheduleConfig, (robustClass) => {
-        const { day, time } = robustClass;
+        const { day, time, type } = robustClass;
         if (!dayMap[day]) {
             dayMap[day] = {};
         }
@@ -56,7 +106,11 @@ export function generateDayMap(
         if (alreadyExists) {
             dayMap[day][time].push(withSpan);
         } else {
-            dayMap[day][time] = [withSpan];
+            if (type === "NULL") {
+                dayMap[day][time] = [{ type: "NULL" }];
+            } else {
+                dayMap[day][time] = [withSpan];
+            }
         }
     });
 
@@ -72,7 +126,7 @@ export function generateTimeMap(
 ) {
     let timeMap: TimeMap = {};
     forEachClass(scheduleConfig, (robustClass) => {
-        const { day, time } = robustClass;
+        const { day, time, type } = robustClass;
         if (!timeMap[time]) {
             timeMap[time] = {};
         }
@@ -86,7 +140,11 @@ export function generateTimeMap(
         if (alreadyExists) {
             timeMap[time][day].push(withSpan);
         } else {
-            timeMap[time][day] = [withSpan];
+            if (type === "NULL") {
+                timeMap[time][day] = [{ type: "NULL" }];
+            } else {
+                timeMap[time][day] = [withSpan];
+            }
         }
     });
 

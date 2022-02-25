@@ -168,13 +168,13 @@ tr.thick > .content-cell {
         <!-- Used to define the widths of the columns -->
         <colgroup>
             <col style=\\"width: 70px\\">
-            <col style=\\"width: 125px\\"><col style=\\"width: 125px\\">
-<col style=\\"width: 125px\\"><col style=\\"width: 125px\\">
-<col style=\\"width: 125px\\"><col style=\\"width: 125px\\">
-<col style=\\"width: 125px\\"><col style=\\"width: 125px\\">
-<col style=\\"width: 125px\\"><col style=\\"width: 125px\\">
-<col style=\\"width: 125px\\"><col style=\\"width: 125px\\">
-<col style=\\"width: 125px\\"><col style=\\"width: 125px\\">
+            <col style=\\"width: 155px\\"><col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\"><col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\"><col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\"><col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\"><col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\"><col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\"><col style=\\"width: 155px\\">
         </colgroup>
             
         <tr>
@@ -192,9 +192,9 @@ tr.thick > .content-cell {
             <td class=\\"time-cell\\">6:00am</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" colspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
-<td class=\\"content-cell \\" colspan=\\"2\\">Open Mat<br>6:00-7:00am</td>
-<td class=\\"content-cell \\" colspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >Open Mat<br>6:00-7:00am</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
         </tr>
@@ -207,7 +207,7 @@ tr.thick > .content-cell {
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" colspan=\\"2\\">Judo Class<br>9:00-10:00am</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >Judo Class<br>9:00-10:00am</td>
         </tr>
 
         <tr class=\\"thick\\">
@@ -218,23 +218,23 @@ tr.thick > .content-cell {
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" colspan=\\"2\\">Open Mat<br>Jiu-Jitsu<br>10:00-11:00am</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >Open Mat<br>Jiu-Jitsu<br>10:00-11:00am</td>
         </tr>
 
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\">12:00pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell nogi\\" colspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
-<td class=\\"content-cell \\" colspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
-<td class=\\"content-cell \\" colspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
-<td class=\\"content-cell \\" colspan=\\"2\\">Open Mat<br>Jiu-Jitsu<br>12:00-1:00pm</td>
-<td class=\\"content-cell \\" colspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell nogi\\" colspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >Open Mat<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
         </tr>
 
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\">1:00pm</td>
-            <td class=\\"content-cell \\" colspan=\\"2\\">Open Mat<br>1:00-2:00pm</td>
+            <td class=\\"content-cell \\" colspan=\\"2\\" >Open Mat<br>1:00-2:00pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -246,11 +246,11 @@ tr.thick > .content-cell {
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\">5:00pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" colspan=\\"1\\">Kids 1<br>(3-5 years)<br>Mat 1<br>5:00-6:00pm</td>
-<td class=\\"content-cell \\" colspan=\\"1\\">Kids 3<br>(9-14 years)<br>Mat 2<br>5:00-6:00pm</td>
+<td class=\\"content-cell \\" colspan=\\"1\\" >Kids 1<br>(3-5 years)<br>Mat 1<br>5:00-6:00pm</td>
+<td class=\\"content-cell \\" colspan=\\"1\\" >Kids 3<br>(9-14 years)<br>Mat 2<br>5:00-6:00pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" colspan=\\"1\\">Kids 1<br>(3-5 years)<br>Mat 1<br>5:00-6:00pm</td>
-<td class=\\"content-cell \\" colspan=\\"1\\">Kids 3<br>(9-14 years)<br>Mat 2<br>5:00-6:00pm</td>
+<td class=\\"content-cell \\" colspan=\\"1\\" >Kids 1<br>(3-5 years)<br>Mat 1<br>5:00-6:00pm</td>
+<td class=\\"content-cell \\" colspan=\\"1\\" >Kids 3<br>(9-14 years)<br>Mat 2<br>5:00-6:00pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -259,10 +259,10 @@ tr.thick > .content-cell {
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\">6:00pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" colspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
-<td class=\\"content-cell \\" colspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
-<td class=\\"content-cell \\" colspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
-<td class=\\"content-cell \\" colspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >Drilling<br>6:00-6:30pm</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >Drilling<br>6:00-6:30pm</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >Drilling<br>6:00-6:30pm</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >Drilling<br>6:00-6:30pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
         </tr>
@@ -270,23 +270,18 @@ tr.thick > .content-cell {
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\">6:15pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" colspan=\\"2\\">Open Mat<br>Jiu-Jitsu<br>6:15-7:15pm</td>
+<td class=\\"content-cell \\" colspan=\\"2\\" >Open Mat<br>Jiu-Jitsu<br>6:15-7:15pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
         </tr>
 
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\">6:30pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" colspan=\\"1\\">Gi Beginner<br>Adult / Teen<br>Mat 1<br>6:30-7:30pm</td>
-<td class=\\"content-cell \\" colspan=\\"1\\">Gi Intermediate<br>Adult<br>Mat 2<br>6:30-7:30pm</td>
+<td class=\\"content-cell \\" colspan=\\"1\\" >Gi Beginner<br>Adult / Teen<br>Mat 1<br>6:30-7:30pm</td>
+<td class=\\"content-cell \\" colspan=\\"1\\" >Gi Intermediate<br>Adult<br>Mat 2<br>6:30-7:30pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" colspan=\\"1\\">Gi Beginner<br>Adult / Teen<br>Mat 1<br>6:30-7:30pm</td>
-<td class=\\"content-cell \\" colspan=\\"1\\">Gi Intermediate<br>Adult<br>Mat 2<br>6:30-7:30pm</td>
-<td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
+<td class=\\"content-cell \\" colspan=\\"1\\" >Gi Beginner<br>Adult / Teen<br>Mat 1<br>6:30-7:30pm</td>
+<td class=\\"content-cell \\" colspan=\\"1\\" >Gi Intermediate<br>Adult<br>Mat 2<br>6:30-7:30pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
         </tr>
@@ -294,10 +289,10 @@ tr.thick > .content-cell {
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\">7:30pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell both\\" colspan=\\"2\\">Live Training<br>7:30-8:15pm</td>
-<td class=\\"content-cell both\\" colspan=\\"2\\">Live Training<br>7:30-8:15pm</td>
-<td class=\\"content-cell both\\" colspan=\\"2\\">Live Training<br>7:30-8:15pm</td>
-<td class=\\"content-cell both\\" colspan=\\"2\\">Live Training<br>7:30-8:15pm</td>
+<td class=\\"content-cell both\\" colspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
+<td class=\\"content-cell both\\" colspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
+<td class=\\"content-cell both\\" colspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
+<td class=\\"content-cell both\\" colspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
         </tr>
@@ -465,16 +460,16 @@ tr.thick > .content-cell {
         <!-- Used to define the widths of the columns -->
         <colgroup>
             <col style=\\"width: 70px\\">
-            <col style=\\"width: 250px\\">
-<col style=\\"width: 250px\\">
-<col style=\\"width: 250px\\">
-<col style=\\"width: 250px\\">
-<col style=\\"width: 250px\\">
-<col style=\\"width: 250px\\">
-<col style=\\"width: 250px\\">
-<col style=\\"width: 250px\\">
-<col style=\\"width: 250px\\">
-<col style=\\"width: 250px\\">
+            <col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\">
+<col style=\\"width: 155px\\">
         </colgroup>
             
         <tr>
@@ -497,7 +492,7 @@ tr.thick > .content-cell {
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">Open Mat<br>1:00-2:00pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" >Open Mat<br>1:00-2:00pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -515,33 +510,33 @@ tr.thick > .content-cell {
             <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell nogi\\" rowspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell nogi\\" rowspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"1\\">Kids 1<br>(3-5 years)<br>Mat 1<br>5:00-6:00pm</td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
+<td class=\\"content-cell \\" rowspan=\\"1\\" >Kids 1<br>(3-5 years)<br>Mat 1<br>5:00-6:00pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" colspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"1\\">Gi Beginner<br>Adult / Teen<br>Mat 1<br>6:30-7:30pm</td>
-<td class=\\"content-cell both\\" rowspan=\\"2\\">Live Training<br>7:30-8:15pm</td>
+<td class=\\"content-cell \\" rowspan=\\"1\\" >Gi Beginner<br>Adult / Teen<br>Mat 1<br>6:30-7:30pm</td>
+<td class=\\"content-cell both\\" rowspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
         </tr>
 
         <tr class=\\"thick\\">
             
-            <td class=\\"content-cell \\" rowspan=\\"1\\">Kids 3<br>(9-14 years)<br>Mat 2<br>5:00-6:00pm</td>
-<td class=\\"content-cell \\" rowspan=\\"1\\">Gi Intermediate<br>Adult<br>Mat 2<br>6:30-7:30pm</td>
+            <td class=\\"content-cell \\" rowspan=\\"1\\" >Kids 3<br>(9-14 years)<br>Mat 2<br>5:00-6:00pm</td>
+<td class=\\"content-cell \\" rowspan=\\"1\\" >Gi Intermediate<br>Adult<br>Mat 2<br>6:30-7:30pm</td>
         </tr>
 
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\"rowspan=\\"2\\">TUES</td>
-            <td class=\\"content-cell \\" rowspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
+            <td class=\\"content-cell \\" rowspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" colspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell both\\" rowspan=\\"2\\">Live Training<br>7:30-8:15pm</td>
+<td class=\\"content-cell both\\" rowspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
         </tr>
 
         <tr class=\\"thick\\">
@@ -551,36 +546,36 @@ tr.thick > .content-cell {
 
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\"rowspan=\\"2\\">WED</td>
-            <td class=\\"content-cell \\" rowspan=\\"2\\">Open Mat<br>6:00-7:00am</td>
+            <td class=\\"content-cell \\" rowspan=\\"2\\" >Open Mat<br>6:00-7:00am</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"1\\">Kids 1<br>(3-5 years)<br>Mat 1<br>5:00-6:00pm</td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
+<td class=\\"content-cell \\" rowspan=\\"1\\" >Kids 1<br>(3-5 years)<br>Mat 1<br>5:00-6:00pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" colspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"1\\">Gi Beginner<br>Adult / Teen<br>Mat 1<br>6:30-7:30pm</td>
-<td class=\\"content-cell both\\" rowspan=\\"2\\">Live Training<br>7:30-8:15pm</td>
+<td class=\\"content-cell \\" rowspan=\\"1\\" >Gi Beginner<br>Adult / Teen<br>Mat 1<br>6:30-7:30pm</td>
+<td class=\\"content-cell both\\" rowspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
         </tr>
 
         <tr class=\\"thick\\">
             
-            <td class=\\"content-cell \\" rowspan=\\"1\\">Kids 3<br>(9-14 years)<br>Mat 2<br>5:00-6:00pm</td>
-<td class=\\"content-cell \\" rowspan=\\"1\\">Gi Intermediate<br>Adult<br>Mat 2<br>6:30-7:30pm</td>
+            <td class=\\"content-cell \\" rowspan=\\"1\\" >Kids 3<br>(9-14 years)<br>Mat 2<br>5:00-6:00pm</td>
+<td class=\\"content-cell \\" rowspan=\\"1\\" >Gi Intermediate<br>Adult<br>Mat 2<br>6:30-7:30pm</td>
         </tr>
 
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\"rowspan=\\"2\\">THUR</td>
-            <td class=\\"content-cell \\" rowspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
+            <td class=\\"content-cell \\" rowspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">Open Mat<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" >Open Mat<br>Jiu-Jitsu<br>12:00-1:00pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" colspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell both\\" rowspan=\\"2\\">Live Training<br>7:30-8:15pm</td>
+<td class=\\"content-cell both\\" rowspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
         </tr>
 
         <tr class=\\"thick\\">
@@ -593,11 +588,11 @@ tr.thick > .content-cell {
             <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">Open Mat<br>Jiu-Jitsu<br>6:15-7:15pm</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" colspan=\\"2\\">Open Mat<br>Jiu-Jitsu<br>6:15-7:15pm</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
         </tr>
@@ -610,8 +605,8 @@ tr.thick > .content-cell {
         <tr class=\\"thick\\">
             <td class=\\"time-cell\\"rowspan=\\"2\\">SAT</td>
             <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">Judo Class<br>9:00-10:00am</td>
-<td class=\\"content-cell \\" rowspan=\\"2\\">Open Mat<br>Jiu-Jitsu<br>10:00-11:00am</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" >Judo Class<br>9:00-10:00am</td>
+<td class=\\"content-cell \\" rowspan=\\"2\\" >Open Mat<br>Jiu-Jitsu<br>10:00-11:00am</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
