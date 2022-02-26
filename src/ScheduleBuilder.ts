@@ -9,10 +9,6 @@ import {
 } from "./schedule/types";
 import { orderBySortedList, timeSort } from "./tools";
 
-/**
- * TODO: Keep adding more strong typing
- */
-
 function getClassForContentCell(classHere: ClassColumn) {
     let maybeTags = classHere?.tags;
     return maybeTags?.days?.includes(classHere.day) ? maybeTags?.tag : "";

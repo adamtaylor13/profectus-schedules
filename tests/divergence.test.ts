@@ -10,6 +10,7 @@ import {
 } from "../src/tools";
 import { DayMap, TimeMap } from "../src/schedule/types";
 
+// TODO: This should be an it.each for each location + invert
 test("Baseline Columbia non-inverted HTML", () => {
     const scheduleConfig = ColumbiaSchedule;
     scheduleConfig.invert = false;
