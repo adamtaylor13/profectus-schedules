@@ -165,7 +165,7 @@ test("it generates full table html for web", () => {
     vertical-align: top;
     background-color: #f0f0f0;
 }
-.content-cell, .time-cell {
+.content-cell, .row-header {
     border-color: transparent !important;
     color: ghostwhite !important;
 }

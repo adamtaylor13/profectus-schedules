@@ -45,20 +45,8 @@ test("Baseline Columbia non-inverted HTML", () => {
         <div class=\\"code-container\\">
             <style>
                 .code-container {
-    overflow-x:auto;
-}
-/* On screens that are 1150px or more, make the schedule easier to read by making it wider */
-@media screen and (min-width: 1150px) {
-    .code-container {
-        margin-right: -120px;
-        margin-left: -120px;
-    }
-}
-/* Screens smaller than 600px */
-@media screen and (max-width: 600px) {
-    .schedule-table {
-        border-spacing: 2px !important;
-    }
+    max-height: 95vh;
+    overflow: auto;
 }
 .schedule-table {
     position: relative;
@@ -102,20 +90,27 @@ test("Baseline Columbia non-inverted HTML", () => {
 .content-cell.nogi, .content-cell.both {
     padding-left: 23px;
 }
-.header {
+
+/* Header styles */
+.column-header {
+    vertical-align: top;
+    top: 30px;
+}
+.row-header {
+    left: 30px;
+}
+.row-header, .column-header {
+    color: #4f4f4f;
+    z-index: 1;
+    position: sticky !important;
     font-weight: bold;
     text-align: center;
-    vertical-align: top;
-    background-color: #f0f0f0;
+    background-color: #fff;
 }
-.content-cell, .time-cell {
+
+.content-cell {
     border-color: transparent !important;
     color: ghostwhite !important;
-}
-.time-cell {
-    background-color: transparent;
-    text-align: center;
-    font-weight: bold;
 }
 .nogi,.both {
     position: relative;
@@ -161,7 +156,6 @@ tr.thick > .content-cell {
     font-size: 1.2rem !important;
     line-height: 1.4rem;
 }
-
             </style>
             
         <table class=\\"schedule-table\\">
@@ -180,17 +174,17 @@ tr.thick > .content-cell {
             
         <tr>
             <th></th>
-            <th class=\\"header\\" colspan=\\"2\\">SUN</th>
-	<th class=\\"header\\" colspan=\\"2\\">MON</th>
-	<th class=\\"header\\" colspan=\\"2\\">TUES</th>
-	<th class=\\"header\\" colspan=\\"2\\">WED</th>
-	<th class=\\"header\\" colspan=\\"2\\">THUR</th>
-	<th class=\\"header\\" colspan=\\"2\\">FRI</th>
-	<th class=\\"header\\" colspan=\\"2\\">SAT</th>
+            <th class=\\"column-header\\" colspan=\\"2\\">SUN</th>
+	<th class=\\"column-header\\" colspan=\\"2\\">MON</th>
+	<th class=\\"column-header\\" colspan=\\"2\\">TUES</th>
+	<th class=\\"column-header\\" colspan=\\"2\\">WED</th>
+	<th class=\\"column-header\\" colspan=\\"2\\">THUR</th>
+	<th class=\\"column-header\\" colspan=\\"2\\">FRI</th>
+	<th class=\\"column-header\\" colspan=\\"2\\">SAT</th>
         </tr>
             
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">6:00am</td>
+            <td class=\\"row-header\\">6:00am</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell \\" colspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
@@ -201,7 +195,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">9:00am</td>
+            <td class=\\"row-header\\">9:00am</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -212,7 +206,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">10:00am</td>
+            <td class=\\"row-header\\">10:00am</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -223,7 +217,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">12:00pm</td>
+            <td class=\\"row-header\\">12:00pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell nogi\\" colspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
 <td class=\\"content-cell \\" colspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>12:00-1:00pm</td>
@@ -234,7 +228,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">1:00pm</td>
+            <td class=\\"row-header\\">1:00pm</td>
             <td class=\\"content-cell \\" colspan=\\"2\\" >Open Mat<br>1:00-2:00pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -245,7 +239,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">5:00pm</td>
+            <td class=\\"row-header\\">5:00pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell \\" colspan=\\"1\\" >Kids 1<br>(3-5 years)<br>Mat 1<br>5:00-6:00pm</td>
 <td class=\\"content-cell \\" colspan=\\"1\\" >Kids 3<br>(9-14 years)<br>Mat 2<br>5:00-6:00pm</td>
@@ -258,7 +252,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">6:00pm</td>
+            <td class=\\"row-header\\">6:00pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell \\" colspan=\\"2\\" rowspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
 <td class=\\"content-cell \\" colspan=\\"2\\" rowspan=\\"2\\">Drilling<br>6:00-6:30pm</td>
@@ -269,14 +263,14 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">6:15pm</td>
+            <td class=\\"row-header\\">6:15pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell \\" colspan=\\"2\\" rowspan=\\"2\\">Open Mat<br>Jiu-Jitsu<br>6:15-7:15pm</td>
 <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">6:30pm</td>
+            <td class=\\"row-header\\">6:30pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell \\" colspan=\\"1\\" >Gi Beginner<br>Adult / Teen<br>Mat 1<br>6:30-7:30pm</td>
 <td class=\\"content-cell \\" colspan=\\"1\\" >Gi Intermediate<br>Adult<br>Mat 2<br>6:30-7:30pm</td>
@@ -288,7 +282,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\">7:30pm</td>
+            <td class=\\"row-header\\">7:30pm</td>
             <td class=\\"content-cell\\" colspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell both\\" colspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
 <td class=\\"content-cell both\\" colspan=\\"2\\" >Live Training<br>7:30-8:15pm</td>
@@ -337,20 +331,8 @@ test("Baseline Columbia inverted HTML", () => {
         <div class=\\"code-container\\">
             <style>
                 .code-container {
-    overflow-x:auto;
-}
-/* On screens that are 1150px or more, make the schedule easier to read by making it wider */
-@media screen and (min-width: 1150px) {
-    .code-container {
-        margin-right: -120px;
-        margin-left: -120px;
-    }
-}
-/* Screens smaller than 600px */
-@media screen and (max-width: 600px) {
-    .schedule-table {
-        border-spacing: 2px !important;
-    }
+    max-height: 95vh;
+    overflow: auto;
 }
 .schedule-table {
     position: relative;
@@ -394,20 +376,27 @@ test("Baseline Columbia inverted HTML", () => {
 .content-cell.nogi, .content-cell.both {
     padding-left: 23px;
 }
-.header {
+
+/* Header styles */
+.column-header {
+    vertical-align: top;
+    top: 30px;
+}
+.row-header {
+    left: 30px;
+}
+.row-header, .column-header {
+    color: #4f4f4f;
+    z-index: 1;
+    position: sticky !important;
     font-weight: bold;
     text-align: center;
-    vertical-align: top;
-    background-color: #f0f0f0;
+    background-color: #fff;
 }
-.content-cell, .time-cell {
+
+.content-cell {
     border-color: transparent !important;
     color: ghostwhite !important;
-}
-.time-cell {
-    background-color: transparent;
-    text-align: center;
-    font-weight: bold;
 }
 .nogi,.both {
     position: relative;
@@ -453,7 +442,6 @@ tr.thick > .content-cell {
     font-size: 1.2rem !important;
     line-height: 1.4rem;
 }
-
             </style>
             
         <table class=\\"schedule-table\\">
@@ -475,20 +463,20 @@ tr.thick > .content-cell {
             
         <tr>
             <th></th>
-            <th class=\\"header\\" colspan=\\"1\\">6:00am</th>
-	<th class=\\"header\\" colspan=\\"1\\">9:00am</th>
-	<th class=\\"header\\" colspan=\\"1\\">10:00am</th>
-	<th class=\\"header\\" colspan=\\"1\\">12:00pm</th>
-	<th class=\\"header\\" colspan=\\"1\\">1:00pm</th>
-	<th class=\\"header\\" colspan=\\"1\\">5:00pm</th>
-	<th class=\\"header\\" colspan=\\"1\\">6:00pm</th>
-	<th class=\\"header\\" colspan=\\"1\\">6:15pm</th>
-	<th class=\\"header\\" colspan=\\"1\\">6:30pm</th>
-	<th class=\\"header\\" colspan=\\"1\\">7:30pm</th>
+            <th class=\\"column-header\\" colspan=\\"1\\">6:00am</th>
+	<th class=\\"column-header\\" colspan=\\"1\\">9:00am</th>
+	<th class=\\"column-header\\" colspan=\\"1\\">10:00am</th>
+	<th class=\\"column-header\\" colspan=\\"1\\">12:00pm</th>
+	<th class=\\"column-header\\" colspan=\\"1\\">1:00pm</th>
+	<th class=\\"column-header\\" colspan=\\"1\\">5:00pm</th>
+	<th class=\\"column-header\\" colspan=\\"1\\">6:00pm</th>
+	<th class=\\"column-header\\" colspan=\\"1\\">6:15pm</th>
+	<th class=\\"column-header\\" colspan=\\"1\\">6:30pm</th>
+	<th class=\\"column-header\\" colspan=\\"1\\">7:30pm</th>
         </tr>
             
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\"rowspan=\\"2\\">SUN</td>
+            <td class=\\"row-header\\"rowspan=\\"2\\">SUN</td>
             <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -507,7 +495,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\"rowspan=\\"2\\">MON</td>
+            <td class=\\"row-header\\"rowspan=\\"2\\">MON</td>
             <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -527,7 +515,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\"rowspan=\\"2\\">TUES</td>
+            <td class=\\"row-header\\"rowspan=\\"2\\">TUES</td>
             <td class=\\"content-cell \\" rowspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -546,7 +534,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\"rowspan=\\"2\\">WED</td>
+            <td class=\\"row-header\\"rowspan=\\"2\\">WED</td>
             <td class=\\"content-cell \\" rowspan=\\"2\\" >Open Mat<br>6:00-7:00am</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -566,7 +554,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\"rowspan=\\"2\\">THUR</td>
+            <td class=\\"row-header\\"rowspan=\\"2\\">THUR</td>
             <td class=\\"content-cell \\" rowspan=\\"2\\" >All Levels<br>Jiu-Jitsu<br>6:00-7:00am</td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -585,7 +573,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\"rowspan=\\"2\\">FRI</td>
+            <td class=\\"row-header\\"rowspan=\\"2\\">FRI</td>
             <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
@@ -604,7 +592,7 @@ tr.thick > .content-cell {
         </tr>
 
         <tr class=\\"thick\\">
-            <td class=\\"time-cell\\"rowspan=\\"2\\">SAT</td>
+            <td class=\\"row-header\\"rowspan=\\"2\\">SAT</td>
             <td class=\\"content-cell\\" rowspan=\\"2\\"><!-- undefined @ undefined --></td>
 <td class=\\"content-cell \\" rowspan=\\"2\\" >Judo Class<br>9:00-10:00am</td>
 <td class=\\"content-cell \\" rowspan=\\"2\\" >Open Mat<br>Jiu-Jitsu<br>10:00-11:00am</td>

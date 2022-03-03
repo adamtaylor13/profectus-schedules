@@ -1,20 +1,8 @@
 <div class="code-container">
     <style>
         .code-container {
-            overflow-x: auto;
-        }
-        /* On screens that are 1150px or more, make the schedule easier to read by making it wider */
-        @media screen and (min-width: 1150px) {
-            .code-container {
-                margin-right: -120px;
-                margin-left: -120px;
-            }
-        }
-        /* Screens smaller than 600px */
-        @media screen and (max-width: 600px) {
-            .schedule-table {
-                border-spacing: 2px !important;
-            }
+            max-height: 95vh;
+            overflow: auto;
         }
         .schedule-table {
             position: relative;
@@ -60,21 +48,28 @@
         .content-cell.both {
             padding-left: 23px;
         }
-        .header {
+
+        /* Header styles */
+        .column-header {
+            vertical-align: top;
+            top: 30px;
+        }
+        .row-header {
+            left: 30px;
+        }
+        .row-header,
+        .column-header {
+            color: #4f4f4f;
+            z-index: 1;
+            position: sticky !important;
             font-weight: bold;
             text-align: center;
-            vertical-align: top;
-            background-color: #f0f0f0;
+            background-color: #fff;
         }
-        .content-cell,
-        .time-cell {
+
+        .content-cell {
             border-color: transparent !important;
             color: ghostwhite !important;
-        }
-        .time-cell {
-            background-color: transparent;
-            text-align: center;
-            font-weight: bold;
         }
         .nogi,
         .both {
@@ -133,12 +128,12 @@
 
         <tr>
             <th></th>
-            <th class="header" colspan="1">Monday - Friday</th>
-            <th class="header" colspan="1">THUR</th>
+            <th class="column-header" colspan="1">Monday - Friday</th>
+            <th class="column-header" colspan="1">THUR</th>
         </tr>
 
         <tr>
-            <td class="time-cell">6:30am</td>
+            <td class="row-header">6:30am</td>
             <td class="content-cell" colspan="1">
                 Drop Off<br />Breakfast<br />Tech Time<br />6:30-8:00am
             </td>
@@ -148,7 +143,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">8:00am</td>
+            <td class="row-header">8:00am</td>
             <td class="content-cell" colspan="1">
                 Jiu-Jitsu Class<br />8:00-9:00
             </td>
@@ -158,7 +153,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">9:00am</td>
+            <td class="row-header">9:00am</td>
             <td class="content-cell" colspan="1">Snack Time<br />9:00-9:30</td>
             <td class="content-cell" colspan="1">
                 <!-- undefined @ undefined -->
@@ -166,7 +161,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">9:30am</td>
+            <td class="row-header">9:30am</td>
             <td class="content-cell" colspan="1">
                 Planned Activity<br />9:30-11:00
             </td>
@@ -176,7 +171,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">11:00am</td>
+            <td class="row-header">11:00am</td>
             <td class="content-cell" colspan="1">Lunch<br />11:00-12:00</td>
             <td class="content-cell" colspan="1">
                 <!-- undefined @ undefined -->
@@ -184,7 +179,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">12:00pm</td>
+            <td class="row-header">12:00pm</td>
             <td class="content-cell" colspan="1">
                 Move Time / Rest<br />12:00-2:00
             </td>
@@ -194,7 +189,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">1:00pm</td>
+            <td class="row-header">1:00pm</td>
             <td class="content-cell" colspan="1">
                 <!-- undefined @ undefined -->
             </td>
@@ -204,7 +199,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">2:00pm</td>
+            <td class="row-header">2:00pm</td>
             <td class="content-cell" colspan="1">Free Time<br />2:00-3:30</td>
             <td class="content-cell" colspan="1">
                 <!-- undefined @ undefined -->
@@ -212,7 +207,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">3:30pm</td>
+            <td class="row-header">3:30pm</td>
             <td class="content-cell" colspan="1">Clean Up<br />3:30-4:00</td>
             <td class="content-cell" colspan="1">
                 <!-- undefined @ undefined -->
@@ -220,7 +215,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">4:00pm</td>
+            <td class="row-header">4:00pm</td>
             <td class="content-cell" colspan="1">Tech Time<br />4:00-5:00</td>
             <td class="content-cell" colspan="1">
                 <!-- undefined @ undefined -->
@@ -228,7 +223,7 @@
         </tr>
 
         <tr>
-            <td class="time-cell">5:00pm</td>
+            <td class="row-header">5:00pm</td>
             <td class="content-cell" colspan="1">
                 Jiu-Jitsu Class<br />5:00-6:30
             </td>
