@@ -182,7 +182,7 @@ export default class ScheduleBuilder {
             ${this.sortedXAxis()
                 .map((xDataKey) => {
                     let colspan = self.config.invert ? 1 : self.minColspan;
-                    return `<th class="header" colspan="${colspan}">${xDataKey}</th>`;
+                    return `<th class="column-header" colspan="${colspan}">${xDataKey}</th>`;
                 })
                 .join("\n\t")}
         </tr>`;
@@ -205,7 +205,7 @@ export default class ScheduleBuilder {
                 let s =
                     row.rowType === "overlap"
                         ? ""
-                        : `<td class="time-cell"${headerSpan}>${row.rowKey}</td>`;
+                        : `<td class="row-header"${headerSpan}>${row.rowKey}</td>`;
                 let renderedRow = `
         <tr ${this.config.thick ? `class="thick"` : ""}>
             ${s}

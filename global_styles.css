@@ -1,18 +1,6 @@
 .code-container {
-    overflow-x:auto;
-}
-/* On screens that are 1150px or more, make the schedule easier to read by making it wider */
-@media screen and (min-width: 1150px) {
-    .code-container {
-        margin-right: -120px;
-        margin-left: -120px;
-    }
-}
-/* Screens smaller than 600px */
-@media screen and (max-width: 600px) {
-    .schedule-table {
-        border-spacing: 2px !important;
-    }
+    max-height: 95vh;
+    overflow: auto;
 }
 .schedule-table {
     position: relative;
@@ -56,20 +44,27 @@
 .content-cell.nogi, .content-cell.both {
     padding-left: 23px;
 }
-.header {
+
+/* Header styles */
+.column-header {
+    vertical-align: top;
+    top: 30px;
+}
+.row-header {
+    left: 30px;
+}
+.row-header, .column-header {
+    color: #4f4f4f;
+    z-index: 1;
+    position: sticky !important;
     font-weight: bold;
     text-align: center;
-    vertical-align: top;
-    background-color: #f0f0f0;
+    background-color: #fff;
 }
-.content-cell, .time-cell {
+
+.content-cell {
     border-color: transparent !important;
     color: ghostwhite !important;
-}
-.time-cell {
-    background-color: transparent;
-    text-align: center;
-    font-weight: bold;
 }
 .nogi,.both {
     position: relative;
