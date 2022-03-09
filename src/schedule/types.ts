@@ -52,6 +52,7 @@ export type ScheduleConfig = {
             classes: ClassTime[];
         };
     };
+    mobileFirst?: boolean; // We build specific styles based on this
     bottomContent?: string; // Notes at the bottom of the schedule
     sortedList?: Day[]; // Change the ordering of the days from standard layout
     maxSimultaneousClasses?: number;

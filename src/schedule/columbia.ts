@@ -5,6 +5,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
     bodyWidth: "2400",
     thick: true,
     maxSimultaneousClasses: 2,
+    mobileFirst: true,
     times: {
         "6:00am": {
             classes: [

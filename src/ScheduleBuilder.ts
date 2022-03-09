@@ -159,7 +159,7 @@ export default class ScheduleBuilder {
         // let width = 250 / self.minColspan;
         // let width = self.config.invert ? 250 : 250 / self.minColspan;
         // TODO: This is a good baseline, but doesn't work with simultaneous classes
-        let width = 155;
+        let width = self.config.mobileFirst ? `5em` : `155px`;
         this.columnGroup = `
         <!-- Used to define the widths of the columns -->
         <colgroup>
@@ -167,7 +167,7 @@ export default class ScheduleBuilder {
             ${this.sortedXAxis()
                 .map(() => {
                     let repeat = self.config.invert ? 1 : self.minColspan;
-                    return `<col style="width: ${width}px">`.repeat(repeat);
+                    return `<col style="width: ${width}">`.repeat(repeat);
                 })
                 .join("\n")}
         </colgroup>`;
