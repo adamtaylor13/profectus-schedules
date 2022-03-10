@@ -294,9 +294,6 @@ export default class ScheduleBuilder {
                 ${
                     self.config.mobileFirst
                         ? `
-                .code-container {
-                    margin-left: 16px;
-                }
                 .schedule-table {
                     width: unset;
                 }
