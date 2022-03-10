@@ -1,5 +1,14 @@
 import { ScheduleConfig } from "./types";
 
+/**
+ * Previous schedule: <script data-schedule-location="columbia" crossorigin="https://cdn.jsdelivr.net" type="application/javascript" src="https://cdn.jsdelivr.net/gh/adamtaylor13/profectus-schedules/schedules.js"></script>
+ * New Schedule in Beta: <script data-schedule-location="columbia"
+                             data-branch="beta"
+                             crossorigin="https://cdn.jsdelivr.net"
+                             type="application/javascript"
+                             src="https://cdn.jsdelivr.net/gh/adamtaylor13/profectus-schedules@1e19bff0c50a31398af23f678be558df7b9d2c3a/schedules.js"></script>
+ */
+
 export const ColumbiaSchedule: ScheduleConfig = {
     distFilename: "columbia_schedule.html",
     bodyWidth: "2400",
