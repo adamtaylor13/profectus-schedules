@@ -10,13 +10,13 @@ export const ColumbiaSchedule: ScheduleConfig = {
         "6:00am": {
             classes: [
                 {
-                    label: ["All Levels", "Jiu-Jitsu"],
-                    days: ["TUES", "THUR"],
+                    label: ["All Levels", "Adult", "Mat 1"],
+                    days: ["TUES", "WED", "THUR"],
                     endtime: "7:00am",
                 },
                 {
-                    label: ["Open Mat"],
-                    days: ["WED"],
+                    label: ["Live Training", "Adult", "Mat 1"],
+                    days: ["FRI"],
                     endtime: "7:00am",
                 },
             ],
@@ -42,7 +42,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
         "12:00pm": {
             classes: [
                 {
-                    label: ["All Levels", "Jiu-Jitsu"],
+                    label: ["Adult", "All Levels", "Mat 1"],
                     days: ["MON", "TUES", "WED", "FRI"],
                     endtime: "1:00pm",
                     tags: {
@@ -51,7 +51,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     },
                 },
                 {
-                    label: ["Open Mat", "Jiu-Jitsu"],
+                    label: ["Adult", "Live Training", "Mat 1"],
                     days: ["THUR"],
                     endtime: "1:00pm",
                 },
@@ -75,7 +75,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
                 {
                     label: ["Kids 3", "(9-14 years)", "Mat 2"],
-                    days: ["MON", "WED"],
+                    days: ["MON", "TUES", "WED", "THUR"],
                     endtime: "6:00pm",
                 },
             ],
@@ -83,37 +83,65 @@ export const ColumbiaSchedule: ScheduleConfig = {
         "5:30pm": {
             classes: [],
         },
-        "6:00pm": {
+        "5:40pm": {
             classes: [
                 {
-                    stretch: 2,
-                    label: ["Drilling"],
+                    label: ["Kids 2", "(6-8 years)", "Mat 1"],
                     days: ["MON", "TUES", "WED", "THUR"],
                     endtime: "6:30pm",
                 },
             ],
         },
-        "6:15pm": {
+        "6:00pm": {
             classes: [
                 {
                     stretch: 2,
-                    label: ["Open Mat", "Jiu-Jitsu"],
+                    label: ["Open Mat"],
                     days: ["FRI"],
-                    endtime: "7:15pm",
+                    endtime: "7:00pm",
                 },
             ],
         },
         "6:30pm": {
             classes: [
                 {
+                    stretch: 2,
                     label: ["Gi Beginner", "Adult / Teen", "Mat 1"],
                     days: ["MON", "WED"],
                     endtime: "7:30pm",
                 },
                 {
+                    stretch: 2,
                     label: ["Gi Intermediate", "Adult", "Mat 2"],
                     days: ["MON", "WED"],
                     endtime: "7:30pm",
+                },
+                {
+                    stretch: 2,
+                    label: ["No Gi", "Adult / Teen", "Mat 2"],
+                    days: ["TUES"],
+                    endtime: "7:30pm",
+                },
+                {
+                    stretch: 2,
+                    label: ["No Gi", "All Levels", "Adult / Teen", "Mat 1"],
+                    days: ["THUR"],
+                    endtime: "7:30pm",
+                },
+                {
+                    stretch: 2,
+                    label: ["Women's Class", "Adult / Teen", "Mat 1"],
+                    days: ["TUES"],
+                    endtime: "7:30pm",
+                },
+            ],
+        },
+        "7:00pm": {
+            classes: [
+                {
+                    label: [""],
+                    days: ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"],
+                    endtime: "",
                 },
             ],
         },

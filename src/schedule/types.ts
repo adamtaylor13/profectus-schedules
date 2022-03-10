@@ -26,7 +26,6 @@ export type ClassTime = {
 };
 
 type TimeSuffix = "am" | "pm";
-type QuarterTime = "00" | "15" | "30" | "45";
 type Hour =
     | "1"
     | "2"
@@ -40,7 +39,7 @@ type Hour =
     | "10"
     | "11"
     | "12";
-export type Time = `${Hour}:${QuarterTime}${TimeSuffix}`;
+export type Time = `${Hour}:${string}${TimeSuffix}`;
 
 export type ScheduleConfig = {
     distFilename: string; // The resulting filename from building the schedule
