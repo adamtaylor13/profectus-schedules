@@ -79,13 +79,13 @@ export const ColumbiaSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Kids 1", "(3-5 years)", "Mat 1"],
-                    days: ["MON", "WED"],
-                    endtime: "6:00pm",
+                    days: ["MON", "TUES", "WED", "THUR"],
+                    endtime: "5:30pm",
                 },
                 {
                     label: ["Kids 3", "(9-14 years)", "Mat 2"],
                     days: ["MON", "TUES", "WED", "THUR"],
-                    endtime: "6:00pm",
+                    endtime: "5:30pm",
                 },
             ],
         },
