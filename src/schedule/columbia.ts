@@ -15,6 +15,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
     thick: true,
     maxSimultaneousClasses: 2,
     mobileFirst: true,
+    sortedList: ["MON", "TUES", "WED", "THUR", "FRI", "SAT"],
     times: {
         "6:00am": {
             classes: [
@@ -104,19 +105,6 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        "1:00pm": {
-            classes: [
-                {
-                    label: ["Open Mat"],
-                    days: ["SUN"],
-                    endtime: "2:00pm",
-                    tags: {
-                        days: ["SUN"],
-                        tag: "both",
-                    },
-                },
-            ],
-        },
         "5:00pm": {
             classes: [
                 {
@@ -165,7 +153,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 {
                     label: ["Kids 2", "(6-8 years)", "Mat 1"],
                     days: ["MON", "TUES", "WED"],
-                    endtime: "6:30pm",
+                    endtime: "6:10pm",
                     tags: {
                         days: ["MON", "TUES", "WED"],
                         tag: "gi",
@@ -174,7 +162,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 {
                     label: ["Kids 2", "(6-8 years)", "Mat 1"],
                     days: ["THUR"],
-                    endtime: "6:30pm",
+                    endtime: "6:10pm",
                     tags: {
                         days: ["THUR"],
                         tag: "nogi",
@@ -254,7 +242,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: [""],
-                    days: ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"],
+                    days: ["MON", "TUES", "WED", "THUR", "FRI", "SAT"],
                     endtime: "",
                 },
             ],
