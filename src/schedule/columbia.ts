@@ -81,11 +81,19 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     label: ["Kids 1", "(3-5 years)", "Mat 1"],
                     days: ["MON", "TUES", "WED", "THUR"],
                     endtime: "5:30pm",
+                    tags: {
+                        days: ["THUR"],
+                        tag: "nogi",
+                    },
                 },
                 {
                     label: ["Kids 3", "(9-14 years)", "Mat 2"],
                     days: ["MON", "TUES", "WED", "THUR"],
                     endtime: "5:30pm",
+                    tags: {
+                        days: ["THUR"],
+                        tag: "nogi",
+                    },
                 },
             ],
         },
@@ -98,6 +106,10 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     label: ["Kids 2", "(6-8 years)", "Mat 1"],
                     days: ["MON", "TUES", "WED", "THUR"],
                     endtime: "6:30pm",
+                    tags: {
+                        days: ["THUR"],
+                        tag: "nogi",
+                    },
                 },
             ],
         },
@@ -127,15 +139,23 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
                 {
                     stretch: 2,
-                    label: ["No Gi", "Adult / Teen", "Mat 2"],
+                    label: ["NoGi", "All Levels", "Adult / Teen", "Mat 2"],
                     days: ["TUES"],
                     endtime: "7:30pm",
+                    tags: {
+                        days: ["TUES"],
+                        tag: "nogi",
+                    },
                 },
                 {
                     stretch: 2,
-                    label: ["No Gi", "All Levels", "Adult / Teen", "Mat 1"],
+                    label: ["NoGi", "All Levels", "Adult / Teen", "Mat 1"],
                     days: ["THUR"],
                     endtime: "7:30pm",
+                    tags: {
+                        days: ["THUR"],
+                        tag: "nogi",
+                    },
                 },
                 {
                     stretch: 2,
