@@ -20,13 +20,30 @@ export const ColumbiaSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["All Levels", "Adult", "Mat 1"],
-                    days: ["TUES", "WED", "THUR"],
+                    days: ["TUES", "THUR"],
                     endtime: "7:00am",
+                    tags: {
+                        days: ["TUES", "THUR"],
+                        tag: "gi",
+                    },
                 },
                 {
-                    label: ["Live Training", "Adult", "Mat 1"],
+                    label: ["Drilling & Live Training", "Adult", "Mat 1"],
+                    days: ["WED"],
+                    endtime: "7:00am",
+                    tags: {
+                        days: ["WED"],
+                        tag: "nogi",
+                    },
+                },
+                {
+                    label: ["Open Mat", "Adult", "Mat 1"],
                     days: ["FRI"],
                     endtime: "7:00am",
+                    tags: {
+                        days: ["FRI"],
+                        tag: "both",
+                    },
                 },
             ],
         },
@@ -36,6 +53,10 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     label: ["Judo Class"],
                     days: ["SAT"],
                     endtime: "10:00am",
+                    tags: {
+                        days: ["SAT"],
+                        tag: "gi",
+                    },
                 },
             ],
         },
@@ -45,6 +66,10 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     label: ["Open Mat", "Jiu-Jitsu"],
                     days: ["SAT"],
                     endtime: "11:00am",
+                    tags: {
+                        days: ["SAT"],
+                        tag: "both",
+                    },
                 },
             ],
         },
@@ -52,7 +77,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Adult", "All Levels", "Mat 1"],
-                    days: ["MON", "TUES", "WED", "FRI"],
+                    days: ["MON"],
                     endtime: "1:00pm",
                     tags: {
                         days: ["MON"],
@@ -60,9 +85,22 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     },
                 },
                 {
+                    label: ["Adult", "All Levels", "Mat 1"],
+                    days: ["TUES", "WED", "FRI"],
+                    endtime: "1:00pm",
+                    tags: {
+                        days: ["TUES", "WED", "FRI"],
+                        tag: "gi",
+                    },
+                },
+                {
                     label: ["Adult", "Live Training", "Mat 1"],
                     days: ["THUR"],
                     endtime: "1:00pm",
+                    tags: {
+                        days: ["THUR"],
+                        tag: "gi",
+                    },
                 },
             ],
         },
@@ -72,6 +110,10 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     label: ["Open Mat"],
                     days: ["SUN"],
                     endtime: "2:00pm",
+                    tags: {
+                        days: ["SUN"],
+                        tag: "both",
+                    },
                 },
             ],
         },
@@ -79,7 +121,16 @@ export const ColumbiaSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Kids 1", "(3-5 years)", "Mat 1"],
-                    days: ["MON", "TUES", "WED", "THUR"],
+                    days: ["MON", "TUES", "WED"],
+                    endtime: "5:30pm",
+                    tags: {
+                        days: ["MON", "TUES", "WED"],
+                        tag: "gi",
+                    },
+                },
+                {
+                    label: ["Kids 1", "(3-5 years)", "Mat 1"],
+                    days: ["THUR"],
                     endtime: "5:30pm",
                     tags: {
                         days: ["THUR"],
@@ -88,7 +139,16 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
                 {
                     label: ["Kids 3", "(9-14 years)", "Mat 2"],
-                    days: ["MON", "TUES", "WED", "THUR"],
+                    days: ["MON", "TUES", "WED"],
+                    endtime: "5:30pm",
+                    tags: {
+                        days: ["MON", "TUES", "WED"],
+                        tag: "gi",
+                    },
+                },
+                {
+                    label: ["Kids 3", "(9-14 years)", "Mat 2"],
+                    days: ["THUR"],
                     endtime: "5:30pm",
                     tags: {
                         days: ["THUR"],
@@ -104,7 +164,16 @@ export const ColumbiaSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: ["Kids 2", "(6-8 years)", "Mat 1"],
-                    days: ["MON", "TUES", "WED", "THUR"],
+                    days: ["MON", "TUES", "WED"],
+                    endtime: "6:30pm",
+                    tags: {
+                        days: ["MON", "TUES", "WED"],
+                        tag: "gi",
+                    },
+                },
+                {
+                    label: ["Kids 2", "(6-8 years)", "Mat 1"],
+                    days: ["THUR"],
                     endtime: "6:30pm",
                     tags: {
                         days: ["THUR"],
@@ -120,6 +189,10 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     label: ["Open Mat"],
                     days: ["FRI"],
                     endtime: "7:00pm",
+                    tags: {
+                        days: ["FRI"],
+                        tag: "both",
+                    },
                 },
             ],
         },
@@ -130,12 +203,20 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     label: ["Gi Beginner", "Adult / Teen", "Mat 1"],
                     days: ["MON", "WED"],
                     endtime: "7:30pm",
+                    tags: {
+                        days: ["MON", "WED"],
+                        tag: "gi",
+                    },
                 },
                 {
                     stretch: 2,
                     label: ["Gi Intermediate", "Adult", "Mat 2"],
                     days: ["MON", "WED"],
                     endtime: "7:30pm",
+                    tags: {
+                        days: ["MON", "WED"],
+                        tag: "gi",
+                    },
                 },
                 {
                     stretch: 2,
@@ -162,6 +243,10 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     label: ["Women's Class", "Adult / Teen", "Mat 1"],
                     days: ["TUES"],
                     endtime: "7:30pm",
+                    tags: {
+                        days: ["TUES"],
+                        tag: "gi",
+                    },
                 },
             ],
         },

@@ -71,6 +71,11 @@
             border-color: transparent !important;
             color: ghostwhite !important;
         }
+        .content-cell.gi,
+        .content-cell.nogi,
+        .content-cell.both {
+            padding-left: 25px;
+        }
         .nogi,
         .both {
             position: relative;
@@ -79,6 +84,15 @@
             content: " ";
             position: absolute;
             background: tomato;
+            left: 0;
+            width: 20px;
+            top: 0;
+            bottom: 0;
+        }
+        .gi::before {
+            content: " ";
+            position: absolute;
+            background: #6763ff;
             left: 0;
             width: 20px;
             top: 0;
@@ -97,6 +111,14 @@
             content: "NO-GI";
             position: absolute;
             left: -10px;
+            top: 50%;
+            transform: rotate(270deg) translateX(20%);
+            font-size: 14px !important;
+        }
+        .gi::after {
+            content: "GI";
+            position: absolute;
+            left: 3px;
             top: 50%;
             transform: rotate(270deg) translateX(20%);
             font-size: 14px !important;
