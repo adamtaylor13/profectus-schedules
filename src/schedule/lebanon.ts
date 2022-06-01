@@ -15,26 +15,6 @@ export const LebanonSchedule: ScheduleConfig = {
             ],
         },
         {
-            name: "11:00am",
-            classes: [
-                {
-                    label: ["Little Dragons"],
-                    days: ["SAT"],
-                    endtime: "12:00pm",
-                },
-            ],
-        },
-        {
-            name: "12:00pm",
-            classes: [
-                {
-                    label: ["Open Mat"],
-                    days: ["SAT"],
-                    endtime: "1:00pm",
-                },
-            ],
-        },
-        {
             name: "5:00pm",
             classes: [
                 {
