@@ -4,7 +4,6 @@ export const BrentwoodSchedule: ScheduleConfig = {
     distFilename: "brentwood_schedule.html",
     bodyWidth: "1500",
     sortedList: ["MON", "TUES", "WED", "THUR", "FRI", "SAT", "SUN"],
-    bottomContent: "*Call ahead due to irregular bi-weekly schedule",
     times: [
         {
             name: "6:00am",
@@ -18,6 +17,11 @@ export const BrentwoodSchedule: ScheduleConfig = {
                         tag: "nogi",
                     },
                 },
+                {
+                    label: ["Drilling"],
+                    days: ["TUES"],
+                    endtime: "7:00am",
+                },
             ],
         },
         {
@@ -27,6 +31,12 @@ export const BrentwoodSchedule: ScheduleConfig = {
         {
             name: "10:00am",
             classes: [
+                {
+                    rowspan: 2,
+                    label: ["Wrestling"],
+                    days: ["FRI"],
+                    endtime: "11:00am",
+                },
                 {
                     rowspan: 2,
                     label: ["Yoga"],
@@ -107,17 +117,6 @@ export const BrentwoodSchedule: ScheduleConfig = {
             ],
         },
         {
-            name: "2:00pm",
-            classes: [
-                {
-                    rowspan: 2,
-                    label: ["Yoga"],
-                    days: ["SUN"],
-                    endtime: "3:00pm",
-                },
-            ],
-        },
-        {
             name: "3:00pm",
             classes: [],
         },
@@ -142,11 +141,6 @@ export const BrentwoodSchedule: ScheduleConfig = {
                         days: ["THUR"],
                         tag: "nogi",
                     },
-                },
-                {
-                    label: ["Women's Competition Class*"],
-                    days: ["FRI"],
-                    endtime: "6:00pm",
                 },
             ],
         },
@@ -184,7 +178,7 @@ export const BrentwoodSchedule: ScheduleConfig = {
                     rowspan: 2,
                     label: ["Fundamentals"],
                     days: ["THUR"],
-                    endtime: "7:15pm",
+                    endtime: "7:30pm",
                     tags: {
                         days: ["THUR"],
                         tag: "nogi",
@@ -204,22 +198,6 @@ export const BrentwoodSchedule: ScheduleConfig = {
                     label: ["Jiu Jitsu Practice"],
                     days: ["MON", "WED"],
                     endtime: "8:15pm",
-                },
-                {
-                    rowspan: 2,
-                    label: ["Open Mat"],
-                    days: ["THUR"],
-                    endtime: "9:00pm",
-                },
-            ],
-        },
-        {
-            name: "7:30pm",
-            classes: [
-                {
-                    label: ["Drilling Class"],
-                    days: ["TUES"],
-                    endtime: "8:30pm",
                 },
             ],
         },
