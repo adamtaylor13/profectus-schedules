@@ -31,16 +31,6 @@ export const ColumbiaSchedule: ScheduleConfig = {
             ],
         },
         {
-            name: "10:00am",
-            classes: [
-                {
-                    label: ["Open Mat", "Jiu-Jitsu"],
-                    days: ["SAT"],
-                    endtime: "11:00am",
-                },
-            ],
-        },
-        {
             name: "12:00pm",
             classes: [
                 {
@@ -60,12 +50,12 @@ export const ColumbiaSchedule: ScheduleConfig = {
             ],
         },
         {
-            name: "1:00pm",
+            name: "3:00pm",
             classes: [
                 {
                     label: ["Open Mat"],
                     days: ["SUN"],
-                    endtime: "2:00pm",
+                    endtime: "4:30pm",
                 },
             ],
         },
@@ -99,17 +89,6 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     label: ["Drilling"],
                     days: ["MON", "TUES", "WED", "THUR"],
                     endtime: "6:30pm",
-                },
-            ],
-        },
-        {
-            name: "6:15pm",
-            classes: [
-                {
-                    rowspan: 2,
-                    label: ["Open Mat", "Jiu-Jitsu"],
-                    days: ["FRI"],
-                    endtime: "7:15pm",
                 },
             ],
         },
