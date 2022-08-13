@@ -61,19 +61,6 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
             ],
         },
-        "10:00am": {
-            classes: [
-                {
-                    label: ["Open Mat", "Jiu-Jitsu"],
-                    days: ["SAT"],
-                    endtime: "11:00am",
-                    tags: {
-                        days: ["SAT"],
-                        tag: "both",
-                    },
-                },
-            ],
-        },
         "12:00pm": {
             classes: [
                 {
@@ -101,6 +88,19 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     tags: {
                         days: ["THUR"],
                         tag: "gi",
+                    },
+                },
+            ],
+        },
+        "3:00pm": {
+            classes: [
+                {
+                    label: ["Open Mat"],
+                    days: ["SUN"],
+                    endtime: "4:30pm",
+                    tags: {
+                        days: ["SUN"],
+                        tag: "both",
                     },
                 },
             ],
@@ -166,20 +166,6 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     tags: {
                         days: ["THUR"],
                         tag: "nogi",
-                    },
-                },
-            ],
-        },
-        "6:00pm": {
-            classes: [
-                {
-                    stretch: 2,
-                    label: ["Open Mat"],
-                    days: ["FRI"],
-                    endtime: "7:00pm",
-                    tags: {
-                        days: ["FRI"],
-                        tag: "both",
                     },
                 },
             ],
