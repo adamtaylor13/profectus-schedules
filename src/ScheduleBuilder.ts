@@ -160,7 +160,7 @@ export default class ScheduleBuilder {
         // let width = self.config.invert ? 250 : 250 / self.minColspan;
         // TODO: This is a good baseline, but doesn't work with simultaneous classes
         // TODO: Fix margin-left on code-container
-        let width = self.config.mobileFirst ? `5em` : `155px`;
+        let width = self.config.mobileFirst ? `10em` : `155px`;
         this.columnGroup = `
         <!-- Used to define the widths of the columns -->
         <colgroup>

@@ -15,7 +15,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
     thick: true,
     maxSimultaneousClasses: 2,
     mobileFirst: true,
-    sortedList: ["MON", "TUES", "WED", "THUR", "FRI", "SAT"],
+    sortedList: ["MON", "TUES", "WED", "THUR", "FRI"],
     times: {
         "6:00am": {
             classes: [
@@ -44,19 +44,6 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     tags: {
                         days: ["FRI"],
                         tag: "both",
-                    },
-                },
-            ],
-        },
-        "9:00am": {
-            classes: [
-                {
-                    label: ["Judo Class"],
-                    days: ["SAT"],
-                    endtime: "10:00am",
-                    tags: {
-                        days: ["SAT"],
-                        tag: "gi",
                     },
                 },
             ],
@@ -175,10 +162,10 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 {
                     stretch: 2,
                     label: ["Gi Beginner", "Adult / Teen", "Mat 1"],
-                    days: ["MON", "WED"],
+                    days: ["MON", "TUES", "WED"],
                     endtime: "7:30pm",
                     tags: {
-                        days: ["MON", "WED"],
+                        days: ["MON", "TUES", "WED"],
                         tag: "gi",
                     },
                 },
@@ -214,11 +201,11 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
                 {
                     stretch: 2,
-                    label: ["Women's Class", "Adult / Teen", "Mat 1"],
-                    days: ["TUES"],
+                    label: ["Women's Class", "Adult / Teen", "Mat 2"],
+                    days: ["THUR"],
                     endtime: "7:30pm",
                     tags: {
-                        days: ["TUES"],
+                        days: ["THUR"],
                         tag: "gi",
                     },
                 },
@@ -228,7 +215,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
             classes: [
                 {
                     label: [""],
-                    days: ["MON", "TUES", "WED", "THUR", "FRI", "SAT"],
+                    days: ["MON", "TUES", "WED", "THUR", "FRI"],
                     endtime: "",
                 },
             ],
