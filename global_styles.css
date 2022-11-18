@@ -66,7 +66,7 @@
     border-color: transparent !important;
     color: ghostwhite !important;
 }
-.content-cell.gi, .content-cell.nogi, .content-cell.both {
+.content-cell.gi, .content-cell.nogi, .content-cell.both, .content-cell.wrestling {
     padding-left: 25px;
 }
 .nogi,.both {
@@ -85,6 +85,15 @@
     content: " ";
     position: absolute;
     background: #6763ff;
+    left: 0;
+    width: 20px;
+    top: 0;
+    bottom: 0;
+}
+.wrestling::before {
+    content: " ";
+    position: absolute;
+    background: #ad3636;
     left: 0;
     width: 20px;
     top: 0;
@@ -113,6 +122,14 @@
     left: 3px;
     top: 50%;
     transform: rotate(270deg) translateX(20%);
+    font-size: 14px !important;
+}
+.wrestling::after {
+    content: "WRESTLING";
+    position: absolute;
+    left: -31px;
+    top: 50%;
+    transform: rotate(270deg) translateX(13%);
     font-size: 14px !important;
 }
 .both::after {

@@ -73,7 +73,8 @@
         }
         .content-cell.gi,
         .content-cell.nogi,
-        .content-cell.both {
+        .content-cell.both,
+        .content-cell.wrestling {
             padding-left: 25px;
         }
         .nogi,
@@ -93,6 +94,15 @@
             content: " ";
             position: absolute;
             background: #6763ff;
+            left: 0;
+            width: 20px;
+            top: 0;
+            bottom: 0;
+        }
+        .wrestling::before {
+            content: " ";
+            position: absolute;
+            background: #ad3636;
             left: 0;
             width: 20px;
             top: 0;
@@ -121,6 +131,14 @@
             left: 3px;
             top: 50%;
             transform: rotate(270deg) translateX(20%);
+            font-size: 14px !important;
+        }
+        .wrestling::after {
+            content: "WRESTLING";
+            position: absolute;
+            left: -31px;
+            top: 50%;
+            transform: rotate(270deg) translateX(13%);
             font-size: 14px !important;
         }
         .both::after {
@@ -180,8 +198,8 @@
             <td class="content-cell" colspan="2">
                 <!-- undefined @ undefined -->
             </td>
-            <td class="content-cell gi" colspan="2">
-                All Levels<br />Adult<br />Mat 1<br />6:00-7:00am
+            <td class="content-cell wrestling" colspan="2">
+                Wrestling<br />Adult / Teen<br />Mat 1<br />6:00-7:00am
             </td>
             <td class="content-cell nogi" colspan="2">
                 Drilling & Live Training<br />Adult<br />Mat 1<br />6:00-7:00am
@@ -200,19 +218,19 @@
                 <!-- undefined @ undefined -->
             </td>
             <td class="content-cell nogi" colspan="2">
-                Adult<br />All Levels<br />Mat 1<br />12:00-1:00pm
+                All Levels<br />Adult<br />Mat 1<br />12:00-1:00pm
             </td>
             <td class="content-cell gi" colspan="2">
-                Adult<br />All Levels<br />Mat 1<br />12:00-1:00pm
+                All Levels<br />Adult<br />Mat 1<br />12:00-1:00pm
+            </td>
+            <td class="content-cell wrestling" colspan="2">
+                Wrestling<br />Adult / Teen<br />Mat 1<br />12:00-1:00pm
             </td>
             <td class="content-cell gi" colspan="2">
-                Adult<br />All Levels<br />Mat 1<br />12:00-1:00pm
+                Live Training<br />Adult<br />Mat 1<br />12:00-1:00pm
             </td>
             <td class="content-cell gi" colspan="2">
-                Adult<br />Live Training<br />Mat 1<br />12:00-1:00pm
-            </td>
-            <td class="content-cell gi" colspan="2">
-                Adult<br />All Levels<br />Mat 1<br />12:00-1:00pm
+                All Levels<br />Adult<br />Mat 1<br />12:00-1:00pm
             </td>
         </tr>
 
@@ -317,8 +335,8 @@
             <td class="content-cell gi" colspan="1" rowspan="2">
                 Gi Intermediate<br />Adult<br />Mat 2<br />6:30-7:30pm
             </td>
-            <td class="content-cell nogi" colspan="1" rowspan="2">
-                NoGi<br />All Levels<br />Adult / Teen<br />Mat 1<br />6:30-7:30pm
+            <td class="content-cell wrestling" colspan="1" rowspan="2">
+                Wrestling<br />Adult / Teen<br />Mat 1<br />6:30-7:30pm
             </td>
             <td class="content-cell gi" colspan="1" rowspan="2">
                 Women's Class<br />Adult / Teen<br />Mat 2<br />6:30-7:30pm
