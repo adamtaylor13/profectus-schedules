@@ -113,6 +113,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
         "5:00pm": {
             classes: [
                 {
+                    stretch: 2,
                     label: ["Kids 1", "(3-5 years)", "Mat 1"],
                     days: ["MON", "TUES", "WED"],
                     endtime: "5:30pm",
@@ -122,6 +123,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     },
                 },
                 {
+                    stretch: 2,
                     label: ["Kids 1", "(3-5 years)", "Mat 1"],
                     days: ["THUR"],
                     endtime: "5:30pm",
@@ -131,21 +133,33 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     },
                 },
                 {
+                    stretch: 3,
                     label: ["Kids 3", "(9-14 years)", "Mat 2"],
-                    days: ["MON", "TUES", "WED"],
-                    endtime: "5:30pm",
+                    days: ["MON", "WED"],
+                    endtime: "6:00pm",
                     tags: {
-                        days: ["MON", "TUES", "WED"],
+                        days: ["MON", "WED"],
                         tag: "gi",
                     },
                 },
                 {
+                    stretch: 3,
+                    label: ["Kids 3", "(9-14 years)", "Mat 2"],
+                    days: ["TUES"],
+                    endtime: "6:00pm",
+                    tags: {
+                        days: ["TUES"],
+                        tag: "nogi",
+                    },
+                },
+                {
+                    stretch: 3,
                     label: ["Kids 3", "(9-14 years)", "Mat 2"],
                     days: ["THUR"],
-                    endtime: "5:30pm",
+                    endtime: "6:00pm",
                     tags: {
                         days: ["THUR"],
-                        tag: "nogi",
+                        tag: "wrestling",
                     },
                 },
             ],
@@ -165,6 +179,11 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     },
                 },
                 {
+                    label: [""],
+                    days: ["MON", "TUES", "WED", "THUR", "FRI"],
+                    endtime: "",
+                },
+                {
                     label: ["Kids 2", "(6-8 years)", "Mat 1"],
                     days: ["THUR"],
                     endtime: "6:10pm",
@@ -172,6 +191,15 @@ export const ColumbiaSchedule: ScheduleConfig = {
                         days: ["THUR"],
                         tag: "nogi",
                     },
+                },
+            ],
+        },
+        "6:00pm": {
+            classes: [
+                {
+                    label: [""],
+                    days: ["MON", "TUES", "WED", "THUR", "FRI"],
+                    endtime: "",
                 },
             ],
         },
