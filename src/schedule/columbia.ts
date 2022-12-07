@@ -38,21 +38,21 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     },
                 },
                 {
-                    label: ["All Levels", "Adult", "Mat 1"],
+                    label: ["Open Mat", "Adult", "Mat 1"],
                     days: ["THUR"],
                     endtime: "7:00am",
                     tags: {
                         days: ["THUR"],
-                        tag: "gi",
+                        tag: "both",
                     },
                 },
                 {
-                    label: ["Open Mat", "Adult", "Mat 1"],
+                    label: ["All Levels", "Adult", "Mat 1"],
                     days: ["FRI"],
                     endtime: "7:00am",
                     tags: {
                         days: ["FRI"],
-                        tag: "both",
+                        tag: "gi",
                     },
                 },
             ],
