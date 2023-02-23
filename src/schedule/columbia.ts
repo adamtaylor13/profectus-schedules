@@ -69,29 +69,20 @@ export const ColumbiaSchedule: ScheduleConfig = {
                     },
                 },
                 {
-                    label: ["Wrestling", "Adult / Teen", "Mat 1"],
+                    label: ["All Levels", "Adult / Teen", "Mat 1"],
                     days: ["WED"],
                     endtime: "1:00pm",
                     tags: {
                         days: ["WED"],
-                        tag: "wrestling",
-                    },
-                },
-                {
-                    label: ["All Levels", "Adult", "Mat 1"],
-                    days: ["TUES", "FRI"],
-                    endtime: "1:00pm",
-                    tags: {
-                        days: ["TUES", "FRI"],
                         tag: "gi",
                     },
                 },
                 {
-                    label: ["Live Training", "Adult", "Mat 1"],
-                    days: ["THUR"],
+                    label: ["All Levels", "Adult", "Mat 1"],
+                    days: ["FRI"],
                     endtime: "1:00pm",
                     tags: {
-                        days: ["THUR"],
+                        days: ["FRI"],
                         tag: "gi",
                     },
                 },
@@ -237,7 +228,7 @@ export const ColumbiaSchedule: ScheduleConfig = {
                 },
                 {
                     stretch: 2,
-                    label: ["Wrestling", "Adult / Teen", "Mat 1"],
+                    label: ["Wrestlebox", "Adult / Teen", "Mat 1"],
                     days: ["THUR"],
                     endtime: "7:30pm",
                     tags: {
